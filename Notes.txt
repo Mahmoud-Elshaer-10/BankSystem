@@ -1,0 +1,21 @@
+
+
+
+initialize git
+
+
+always on top 
+create one method like FilterFunctionality and make it call the other two methods
+make user control for filter for easy reusability
+I added some padding to buttons to make sure icons are not clipped (shall we create custom control for button like we did for datagrid view)
+stop escape button in main form from closing
+validating using errorprovider for example instead of messagebox
+a way to make every form a child of main form (this.MdiParent = MainForm)
+if user control can be used
+delegate to send data back to form
+define event to use from user control
+more polish?
+
+
+Currently stoped at this in chat:
+yes functionality works fine. please also provide the code for AccountListForm.
