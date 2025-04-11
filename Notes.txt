@@ -1,8 +1,6 @@
 
 
 
-initialize git
-
 
 always on top 
 create one method like FilterFunctionality and make it call the other two methods
@@ -16,6 +14,3 @@ delegate to send data back to form
 define event to use from user control
 more polish?
 
-
-Currently stoped at this in chat:
-yes functionality works fine. please also provide the code for AccountListForm.
