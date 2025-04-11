@@ -11,6 +11,7 @@ A simple banking application built to demonstrate C# skills for an entry-level d
 - Console app for testing account business logic.
 - Optimized with SET NOCOUNT ON; and custom row tracking
 - Used Git for version control
+- Made filter dropdowns dynamic using reflection.
 
 ## Technologies
 

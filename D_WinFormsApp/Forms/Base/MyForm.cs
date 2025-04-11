@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using System.Reflection;
+using System.Text.RegularExpressions;
 
 namespace D_WinFormsApp
 {
@@ -19,6 +20,22 @@ namespace D_WinFormsApp
 
             SetupKeyHandling();
             InitializeClock();
+        }
+
+        /// <summary>
+        /// Populates a ComboBox with filterable fields from a type, formatted as UI-friendly names.
+        /// </summary>
+        protected void PopulateFilterDropdown<T>(ComboBox filterBy)
+        {
+            filterBy.Items.Clear();
+            filterBy.Items.Add("None");
+
+            var properties = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance)
+                .Select(p => p.Name)
+                .Select(name => Regex.Replace(name, @"([a-z])([A-Z])", "$1 $2")) // e.g., ClientID -> Client ID
+                .Select(name => Regex.Replace(name, @"(\bID\b)", "ID")); // Keep "ID" intact
+
+            filterBy.Items.AddRange([.. properties]);
         }
 
         /// <summary>

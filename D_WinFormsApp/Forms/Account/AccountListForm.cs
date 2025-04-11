@@ -12,6 +12,7 @@ namespace D_WinFormsApp
             InitializeComponent();
 
             SetupFilterToolTips(cbFilterBy, txtFilterValue, btnClearFilter);
+            PopulateFilterDropdown<Account>(cbFilterBy);
             ConfigureFilterDebounce(txtFilterValue, cbFilterBy, lblRecordsCount, dgvAccounts, LoadAccountsAsync);
         }
 
