@@ -6,6 +6,7 @@ namespace D_WinFormsApp
 {
     public partial class ClientForm : MyForm
     {
+        // testing git
         public FormMode Mode { get; set; }
         private readonly int? _clientID;
 
