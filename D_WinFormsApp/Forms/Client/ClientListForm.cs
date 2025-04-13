@@ -100,7 +100,6 @@ namespace D_WinFormsApp
             txtFilterValue.Text = "";
             txtFilterValue.Focus();
             // No need to manually reset grid here, TextChanged will handle it
-
         }
 
         private void ShowClientAccounts()

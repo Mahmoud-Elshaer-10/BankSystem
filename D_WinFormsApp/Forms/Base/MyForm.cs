@@ -23,14 +23,14 @@ namespace D_WinFormsApp
         }
 
         /// <summary>
-        /// Populates a ComboBox with filterable fields from a type, formatted as UI-friendly names.
+        /// Populates a ComboBox with filterable fields from a type using reflection, formatted as UI-friendly names.
         /// </summary>
         protected void PopulateFilterDropdown<T>(ComboBox filterBy)
         {
             filterBy.Items.Clear();
             filterBy.Items.Add("None");
 
-            var properties = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance)
+            var properties = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance) // still works without arguments
                 .Select(p => p.Name)
                 .Select(name => Regex.Replace(name, @"([a-z])([A-Z])", "$1 $2")) // e.g., ClientID -> Client ID
                 .Select(name => Regex.Replace(name, @"(\bID\b)", "ID")); // Keep "ID" intact
@@ -90,6 +90,7 @@ namespace D_WinFormsApp
 
                 InvokeIfNeeded(() =>
                 {
+                    // Invoke ensures the code runs on the UI thread, since UI updates (like changing the DataGridView content) need to be done on the main thread.
                     grid.DataSource = data;
                     recordsCount.Text = $"Records: {grid.RowCount}";
                 });
