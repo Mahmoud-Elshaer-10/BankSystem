@@ -7,6 +7,14 @@
             InitializeComponent();
         }
 
+        protected override void OnKeyDown(KeyEventArgs e)
+        {
+            if (e.KeyCode != Keys.Escape) // Ignore Escape
+            {
+                base.OnKeyDown(e);
+            }
+        }
+
         private void btnClients_Click(object sender, EventArgs e)
         {
             using (var form = new ClientListForm())

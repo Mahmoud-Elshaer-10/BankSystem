@@ -2,8 +2,7 @@
 
 
 
-I added some padding to buttons to make sure icons are not clipped (shall we create custom control for button like we did for datagrid view)
-stop escape button in main form from closing
+
 validating using errorprovider for example instead of messagebox
 a way to make every form a child of main form (this.MdiParent = MainForm)
 if user control can be used
