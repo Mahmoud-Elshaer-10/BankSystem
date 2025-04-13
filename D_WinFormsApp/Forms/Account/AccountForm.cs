@@ -18,6 +18,10 @@ namespace D_WinFormsApp
             {
                 LoadAccountDataAsync(accountID.Value);
             }
+
+            // Add button tooltips to notify user of keyboard shortcuts
+            toolTip.SetToolTip(btnSave, "Save (Alt+S)");
+            toolTip.SetToolTip(btnCancel, "Cancel (Alt+C)");
         }
 
         private async void LoadAccountDataAsync(int accountID)
@@ -170,6 +174,15 @@ namespace D_WinFormsApp
                         errorProvider.SetError(txtClientID, "Error checking Client ID");
                     }
                 }
+            }
+        }
+
+        private void txtBalance_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // Allow digits, .
+            if (!char.IsDigit(e.KeyChar) && e.KeyChar != '.' && !char.IsControl(e.KeyChar))
+            {
+                e.Handled = true; 
             }
         }
     }

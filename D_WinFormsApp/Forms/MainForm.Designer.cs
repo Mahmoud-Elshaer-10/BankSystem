@@ -25,7 +25,7 @@ namespace D_WinFormsApp
             // lblTime
             // 
             lblTime.Location = new Point(150, 12);
-            lblTime.Text = "19:29:29";
+            lblTime.Text = "20:47:12";
             // 
             // btnClients
             // 
@@ -36,7 +36,7 @@ namespace D_WinFormsApp
             btnClients.Padding = new Padding(4);
             btnClients.Size = new Size(186, 44);
             btnClients.TabIndex = 0;
-            btnClients.Text = "Manage Clients";
+            btnClients.Text = "Manage &Clients";
             btnClients.TextAlign = ContentAlignment.MiddleRight;
             btnClients.UseVisualStyleBackColor = true;
             btnClients.Click += btnClients_Click;
@@ -50,7 +50,7 @@ namespace D_WinFormsApp
             btnAccounts.Padding = new Padding(4);
             btnAccounts.Size = new Size(186, 44);
             btnAccounts.TabIndex = 1;
-            btnAccounts.Text = "Manage Accounts";
+            btnAccounts.Text = "Manage &Accounts";
             btnAccounts.TextAlign = ContentAlignment.MiddleRight;
             btnAccounts.UseVisualStyleBackColor = true;
             btnAccounts.Click += btnAccounts_Click;

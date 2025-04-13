@@ -1,5 +1,13 @@
 
+update README.md
 
+
+Grid Column Formatting:
+Idea: Format dgvClients, dgvAccounts columns (e.g., Balance as $123.45, ClientID fixed width).
+
+
+Duplicate Check:
+Idea: Check for duplicate Email (in ClientForm) or ClientID (in AccountForm) via API before saving.
 
 
 

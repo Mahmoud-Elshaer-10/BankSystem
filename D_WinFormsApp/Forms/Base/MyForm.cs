@@ -89,6 +89,7 @@ namespace D_WinFormsApp
         {
             try
             {
+                Cursor = Cursors.WaitCursor; // Show wait cursor
                 string uiField = filterBy.Text;
                 string field = uiField == "None" ? null : MapFieldToColumn(uiField);
 
@@ -112,6 +113,10 @@ namespace D_WinFormsApp
             catch (Exception ex)
             {
                 ShowError(ex.Message);
+            }
+            finally
+            {
+                Cursor = Cursors.Default; // Reset cursor
             }
         }
 

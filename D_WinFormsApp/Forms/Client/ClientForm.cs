@@ -19,6 +19,10 @@ namespace D_WinFormsApp
             {
                 LoadClientDataAsync(clientID.Value);
             }
+
+            // Add button tooltips to notify users of keyboard shortcuts
+            toolTip.SetToolTip(btnSave, "Save (Alt+S)");
+            toolTip.SetToolTip(btnCancel, "Cancel (Alt+C)");
         }
 
         private async void LoadClientDataAsync(int clientID)
@@ -170,6 +174,16 @@ namespace D_WinFormsApp
         private void txtAddress_Leave(object sender, EventArgs e)
         {
             ValidateField(txtAddress, txtAddress.Text, "Address is required");
+        }
+
+        private void txtPhone_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // Allow digits, -, (), space
+            if (!char.IsDigit(e.KeyChar) && e.KeyChar != '-' && e.KeyChar != '(' && e.KeyChar != ')' &&
+        e.KeyChar != ' ' && !char.IsControl(e.KeyChar))
+            {
+                e.Handled = true;
+            }
         }
     }
 }

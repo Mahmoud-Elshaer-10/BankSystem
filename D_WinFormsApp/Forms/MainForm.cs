@@ -5,6 +5,10 @@
         public MainForm()
         {
             InitializeComponent();
+
+            // Add button tooltips to notify user of keyboard shortcuts
+            toolTip.SetToolTip(btnClients, "Show Clients (Alt+C)");
+            toolTip.SetToolTip(btnAccounts, "Show Accounts (Alt+A)");
         }
 
         protected override void OnKeyDown(KeyEventArgs e)

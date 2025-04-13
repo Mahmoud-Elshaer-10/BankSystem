@@ -46,7 +46,7 @@ namespace D_WinFormsApp
             // lblTime
             // 
             lblTime.Location = new Point(303, 12);
-            lblTime.Text = "17:30:20";
+            lblTime.Text = "20:50:42";
             // 
             // lblFullName
             // 
@@ -97,6 +97,7 @@ namespace D_WinFormsApp
             txtPhone.Name = "txtPhone";
             txtPhone.Size = new Size(271, 29);
             txtPhone.TabIndex = 5;
+            txtPhone.KeyPress += txtPhone_KeyPress;
             txtPhone.Leave += txtPhone_Leave;
             // 
             // lblAddress
@@ -125,7 +126,7 @@ namespace D_WinFormsApp
             btnSave.Padding = new Padding(4);
             btnSave.Size = new Size(94, 39);
             btnSave.TabIndex = 8;
-            btnSave.Text = "Save";
+            btnSave.Text = "&Save";
             btnSave.TextAlign = ContentAlignment.MiddleRight;
             btnSave.UseVisualStyleBackColor = true;
             btnSave.Click += btnSave_Click;
@@ -139,7 +140,7 @@ namespace D_WinFormsApp
             btnCancel.Padding = new Padding(2);
             btnCancel.Size = new Size(94, 39);
             btnCancel.TabIndex = 9;
-            btnCancel.Text = "Cancel";
+            btnCancel.Text = "&Cancel";
             btnCancel.TextAlign = ContentAlignment.MiddleRight;
             btnCancel.UseVisualStyleBackColor = true;
             btnCancel.Click += btnCancel_Click;

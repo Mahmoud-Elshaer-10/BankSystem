@@ -41,7 +41,7 @@ namespace D_WinFormsApp
             // lblTime
             // 
             lblTime.Location = new Point(679, 12);
-            lblTime.Text = "17:00:59";
+            lblTime.Text = "20:54:02";
             // 
             // dgvClients
             // 
@@ -73,13 +73,14 @@ namespace D_WinFormsApp
             // 
             contextMenuStrip.Items.AddRange(new ToolStripItem[] { addClientToolStripMenuItem, editClientToolStripMenuItem, deleteClientToolStripMenuItem, showAccountsToolStripMenuItem });
             contextMenuStrip.Name = "contextMenuStrip";
-            contextMenuStrip.Size = new Size(157, 92);
+            contextMenuStrip.Size = new Size(193, 114);
             // 
             // addClientToolStripMenuItem
             // 
             addClientToolStripMenuItem.Image = Properties.Resources.AddIcon;
             addClientToolStripMenuItem.Name = "addClientToolStripMenuItem";
-            addClientToolStripMenuItem.Size = new Size(156, 22);
+            addClientToolStripMenuItem.ShortcutKeys = Keys.Alt | Keys.A;
+            addClientToolStripMenuItem.Size = new Size(192, 22);
             addClientToolStripMenuItem.Text = "Add Client";
             addClientToolStripMenuItem.Click += addClientToolStripMenuItem_Click;
             // 
@@ -87,7 +88,8 @@ namespace D_WinFormsApp
             // 
             editClientToolStripMenuItem.Image = Properties.Resources.EditIcon;
             editClientToolStripMenuItem.Name = "editClientToolStripMenuItem";
-            editClientToolStripMenuItem.Size = new Size(156, 22);
+            editClientToolStripMenuItem.ShortcutKeys = Keys.Alt | Keys.E;
+            editClientToolStripMenuItem.Size = new Size(192, 22);
             editClientToolStripMenuItem.Text = "Edit Client";
             editClientToolStripMenuItem.Click += editClientToolStripMenuItem_Click;
             // 
@@ -95,7 +97,8 @@ namespace D_WinFormsApp
             // 
             deleteClientToolStripMenuItem.Image = Properties.Resources.DeleteIcon;
             deleteClientToolStripMenuItem.Name = "deleteClientToolStripMenuItem";
-            deleteClientToolStripMenuItem.Size = new Size(156, 22);
+            deleteClientToolStripMenuItem.ShortcutKeys = Keys.Alt | Keys.D;
+            deleteClientToolStripMenuItem.Size = new Size(192, 22);
             deleteClientToolStripMenuItem.Text = "Delete Client";
             deleteClientToolStripMenuItem.Click += deleteClientToolStripMenuItem_Click;
             // 
@@ -103,7 +106,8 @@ namespace D_WinFormsApp
             // 
             showAccountsToolStripMenuItem.Image = Properties.Resources.ShowIcon;
             showAccountsToolStripMenuItem.Name = "showAccountsToolStripMenuItem";
-            showAccountsToolStripMenuItem.Size = new Size(156, 22);
+            showAccountsToolStripMenuItem.ShortcutKeys = Keys.Alt | Keys.S;
+            showAccountsToolStripMenuItem.Size = new Size(192, 22);
             showAccountsToolStripMenuItem.Text = "Show Accounts";
             showAccountsToolStripMenuItem.Click += showAccountsToolStripMenuItem_Click;
             // 
@@ -116,8 +120,9 @@ namespace D_WinFormsApp
             btnAdd.Padding = new Padding(4);
             btnAdd.Size = new Size(86, 37);
             btnAdd.TabIndex = 1;
-            btnAdd.Text = "Add";
+            btnAdd.Text = "&Add";
             btnAdd.TextAlign = ContentAlignment.MiddleRight;
+            toolTip.SetToolTip(btnAdd, "Add (Alt + A)");
             btnAdd.UseVisualStyleBackColor = true;
             btnAdd.Click += btnAdd_Click;
             // 
@@ -130,7 +135,7 @@ namespace D_WinFormsApp
             btnEdit.Padding = new Padding(4);
             btnEdit.Size = new Size(86, 37);
             btnEdit.TabIndex = 2;
-            btnEdit.Text = "Edit";
+            btnEdit.Text = "&Edit";
             btnEdit.TextAlign = ContentAlignment.MiddleRight;
             btnEdit.UseVisualStyleBackColor = true;
             btnEdit.Click += btnEdit_Click;
@@ -144,7 +149,7 @@ namespace D_WinFormsApp
             btnDelete.Padding = new Padding(2);
             btnDelete.Size = new Size(95, 37);
             btnDelete.TabIndex = 3;
-            btnDelete.Text = "Delete";
+            btnDelete.Text = "&Delete";
             btnDelete.TextAlign = ContentAlignment.MiddleRight;
             btnDelete.UseVisualStyleBackColor = true;
             btnDelete.Click += btnDelete_Click;
@@ -158,7 +163,7 @@ namespace D_WinFormsApp
             btnShowAccounts.Padding = new Padding(4);
             btnShowAccounts.Size = new Size(157, 37);
             btnShowAccounts.TabIndex = 4;
-            btnShowAccounts.Text = "Show Accounts";
+            btnShowAccounts.Text = "&Show Accounts";
             btnShowAccounts.TextAlign = ContentAlignment.MiddleRight;
             btnShowAccounts.UseVisualStyleBackColor = true;
             btnShowAccounts.Click += btnShowAccounts_Click;

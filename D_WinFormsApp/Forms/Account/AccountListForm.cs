@@ -14,12 +14,19 @@ namespace D_WinFormsApp
             SetupFilterToolTips(cbFilterBy, txtFilterValue, btnClearFilter);
             PopulateFilterDropdown<Account>(cbFilterBy);
             ConfigureFilterDebounce(txtFilterValue, cbFilterBy, lblRecordsCount, dgvAccounts, LoadAccountsAsync);
+
+            // Add button tooltips to notify user of keyboard shortcuts
+            toolTip.SetToolTip(btnAdd, "Add (Alt+A)");
+            toolTip.SetToolTip(btnEdit, "Edit (Alt+E)");
+            toolTip.SetToolTip(btnDelete, "Delete (Alt+D)");
+            toolTip.SetToolTip(btnShowClient, "Show Client (Alt+S)");
         }
 
         private async void AccountListForm_Load(object sender, EventArgs e)
         {
             await LoadAccountsAsync(null, null); // Load all accounts initially
             cbFilterBy.SelectedIndex = 0; // Default to "None"
+            txtFilterValue.Text = "";
         }
 
         private async Task<List<Account>> LoadAccountsAsync(string field, string value)
