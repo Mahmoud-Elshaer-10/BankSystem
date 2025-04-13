@@ -1,4 +1,6 @@
-﻿namespace D_WinFormsApp
+﻿using D_WinFormsApp.Controls;
+
+namespace D_WinFormsApp
 {
     partial class ClientForm
     {
@@ -36,8 +38,8 @@
             txtPhone = new TextBox();
             lblAddress = new Label();
             txtAddress = new TextBox();
-            btnSave = new Button();
-            btnCancel = new Button();
+            btnSave = new MyButton();
+            btnCancel = new MyButton();
             SuspendLayout();
             // 
             // lblTime
@@ -181,8 +183,8 @@
         private TextBox txtPhone;
         private Label lblAddress;
         private TextBox txtAddress;
-        private Button btnSave;
-        private Button btnCancel;
+        private MyButton btnSave;
+        private MyButton btnCancel;
         #endregion
     }
 }

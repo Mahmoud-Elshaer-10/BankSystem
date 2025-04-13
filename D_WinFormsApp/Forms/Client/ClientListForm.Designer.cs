@@ -24,14 +24,14 @@ namespace D_WinFormsApp
             editClientToolStripMenuItem = new ToolStripMenuItem();
             deleteClientToolStripMenuItem = new ToolStripMenuItem();
             showAccountsToolStripMenuItem = new ToolStripMenuItem();
-            btnAdd = new Button();
-            btnEdit = new Button();
-            btnDelete = new Button();
-            btnShowAccounts = new Button();
+            btnAdd = new MyButton();
+            btnEdit = new MyButton();
+            btnDelete = new MyButton();
+            btnShowAccounts = new MyButton();
             cbFilterBy = new ComboBox();
             txtFilterValue = new TextBox();
             lblRecordsCount = new Label();
-            btnClearFilter = new Button();
+            btnClearFilter = new MyButton();
             label2 = new Label();
             ((System.ComponentModel.ISupportInitialize)dgvClients).BeginInit();
             contextMenuStrip.SuspendLayout();
@@ -40,7 +40,7 @@ namespace D_WinFormsApp
             // lblTime
             // 
             lblTime.Location = new Point(679, 12);
-            lblTime.Text = "14:50:29";
+            lblTime.Text = "16:14:04";
             // 
             // dgvClients
             // 
@@ -246,10 +246,10 @@ namespace D_WinFormsApp
         }
 
         private MyDataGridView dgvClients;
-        private Button btnAdd;
-        private Button btnEdit;
-        private Button btnDelete;
-        private Button btnShowAccounts;
+        private MyButton btnAdd;
+        private MyButton btnEdit;
+        private MyButton btnDelete;
+        private MyButton btnShowAccounts;
         private ContextMenuStrip contextMenuStrip;
         private ToolStripMenuItem addClientToolStripMenuItem;
         private ToolStripMenuItem editClientToolStripMenuItem;
@@ -258,7 +258,7 @@ namespace D_WinFormsApp
         private ComboBox cbFilterBy;
         private TextBox txtFilterValue;
         private Label lblRecordsCount;
-        private Button btnClearFilter;
+        private MyButton btnClearFilter;
         private Label label2;
     }
 }

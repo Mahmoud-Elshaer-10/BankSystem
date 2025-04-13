@@ -25,14 +25,14 @@ namespace D_WinFormsApp
             editAccountToolStripMenuItem = new ToolStripMenuItem();
             deleteAccountToolStripMenuItem = new ToolStripMenuItem();
             showClientToolStripMenuItem = new ToolStripMenuItem();
-            btnAdd = new Button();
-            btnEdit = new Button();
-            btnDelete = new Button();
-            btnShowClient = new Button();
+            btnAdd = new MyButton();
+            btnEdit = new MyButton();
+            btnDelete = new MyButton();
+            btnShowClient = new MyButton();
             cbFilterBy = new ComboBox();
             txtFilterValue = new TextBox();
             lblRecordsCount = new Label();
-            btnClearFilter = new Button();
+            btnClearFilter = new MyButton();
             label2 = new Label();
             ((System.ComponentModel.ISupportInitialize)dgvAccounts).BeginInit();
             contextMenuStrip.SuspendLayout();
@@ -247,10 +247,10 @@ namespace D_WinFormsApp
         }
 
         private MyDataGridView dgvAccounts;
-        private Button btnAdd;
-        private Button btnEdit;
-        private Button btnDelete;
-        private Button btnShowClient;
+        private MyButton btnAdd;
+        private MyButton btnEdit;
+        private MyButton btnDelete;
+        private MyButton btnShowClient;
         private ContextMenuStrip contextMenuStrip;
         private ToolStripMenuItem addAccountToolStripMenuItem;
         private ToolStripMenuItem editAccountToolStripMenuItem;
@@ -259,7 +259,7 @@ namespace D_WinFormsApp
         private ComboBox cbFilterBy;
         private TextBox txtFilterValue;
         private Label lblRecordsCount;
-        private Button btnClearFilter;
+        private MyButton btnClearFilter;
         private Label label2;
     }
 }

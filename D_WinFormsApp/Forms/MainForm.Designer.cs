@@ -1,4 +1,6 @@
-﻿namespace D_WinFormsApp
+﻿using D_WinFormsApp.Controls;
+
+namespace D_WinFormsApp
 {
     partial class MainForm
     {
@@ -15,8 +17,8 @@
 
         private void InitializeComponent()
         {
-            btnClients = new Button();
-            btnAccounts = new Button();
+            btnClients = new MyButton();
+            btnAccounts = new MyButton();
             SuspendLayout();
             // 
             // lblTime
@@ -69,7 +71,7 @@
             PerformLayout();
         }
 
-        private Button btnClients;
-        private Button btnAccounts;
+        private MyButton btnClients;
+        private MyButton btnAccounts;
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace D_WinFormsApp
+﻿using D_WinFormsApp.Controls;
+
+namespace D_WinFormsApp
 {
     partial class AccountForm
     {
@@ -28,8 +30,8 @@
             txtBalance = new TextBox();
             lblClientID = new Label();
             lblBalance = new Label();
-            btnSave = new Button();
-            btnCancel = new Button();
+            btnSave = new MyButton();
+            btnCancel = new MyButton();
             SuspendLayout();
             // 
             // lblTime
@@ -128,7 +130,7 @@
         private System.Windows.Forms.TextBox txtBalance;
         private System.Windows.Forms.Label lblClientID;
         private System.Windows.Forms.Label lblBalance;
-        private System.Windows.Forms.Button btnSave;
-        private System.Windows.Forms.Button btnCancel;
+        private MyButton btnSave;
+        private MyButton btnCancel;
     }
 }
