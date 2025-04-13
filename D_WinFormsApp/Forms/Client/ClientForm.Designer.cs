@@ -40,12 +40,13 @@ namespace D_WinFormsApp
             txtAddress = new TextBox();
             btnSave = new MyButton();
             btnCancel = new MyButton();
+            ((System.ComponentModel.ISupportInitialize)errorProvider).BeginInit();
             SuspendLayout();
             // 
             // lblTime
             // 
-            lblTime.Location = new Point(289, 12);
-            lblTime.Text = "13:42:54";
+            lblTime.Location = new Point(303, 12);
+            lblTime.Text = "17:30:20";
             // 
             // lblFullName
             // 
@@ -62,6 +63,7 @@ namespace D_WinFormsApp
             txtFullName.Name = "txtFullName";
             txtFullName.Size = new Size(271, 29);
             txtFullName.TabIndex = 1;
+            txtFullName.Leave += txtFullName_Leave;
             // 
             // lblEmail
             // 
@@ -78,6 +80,7 @@ namespace D_WinFormsApp
             txtEmail.Name = "txtEmail";
             txtEmail.Size = new Size(271, 29);
             txtEmail.TabIndex = 3;
+            txtEmail.Leave += txtEmail_Leave;
             // 
             // lblPhone
             // 
@@ -94,6 +97,7 @@ namespace D_WinFormsApp
             txtPhone.Name = "txtPhone";
             txtPhone.Size = new Size(271, 29);
             txtPhone.TabIndex = 5;
+            txtPhone.Leave += txtPhone_Leave;
             // 
             // lblAddress
             // 
@@ -110,6 +114,7 @@ namespace D_WinFormsApp
             txtAddress.Name = "txtAddress";
             txtAddress.Size = new Size(271, 29);
             txtAddress.TabIndex = 7;
+            txtAddress.Leave += txtAddress_Leave;
             // 
             // btnSave
             // 
@@ -145,7 +150,7 @@ namespace D_WinFormsApp
             AutoScaleDimensions = new SizeF(9F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
             CancelButton = btnCancel;
-            ClientSize = new Size(389, 257);
+            ClientSize = new Size(403, 257);
             Controls.Add(btnCancel);
             Controls.Add(btnSave);
             Controls.Add(txtAddress);
@@ -171,6 +176,7 @@ namespace D_WinFormsApp
             Controls.SetChildIndex(btnSave, 0);
             Controls.SetChildIndex(btnCancel, 0);
             Controls.SetChildIndex(lblTime, 0);
+            ((System.ComponentModel.ISupportInitialize)errorProvider).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }

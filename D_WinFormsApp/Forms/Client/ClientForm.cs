@@ -1,6 +1,7 @@
 ﻿using D_WinFormsApp.Helpers;
 using D_WinFormsApp.Models;
 using System.Net.Http.Json;
+using System.Text.RegularExpressions;
 
 namespace D_WinFormsApp
 {
@@ -52,6 +53,33 @@ namespace D_WinFormsApp
             }
         }
 
+        private bool ValidateInputs()
+        {
+            bool isValid = true;
+            isValid &= ValidateField(txtFullName, txtFullName.Text, "Full Name is required");
+            isValid &= ValidateField(txtEmail, txtEmail.Text, "Email is required");
+            isValid &= ValidateField(txtPhone, txtPhone.Text, "Phone is required");
+            isValid &= ValidateField(txtAddress, txtAddress.Text, "Address is required");
+
+            // Email format validation
+            if (!string.IsNullOrWhiteSpace(txtEmail.Text) &&
+                !Regex.IsMatch(txtEmail.Text, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
+            {
+                errorProvider.SetError(txtEmail, "Invalid email format");
+                isValid = false;
+            }
+
+            // Phone format validation
+            if (!string.IsNullOrWhiteSpace(txtPhone.Text) &&
+                !Regex.IsMatch(txtPhone.Text, @"^\(?(\d{3})\)?[-.\s]?(\d{3})[-.\s]?(\d{4})$"))
+            {
+                errorProvider.SetError(txtPhone, "Invalid phone format (e.g., 123-456-7890)");
+                isValid = false;
+            }
+
+            return isValid;
+        }
+
         private async void btnSave_Click(object sender, EventArgs e)
         {
             await SaveClientAsync();
@@ -61,12 +89,8 @@ namespace D_WinFormsApp
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(txtFullName.Text) ||
-                    string.IsNullOrWhiteSpace(txtEmail.Text) ||
-                    string.IsNullOrWhiteSpace(txtPhone.Text) ||
-                    string.IsNullOrWhiteSpace(txtAddress.Text))
+                if (!ValidateInputs())
                 {
-                    ShowMessage("Please fill all required fields.");
                     return;
                 }
 
@@ -108,6 +132,44 @@ namespace D_WinFormsApp
         private void ClientForm_Load(object sender, EventArgs e)
         {
             Text = Mode == FormMode.AddNew ? "Bank System - Add New Client" : "Bank System - Update Client";
+        }
+
+        private void txtFullName_Leave(object sender, EventArgs e)
+        {
+            ValidateField(txtFullName, txtFullName.Text, "Full Name is required");
+        }
+
+        private void txtEmail_Leave(object sender, EventArgs e)
+        {
+            ValidateField(txtEmail, txtEmail.Text, "Email is required");
+            if (!string.IsNullOrWhiteSpace(txtEmail.Text) &&
+                !Regex.IsMatch(txtEmail.Text, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
+            {
+                errorProvider.SetError(txtEmail, "Invalid email format");
+            }
+            else if (!string.IsNullOrWhiteSpace(txtEmail.Text))
+            {
+                errorProvider.SetError(txtEmail, "");
+            }
+        }
+
+        private void txtPhone_Leave(object sender, EventArgs e)
+        {
+            ValidateField(txtPhone, txtPhone.Text, "Phone is required");
+            if (!string.IsNullOrWhiteSpace(txtPhone.Text) &&
+                !Regex.IsMatch(txtPhone.Text, @"^\(?(\d{3})\)?[-.\s]?(\d{3})[-.\s]?(\d{4})$"))
+            {
+                errorProvider.SetError(txtPhone, "Invalid phone format (e.g., 123-456-7890)");
+            }
+            else if (!string.IsNullOrWhiteSpace(txtPhone.Text))
+            {
+                errorProvider.SetError(txtPhone, "");
+            }
+        }
+
+        private void txtAddress_Leave(object sender, EventArgs e)
+        {
+            ValidateField(txtAddress, txtAddress.Text, "Address is required");
         }
     }
 }

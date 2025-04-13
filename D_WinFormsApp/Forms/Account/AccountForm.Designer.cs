@@ -32,12 +32,13 @@ namespace D_WinFormsApp
             lblBalance = new Label();
             btnSave = new MyButton();
             btnCancel = new MyButton();
+            ((System.ComponentModel.ISupportInitialize)errorProvider).BeginInit();
             SuspendLayout();
             // 
             // lblTime
             // 
             lblTime.Location = new Point(264, 12);
-            lblTime.Text = "13:45:12";
+            lblTime.Text = "17:59:58";
             // 
             // txtClientID
             // 
@@ -45,6 +46,7 @@ namespace D_WinFormsApp
             txtClientID.Name = "txtClientID";
             txtClientID.Size = new Size(200, 29);
             txtClientID.TabIndex = 0;
+            txtClientID.Leave += txtClientID_Leave;
             // 
             // txtBalance
             // 
@@ -52,6 +54,7 @@ namespace D_WinFormsApp
             txtBalance.Name = "txtBalance";
             txtBalance.Size = new Size(200, 29);
             txtBalance.TabIndex = 1;
+            txtBalance.Leave += txtBalance_Leave;
             // 
             // lblClientID
             // 
@@ -120,6 +123,7 @@ namespace D_WinFormsApp
             Controls.SetChildIndex(btnSave, 0);
             Controls.SetChildIndex(btnCancel, 0);
             Controls.SetChildIndex(lblTime, 0);
+            ((System.ComponentModel.ISupportInitialize)errorProvider).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }

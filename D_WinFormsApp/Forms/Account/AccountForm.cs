@@ -50,6 +50,31 @@ namespace D_WinFormsApp
             }
         }
 
+        private bool ValidateInputs()
+        {
+            bool isValid = true;
+            isValid &= ValidateField(txtBalance, txtBalance.Text, "Balance is required");
+            isValid &= ValidateField(txtClientID, txtClientID.Text, "Client ID is required");
+
+            // Balance format and range
+            if (!string.IsNullOrWhiteSpace(txtBalance.Text) &&
+                (!decimal.TryParse(txtBalance.Text, out decimal balance) || balance < 0))
+            {
+                errorProvider.SetError(txtBalance, "Balance must be a number >= 0");
+                isValid = false;
+            }
+
+            // ClientID format
+            if (!string.IsNullOrWhiteSpace(txtClientID.Text) &&
+                !int.TryParse(txtClientID.Text, out _))
+            {
+                errorProvider.SetError(txtClientID, "Client ID must be a number");
+                isValid = false;
+            }
+
+            return isValid;
+        }
+
         private async void btnSave_Click(object sender, EventArgs e)
         {
             await SaveAccountAsync();
@@ -59,17 +84,16 @@ namespace D_WinFormsApp
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(txtBalance.Text) || string.IsNullOrWhiteSpace(txtClientID.Text))
+                if (!ValidateInputs())
                 {
-                    ShowMessage("Please fill all required fields.");
                     return;
                 }
 
-                int clientID = Convert.ToInt32(txtClientID.Text);
+                int clientID = int.Parse(txtClientID.Text);
                 var clientCheck = await ApiClient.Client.GetAsync($"Client/{clientID}");
                 if (!clientCheck.IsSuccessStatusCode)
                 {
-                    ShowMessage("Invalid ClientID. Client does not exist.");
+                    errorProvider.SetError(txtClientID, "Client does not exist");
                     return;
                 }
 
@@ -109,6 +133,44 @@ namespace D_WinFormsApp
         private void AccountForm_Load(object sender, EventArgs e)
         {
             Text = Mode == FormMode.AddNew ? "Bank System - Add New Account" : "Bank System - Update Account";
+        }
+
+        private void txtBalance_Leave(object sender, EventArgs e)
+        {
+            ValidateField(txtBalance, txtBalance.Text, "Balance is required");
+            if (!string.IsNullOrWhiteSpace(txtBalance.Text) &&
+                (!decimal.TryParse(txtBalance.Text, out decimal balance) || balance < 0))
+            {
+                errorProvider.SetError(txtBalance, "Balance must be a number >= 0");
+            }
+            else if (!string.IsNullOrWhiteSpace(txtBalance.Text))
+            {
+                errorProvider.SetError(txtBalance, "");
+            }
+        }
+
+        private async void txtClientID_Leave(object sender, EventArgs e)
+        {
+            ValidateField(txtClientID, txtClientID.Text, "Client ID is required");
+            if (!string.IsNullOrWhiteSpace(txtClientID.Text))
+            {
+                if (!int.TryParse(txtClientID.Text, out int clientID))
+                {
+                    errorProvider.SetError(txtClientID, "Client ID must be a number");
+                }
+                else
+                {
+                    try
+                    {
+                        var clientCheck = await ApiClient.Client.GetAsync($"Client/{clientID}");
+                        errorProvider.SetError(txtClientID, clientCheck.IsSuccessStatusCode ? "" : "Client does not exist");
+                    }
+                    catch
+                    {
+                        errorProvider.SetError(txtClientID, "Error checking Client ID");
+                    }
+                }
+            }
         }
     }
 }
