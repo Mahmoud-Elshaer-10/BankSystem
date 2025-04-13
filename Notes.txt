@@ -2,9 +2,6 @@
 
 
 
-always on top 
-create one method like FilterFunctionality and make it call the other two methods
-make user control for filter for easy reusability
 I added some padding to buttons to make sure icons are not clipped (shall we create custom control for button like we did for datagrid view)
 stop escape button in main form from closing
 validating using errorprovider for example instead of messagebox
