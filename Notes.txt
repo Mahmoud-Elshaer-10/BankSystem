@@ -3,8 +3,6 @@
 
 
 
-validating using errorprovider for example instead of messagebox
-a way to make every form a child of main form (this.MdiParent = MainForm)
 
 more polish?
 

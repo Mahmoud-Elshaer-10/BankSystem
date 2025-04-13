@@ -19,12 +19,13 @@ namespace D_WinFormsApp
         {
             btnClients = new MyButton();
             btnAccounts = new MyButton();
+            ((System.ComponentModel.ISupportInitialize)errorProvider).BeginInit();
             SuspendLayout();
             // 
             // lblTime
             // 
             lblTime.Location = new Point(150, 12);
-            lblTime.Text = "14:09:32";
+            lblTime.Text = "19:29:29";
             // 
             // btnClients
             // 
@@ -61,12 +62,14 @@ namespace D_WinFormsApp
             ClientSize = new Size(250, 180);
             Controls.Add(btnAccounts);
             Controls.Add(btnClients);
+            MinimizeBox = true;
             Name = "MainForm";
             ShowInTaskbar = true;
             Text = "Bank System";
             Controls.SetChildIndex(btnClients, 0);
             Controls.SetChildIndex(btnAccounts, 0);
             Controls.SetChildIndex(lblTime, 0);
+            ((System.ComponentModel.ISupportInitialize)errorProvider).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
