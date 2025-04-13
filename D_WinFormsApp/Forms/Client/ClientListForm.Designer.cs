@@ -33,6 +33,7 @@ namespace D_WinFormsApp
             lblRecordsCount = new Label();
             btnClearFilter = new MyButton();
             label2 = new Label();
+            ((System.ComponentModel.ISupportInitialize)errorProvider).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgvClients).BeginInit();
             contextMenuStrip.SuspendLayout();
             SuspendLayout();
@@ -40,7 +41,7 @@ namespace D_WinFormsApp
             // lblTime
             // 
             lblTime.Location = new Point(679, 12);
-            lblTime.Text = "16:14:04";
+            lblTime.Text = "17:00:59";
             // 
             // dgvClients
             // 
@@ -194,10 +195,13 @@ namespace D_WinFormsApp
             // btnClearFilter
             // 
             btnClearFilter.Image = Properties.Resources.clear;
+            btnClearFilter.ImageAlign = ContentAlignment.MiddleLeft;
             btnClearFilter.Location = new Point(419, 64);
             btnClearFilter.Name = "btnClearFilter";
-            btnClearFilter.Size = new Size(29, 29);
+            btnClearFilter.Padding = new Padding(4);
+            btnClearFilter.Size = new Size(40, 29);
             btnClearFilter.TabIndex = 8;
+            btnClearFilter.TextAlign = ContentAlignment.MiddleRight;
             btnClearFilter.UseVisualStyleBackColor = true;
             btnClearFilter.Visible = false;
             btnClearFilter.Click += btnClearFilter_Click;
@@ -239,6 +243,7 @@ namespace D_WinFormsApp
             Controls.SetChildIndex(btnClearFilter, 0);
             Controls.SetChildIndex(label2, 0);
             Controls.SetChildIndex(lblTime, 0);
+            ((System.ComponentModel.ISupportInitialize)errorProvider).EndInit();
             ((System.ComponentModel.ISupportInitialize)dgvClients).EndInit();
             contextMenuStrip.ResumeLayout(false);
             ResumeLayout(false);

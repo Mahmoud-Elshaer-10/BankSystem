@@ -13,6 +13,7 @@ namespace D_WinFormsApp
         protected ToolTip toolTip = new ToolTip();
         protected System.Windows.Forms.Timer debounceTimer = new System.Windows.Forms.Timer { Interval = 300 };
         protected string pendingFilterValue = "";
+        protected ErrorProvider errorProvider = new ErrorProvider();
 
         public MyForm()
         {
@@ -20,6 +21,19 @@ namespace D_WinFormsApp
 
             SetupKeyHandling();
             InitializeClock();
+
+            errorProvider.BlinkStyle = ErrorBlinkStyle.BlinkIfDifferentError; // Optional: blink on error
+        }
+
+        protected bool ValidateField(Control control, string value, string errorMessage)
+        {
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                errorProvider.SetError(control, errorMessage);
+                return false;
+            }
+            errorProvider.SetError(control, "");
+            return true;
         }
 
         /// <summary>
