@@ -59,12 +59,11 @@ namespace B_Business
         public static Account Find(int accountID)
         {
             AccountDTO ADTO = AccountRepository.GetAccountByID(accountID);
-            if (ADTO != null)
+            if (ADTO.AccountID != 0)
             {
                 return new Account(ADTO, EntityMode.Update);
             }
-            else
-                return null;
+            return new Account(new AccountDTO(0, 0, 0, DateTime.MinValue), EntityMode.AddNew);
         }
 
         public bool Save()

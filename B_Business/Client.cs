@@ -8,10 +8,10 @@ namespace B_Business
 
         public ClientDTO CDTO => new ClientDTO(this.ClientID, this.FullName, this.Email, this.Phone, this.Address);
         public int ClientID { get; set; }
-        public string FullName { get; set; }
-        public string Email { get; set; }
-        public string Phone { get; set; }
-        public string Address { get; set; }
+        public string? FullName { get; set; }
+        public string? Email { get; set; }
+        public string? Phone { get; set; }
+        public string? Address { get; set; }
 
         public Client(ClientDTO CDTO, EntityMode cMode = EntityMode.AddNew)
         {
@@ -29,11 +29,11 @@ namespace B_Business
             try
             {
                 this.ClientID = ClientRepository.AddClient(CDTO);
-                return true; // Success if no exception is thrown
+                return true;
             }
             catch (Exception)
             {
-                return false; // Failure if an exception occurs
+                return false;
             }
         }
 
@@ -55,12 +55,11 @@ namespace B_Business
         public static Client Find(int clientID)
         {
             ClientDTO CDTO = ClientRepository.GetClientByID(clientID);
-            if (CDTO != null)
+            if (CDTO.ClientID != 0)
             {
                 return new Client(CDTO, EntityMode.Update);
             }
-            else
-                return null;
+            return new Client(new ClientDTO(0, null, null, null, null), EntityMode.AddNew);
         }
 
         public bool Save()

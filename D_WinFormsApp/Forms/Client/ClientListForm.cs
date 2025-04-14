@@ -1,7 +1,7 @@
+using D_WinFormsApp.Controls;
 using D_WinFormsApp.Helpers;
 using D_WinFormsApp.Models;
 using System.Net.Http.Json;
-using D_WinFormsApp.Controls;
 
 namespace D_WinFormsApp
 {
@@ -24,7 +24,7 @@ namespace D_WinFormsApp
 
         private async void ClientListForm_Load(object sender, EventArgs e)
         {
-            await LoadClientsAsync(null, null); // Load all clients initially
+            await LoadClientsAsync("", ""); // Load all clients initially
             cbFilterBy.SelectedIndex = 0; // Default to "None"
             txtFilterValue.Text = ""; // Clear filter
         }
@@ -47,25 +47,17 @@ namespace D_WinFormsApp
                 if (response.IsSuccessStatusCode)
                 {
                     var clients = await response.Content.ReadFromJsonAsync<List<Client>>();
-                    if (clients != null && clients.Count > 0)
+                    // Invoke ensures the code runs on the UI thread, since UI updates (like changing the DataGridView content) need to be done on the main thread.
+                    InvokeIfNeeded(() =>
                     {
-                        // Invoke ensures the code runs on the UI thread, since UI updates (like changing the DataGridView content) need to be done on the main thread.
-                        InvokeIfNeeded(() =>
-                        {
-                            dgvClients.DataSource = clients;
-                            lblRecordsCount.Text = $"Records: {dgvClients.RowCount}";
-                        });
-                        return clients;
-                    }
-                    else
-                    {
-                        ShowMessage("No clients found.");
-                        return new List<Client>();
-                    }
+                        dgvClients.DataSource = clients ?? new List<Client>();
+                        lblRecordsCount.Text = $"Records: {dgvClients.RowCount}";
+                    });
+                    return clients ?? new List<Client>();
                 }
                 else if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
                 {
-                    ShowMessage("No clients found.");
+                    InvokeIfNeeded(() => ShowMessage("No clients found."));
                     return new List<Client>();
                 }
                 else
@@ -75,7 +67,7 @@ namespace D_WinFormsApp
             }
             catch (Exception ex)
             {
-                ShowError(ex.Message);
+                InvokeIfNeeded(() => ShowError(ex.Message));
                 return new List<Client>();
             }
         }
@@ -91,7 +83,7 @@ namespace D_WinFormsApp
             }
             else
             {
-                _ = LoadClientsAsync(null, null); // Reset to full list when "None" is selected
+                _ = LoadClientsAsync("", ""); // Reset to full list when "None" is selected
             }
         }
 
@@ -106,7 +98,7 @@ namespace D_WinFormsApp
         {
             txtFilterValue.Text = "";
             txtFilterValue.Focus();
-            // No need to manually reset grid here, TextChanged will handle it
+            dgvClients.DataSource = null;
         }
 
         private void ShowClientAccounts()
@@ -141,7 +133,7 @@ namespace D_WinFormsApp
             {
                 if (form.ShowDialog() == DialogResult.OK)
                 {
-                    _ = LoadClientsAsync(null, null); // Fire and forget, Refresh full list
+                    _ = LoadClientsAsync("", ""); // Fire and forget, Refresh full list
                 }
             }
         }
@@ -164,7 +156,7 @@ namespace D_WinFormsApp
                 {
                     if (form.ShowDialog() == DialogResult.OK)
                     {
-                        _ = LoadClientsAsync(null, null); // Refresh full list
+                        _ = LoadClientsAsync("", ""); // Refresh full list
                     }
                 }
             }
@@ -190,7 +182,7 @@ namespace D_WinFormsApp
                     var response = await ApiClient.Client.DeleteAsync($"Client/{selectedClient.ClientID}");
                     if (response.IsSuccessStatusCode)
                     {
-                        await LoadClientsAsync(null, null); // Refresh full list
+                        await LoadClientsAsync("", ""); // Refresh full list
                     }
                 }
             }

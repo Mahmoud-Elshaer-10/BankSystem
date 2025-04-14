@@ -18,11 +18,11 @@ namespace A_DataAccess.Repositories
                     while (reader.Read())
                     {
                         clients.Add(new ClientDTO(
-                             reader.GetInt32(reader.GetOrdinal("ClientID")),
-                             reader.GetString(reader.GetOrdinal("FullName")),
-                             reader.GetSafeString("Email"),
-                             reader.GetSafeString("Phone"),
-                             reader.GetSafeString("Address")
+                            reader.GetInt32(reader.GetOrdinal("ClientID")),
+                            reader.GetString(reader.GetOrdinal("FullName")),
+                            reader.GetSafeString("Email"),
+                            reader.GetSafeString("Phone"),
+                            reader.GetSafeString("Address")
                         ));
                     }
                 }
@@ -79,7 +79,7 @@ namespace A_DataAccess.Repositories
                     }
                 }
             }
-            return null;
+            return new ClientDTO(0, null, null, null, null);
         }
 
         public static int AddClient(ClientDTO client)
@@ -128,10 +128,9 @@ namespace A_DataAccess.Repositories
         }
     }
 
-
     public class ClientDTO
     {
-        public ClientDTO(int clientID, string fullName, string email, string phone, string address)
+        public ClientDTO(int clientID, string? fullName, string? email, string? phone, string? address)
         {
             this.ClientID = clientID;
             this.FullName = fullName;
@@ -141,9 +140,9 @@ namespace A_DataAccess.Repositories
         }
 
         public int ClientID { get; set; }
-        public string FullName { get; set; }
-        public string Email { get; set; }
-        public string Phone { get; set; }
-        public string Address { get; set; }
+        public string? FullName { get; set; }
+        public string? Email { get; set; }
+        public string? Phone { get; set; }
+        public string? Address { get; set; }
     }
 }

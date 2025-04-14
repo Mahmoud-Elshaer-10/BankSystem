@@ -91,17 +91,9 @@ namespace D_WinFormsApp
             {
                 Cursor = Cursors.WaitCursor; // Show wait cursor
                 string uiField = filterBy.Text;
-                string field = uiField == "None" ? null : MapFieldToColumn(uiField);
+                string field = uiField == "None" ? "" : MapFieldToColumn(uiField);
 
-                List<T> data;
-                if (field == null || string.IsNullOrEmpty(filterValue))
-                {
-                    data = await loadDataAsync(null, null); // Load all data
-                }
-                else
-                {
-                    data = await loadDataAsync(field, filterValue); // Load filtered data
-                }
+                List<T> data = await loadDataAsync(field, filterValue) ?? new List<T>();
 
                 InvokeIfNeeded(() =>
                 {
@@ -188,8 +180,8 @@ namespace D_WinFormsApp
 
         protected bool ValidateSelection(DataGridView dgv, out object selectedItem)
         {
-            selectedItem = dgv.CurrentRow?.DataBoundItem;
-            if (selectedItem == null)
+            selectedItem = dgv.CurrentRow?.DataBoundItem ?? new object();
+            if (dgv.CurrentRow == null)
             {
                 ShowMessage("Please select an item.");
                 return false;

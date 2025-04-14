@@ -76,7 +76,7 @@ namespace A_DataAccess.Repositories
                     }
                 }
             }
-            return null;
+            return new AccountDTO(0, 0, 0, DateTime.MinValue);
         }
 
         public static List<AccountDTO> GetAccountsByClient(int clientID)

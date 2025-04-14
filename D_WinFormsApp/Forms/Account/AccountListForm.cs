@@ -15,7 +15,7 @@ namespace D_WinFormsApp
             PopulateFilterDropdown<Account>(cbFilterBy);
             ConfigureFilterDebounce(txtFilterValue, cbFilterBy, lblRecordsCount, dgvAccounts, LoadAccountsAsync);
 
-            // Add button tooltips to notify user of keyboard shortcuts
+            // Add button tooltips to notify users of keyboard shortcuts
             toolTip.SetToolTip(btnAdd, "Add (Alt+A)");
             toolTip.SetToolTip(btnEdit, "Edit (Alt+E)");
             toolTip.SetToolTip(btnDelete, "Delete (Alt+D)");
@@ -24,7 +24,7 @@ namespace D_WinFormsApp
 
         private async void AccountListForm_Load(object sender, EventArgs e)
         {
-            await LoadAccountsAsync(null, null); // Load all accounts initially
+            await LoadAccountsAsync("", ""); // Load all accounts initially
             cbFilterBy.SelectedIndex = 0; // Default to "None"
             txtFilterValue.Text = "";
         }
@@ -90,7 +90,7 @@ namespace D_WinFormsApp
             }
             else
             {
-                _ = LoadAccountsAsync(null, null); // Reset to full list when "None" is selected
+                _ = LoadAccountsAsync("", ""); // Reset to full list when "None" is selected
             }
         }
 
@@ -106,8 +106,7 @@ namespace D_WinFormsApp
         {
             txtFilterValue.Text = "";
             txtFilterValue.Focus();
-            // No need to manually reset grid here; TextChanged will handle it
-
+            dgvAccounts.DataSource = null;
         }
 
         private void AddAccount()
@@ -116,7 +115,7 @@ namespace D_WinFormsApp
             {
                 if (form.ShowDialog() == DialogResult.OK)
                 {
-                    _ = LoadAccountsAsync(null, null); // Refresh full list
+                    _ = LoadAccountsAsync("", ""); // Refresh full list
                 }
             }
         }
@@ -139,7 +138,7 @@ namespace D_WinFormsApp
                 {
                     if (form.ShowDialog() == DialogResult.OK)
                     {
-                        _ = LoadAccountsAsync(null, null); // Refresh full list
+                        _ = LoadAccountsAsync("", ""); // Refresh full list
                     }
                 }
             }
@@ -165,7 +164,7 @@ namespace D_WinFormsApp
                     var response = await ApiClient.Client.DeleteAsync($"Account/{selectedAccount.AccountID}");
                     if (response.IsSuccessStatusCode)
                     {
-                        await LoadAccountsAsync(null, null); // Refresh full list
+                        await LoadAccountsAsync("", ""); // Refresh full list
                     }
                 }
             }

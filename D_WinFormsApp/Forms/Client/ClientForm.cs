@@ -37,10 +37,10 @@ namespace D_WinFormsApp
                     {
                         InvokeIfNeeded(() =>
                         {
-                            txtFullName.Text = client.FullName;
-                            txtEmail.Text = client.Email;
-                            txtPhone.Text = client.Phone;
-                            txtAddress.Text = client.Address;
+                            txtFullName.Text = client.FullName ?? "";
+                            txtEmail.Text = client.Email ?? "";
+                            txtPhone.Text = client.Phone ?? "";
+                            txtAddress.Text = client.Address ?? "";
                         });
                     }
                 }

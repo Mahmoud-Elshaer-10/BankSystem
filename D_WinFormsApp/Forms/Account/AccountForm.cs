@@ -36,9 +36,14 @@ namespace D_WinFormsApp
                     {
                         InvokeIfNeeded(() =>
                         {
-                            txtBalance.Text = account.Balance.ToString("0.00");
-                            txtClientID.Text = account.ClientID.ToString();
+                            txtBalance.Text = account.Balance.ToString("0.00") ?? "";
+                            txtClientID.Text = account.ClientID.ToString() ?? "";
                         });
+                    }
+                    else
+                    {
+                        ShowMessage("Account data not found.");
+                        Close();
                     }
                 }
                 else if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
