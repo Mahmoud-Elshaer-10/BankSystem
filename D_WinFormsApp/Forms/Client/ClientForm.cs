@@ -57,7 +57,7 @@ namespace D_WinFormsApp
             }
         }
 
-        private bool ValidateInputs()
+        private async Task<bool> ValidateInputs()
         {
             bool isValid = true;
             isValid &= ValidateField(txtFullName, txtFullName.Text, "Full Name is required");
@@ -81,6 +81,36 @@ namespace D_WinFormsApp
                 isValid = false;
             }
 
+            // Duplicate Email check
+            if (!string.IsNullOrWhiteSpace(txtEmail.Text))
+            {
+                var response = await ApiClient.Client.GetAsync($"Client/Filter?field=Email&value={Uri.EscapeDataString(txtEmail.Text)}");
+                if (response.IsSuccessStatusCode)
+                {
+                    var clients = await response.Content.ReadFromJsonAsync<List<Client>>();
+                    if (clients != null && clients.Any(c => c.ClientID != _clientID))
+                    {
+                        errorProvider.SetError(txtEmail, "Email already exists");
+                        isValid = false;
+                    }
+                }
+            }
+
+            // Duplicate Phone check
+            if (!string.IsNullOrWhiteSpace(txtPhone.Text))
+            {
+                var response = await ApiClient.Client.GetAsync($"Client/Filter?field=Phone&value={Uri.EscapeDataString(txtPhone.Text)}");
+                if (response.IsSuccessStatusCode)
+                {
+                    var clients = await response.Content.ReadFromJsonAsync<List<Client>>();
+                    if (clients != null && clients.Any(c => c.ClientID != _clientID))
+                    {
+                        errorProvider.SetError(txtPhone, "Phone already in use");
+                        isValid = false;
+                    }
+                }
+            }
+
             return isValid;
         }
 
@@ -93,7 +123,7 @@ namespace D_WinFormsApp
         {
             try
             {
-                if (!ValidateInputs())
+                if (!await ValidateInputs())
                 {
                     return;
                 }
@@ -180,7 +210,7 @@ namespace D_WinFormsApp
         {
             // Allow digits, -, (), space
             if (!char.IsDigit(e.KeyChar) && e.KeyChar != '-' && e.KeyChar != '(' && e.KeyChar != ')' &&
-        e.KeyChar != ' ' && !char.IsControl(e.KeyChar))
+                e.KeyChar != ' ' && !char.IsControl(e.KeyChar))
             {
                 e.Handled = true;
             }
