@@ -1,14 +1,7 @@
 
 
 
-I get some warnings after build
-CS8625 Cannot convert null literal to non-nullable reference type.
-CS8618 Non-nullable property 'FullName' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable.
-CS8601 Possible null reference assignment.
 
-
-Grid Column Formatting:
-Idea: Format dgvClients, dgvAccounts columns (e.g., Balance as $123.45, ClientID fixed width).
 
 
 Duplicate Check:
