@@ -60,6 +60,30 @@ namespace D_WinFormsApp
         private async Task<bool> ValidateInputs()
         {
             bool isValid = true;
+
+            // Trim inputs
+            txtFullName.Text = txtFullName.Text.Trim();
+            txtEmail.Text = txtEmail.Text.Trim();
+            txtAddress.Text = txtAddress.Text.Trim();
+            txtPhone.Text = txtPhone.Text.Trim();
+
+            // Normalize Phone
+            if (!string.IsNullOrWhiteSpace(txtPhone.Text))
+            {
+                // Remove non-digits
+                string digits = Regex.Replace(txtPhone.Text, @"[^\d]", "");
+                if (digits.Length == 10)
+                {
+                    txtPhone.Text = $"{digits.Substring(0, 3)}-{digits.Substring(3, 3)}-{digits.Substring(6, 4)}";
+                }
+                else
+                {
+                    errorProvider.SetError(txtPhone, "Phone must have 10 digits");
+                    isValid = false;
+                }
+            }
+
+            // Validate fields
             isValid &= ValidateField(txtFullName, txtFullName.Text, "Full Name is required");
             isValid &= ValidateField(txtEmail, txtEmail.Text, "Email is required");
             isValid &= ValidateField(txtPhone, txtPhone.Text, "Phone is required");
@@ -75,7 +99,7 @@ namespace D_WinFormsApp
 
             // Phone format validation
             if (!string.IsNullOrWhiteSpace(txtPhone.Text) &&
-                !Regex.IsMatch(txtPhone.Text, @"^\(?(\d{3})\)?[-.\s]?(\d{3})[-.\s]?(\d{4})$"))
+                !Regex.IsMatch(txtPhone.Text, @"^\d{3}-\d{3}-\d{4}$"))
             {
                 errorProvider.SetError(txtPhone, "Invalid phone format (e.g., 123-456-7890)");
                 isValid = false;
@@ -170,11 +194,13 @@ namespace D_WinFormsApp
 
         private void txtFullName_Leave(object sender, EventArgs e)
         {
+            txtFullName.Text = txtFullName.Text.Trim();
             ValidateField(txtFullName, txtFullName.Text, "Full Name is required");
         }
 
         private void txtEmail_Leave(object sender, EventArgs e)
         {
+            txtEmail.Text = txtEmail.Text.Trim();
             ValidateField(txtEmail, txtEmail.Text, "Email is required");
             if (!string.IsNullOrWhiteSpace(txtEmail.Text) &&
                 !Regex.IsMatch(txtEmail.Text, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
@@ -189,20 +215,27 @@ namespace D_WinFormsApp
 
         private void txtPhone_Leave(object sender, EventArgs e)
         {
+            txtPhone.Text = txtPhone.Text.Trim();
             ValidateField(txtPhone, txtPhone.Text, "Phone is required");
-            if (!string.IsNullOrWhiteSpace(txtPhone.Text) &&
-                !Regex.IsMatch(txtPhone.Text, @"^\(?(\d{3})\)?[-.\s]?(\d{3})[-.\s]?(\d{4})$"))
+            if (!string.IsNullOrWhiteSpace(txtPhone.Text))
             {
-                errorProvider.SetError(txtPhone, "Invalid phone format (e.g., 123-456-7890)");
-            }
-            else if (!string.IsNullOrWhiteSpace(txtPhone.Text))
-            {
-                errorProvider.SetError(txtPhone, "");
+                // Normalize Phone
+                string digits = Regex.Replace(txtPhone.Text, @"[^\d]", "");
+                if (digits.Length == 10)
+                {
+                    txtPhone.Text = $"{digits.Substring(0, 3)}-{digits.Substring(3, 3)}-{digits.Substring(6, 4)}";
+                    errorProvider.SetError(txtPhone, "");
+                }
+                else
+                {
+                    errorProvider.SetError(txtPhone, "Phone must have 10 digits");
+                }
             }
         }
 
         private void txtAddress_Leave(object sender, EventArgs e)
         {
+            txtAddress.Text = txtAddress.Text.Trim();
             ValidateField(txtAddress, txtAddress.Text, "Address is required");
         }
 
