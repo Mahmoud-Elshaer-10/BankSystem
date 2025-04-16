@@ -31,6 +31,9 @@ namespace D_WinFormsApp.Controls
             RowTemplate.Height = 29;
             TabStop = false;
             AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+
+            //AllowUserToOrderColumns = true;
+            //AutoGenerateColumns = true;
         }
 
         /// <summary>

@@ -232,5 +232,36 @@ namespace D_WinFormsApp
                 ShowError($"Export failed: {ex.Message}");
             }
         }
+
+        protected void EnableSorting<T>(DataGridView grid)
+        {
+            grid.ColumnHeaderMouseClick += (s, e) =>
+            {
+                try
+                {
+                    if (grid.DataSource is not List<T> data || data.Count == 0 || e.ColumnIndex < 0)
+                        return;
+                    var column = grid.Columns[e.ColumnIndex];
+                    if (column?.DataPropertyName == null)
+                        return;
+                    var property = typeof(T).GetProperty(column.DataPropertyName);
+                    if (property == null)
+                        return;
+                    bool ascending = grid.Columns.Cast<DataGridViewColumn>()
+                        .Any(c => c.HeaderCell.SortGlyphDirection == SortOrder.Ascending && c.Index == e.ColumnIndex) ? false : true;
+                    List<T> sorted = ascending
+                        ? data.OrderBy(x => property.GetValue(x)).ToList()
+                        : data.OrderByDescending(x => property.GetValue(x)).ToList();
+                    grid.DataSource = sorted;
+                    foreach (DataGridViewColumn c in grid.Columns)
+                        c.HeaderCell.SortGlyphDirection = SortOrder.None;
+                    column.HeaderCell.SortGlyphDirection = ascending ? SortOrder.Ascending : SortOrder.Descending;
+                }
+                catch (Exception)
+                {
+                    // Skip glyph update, keep sorting
+                }
+            };
+        }
     }
 }

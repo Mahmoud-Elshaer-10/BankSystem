@@ -3,6 +3,7 @@ using D_WinFormsApp.Helpers;
 using D_WinFormsApp.Models;
 using System.Net.Http.Json;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace D_WinFormsApp
 {
@@ -15,6 +16,8 @@ namespace D_WinFormsApp
             SetupFilterToolTips(cbFilterBy, txtFilterValue, btnClearFilter);
             PopulateFilterDropdown<Client>(cbFilterBy);
             ConfigureFilterDebounce(txtFilterValue, cbFilterBy, lblRecordsCount, dgvClients, LoadClientsAsync);
+
+            EnableSorting<Client>(dgvClients);
         }
 
         private async void ClientListForm_Load(object sender, EventArgs e)
@@ -47,6 +50,19 @@ namespace D_WinFormsApp
                     InvokeIfNeeded(() =>
                     {
                         dgvClients.DataSource = clients ?? new List<Client>();
+
+                        foreach (DataGridViewColumn column in dgvClients.Columns)
+                        {
+                            column.SortMode = DataGridViewColumnSortMode.Automatic;
+                            string header = column.Name;
+                            if (!string.IsNullOrEmpty(header))
+                            {
+                                string formatted = Regex.Replace(header, @"([a-z])([A-Z])", "$1 $2");
+                                formatted = Regex.Replace(formatted, @"(\bID\b)", "ID");
+                                column.HeaderText = formatted;
+                            }
+                        }
+
                         lblRecordsCount.Text = $"Records: {dgvClients.RowCount}";
                     });
                     return clients ?? new List<Client>();
