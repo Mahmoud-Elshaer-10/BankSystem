@@ -48,5 +48,18 @@ namespace D_WinFormsApp
                 ShowError(ex.Message);
             }
         }
+
+        private void dgvAccounts_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (e.ColumnIndex < 0 || e.Value == null)
+                return;
+            var column = dgvAccounts.Columns[e.ColumnIndex];
+            if (column.DataPropertyName == "Balance")
+            {
+                if (e.Value is decimal balance)
+                    e.Value = balance.ToString("C2"); // e.g., $100.50
+                e.FormattingApplied = true;
+            }
+        }
     }
 }
