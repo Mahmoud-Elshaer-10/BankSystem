@@ -12,6 +12,8 @@ namespace D_WinFormsApp
         {
             InitializeComponent();
             _clientId = clientId;
+
+            EnableSorting<Account>(dgvAccounts);
         }
 
         private async void ClientAccountsForm_Load(object sender, EventArgs e)

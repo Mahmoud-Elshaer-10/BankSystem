@@ -16,7 +16,6 @@ namespace D_WinFormsApp
             SetupFilterToolTips(cbFilterBy, txtFilterValue, btnClearFilter);
             PopulateFilterDropdown<Client>(cbFilterBy);
             ConfigureFilterDebounce(txtFilterValue, cbFilterBy, lblRecordsCount, dgvClients, LoadClientsAsync);
-
             EnableSorting<Client>(dgvClients);
         }
 

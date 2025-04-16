@@ -15,6 +15,7 @@ namespace D_WinFormsApp
             SetupFilterToolTips(cbFilterBy, txtFilterValue, btnClearFilter);
             PopulateFilterDropdown<Account>(cbFilterBy);
             ConfigureFilterDebounce(txtFilterValue, cbFilterBy, lblRecordsCount, dgvAccounts, LoadAccountsAsync);
+            EnableSorting<Account>(dgvAccounts);
         }
 
         private async void AccountListForm_Load(object sender, EventArgs e)
