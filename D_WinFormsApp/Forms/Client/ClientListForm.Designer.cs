@@ -17,7 +17,7 @@ namespace D_WinFormsApp
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             dgvClients = new MyDataGridView();
             contextMenuStrip = new ContextMenuStrip(components);
             addClientToolStripMenuItem = new ToolStripMenuItem();
@@ -43,7 +43,7 @@ namespace D_WinFormsApp
             // lblTime
             // 
             lblTime.Location = new Point(679, 12);
-            lblTime.Text = "14:59:24";
+            lblTime.Text = "15:26:16";
             // 
             // dgvClients
             // 
@@ -51,14 +51,14 @@ namespace D_WinFormsApp
             dgvClients.AllowUserToDeleteRows = false;
             dgvClients.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             dgvClients.BackgroundColor = Color.White;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = Color.LightGray;
-            dataGridViewCellStyle1.Font = new Font("Segoe UI", 12F);
-            dataGridViewCellStyle1.ForeColor = Color.Black;
-            dataGridViewCellStyle1.SelectionBackColor = Color.LightGray;
-            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            dgvClients.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = Color.LightGray;
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 12F);
+            dataGridViewCellStyle2.ForeColor = Color.Black;
+            dataGridViewCellStyle2.SelectionBackColor = Color.LightGray;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
+            dgvClients.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             dgvClients.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvClients.ContextMenuStrip = contextMenuStrip;
             dgvClients.EnableHeadersVisualStyles = false;
@@ -133,7 +133,7 @@ namespace D_WinFormsApp
             btnAdd.TabIndex = 1;
             btnAdd.Text = "&Add";
             btnAdd.TextAlign = ContentAlignment.MiddleRight;
-            toolTip.SetToolTip(btnAdd, "Add (Alt + A)");
+            toolTip.SetToolTip(btnAdd, "Add (Alt+A)");
             btnAdd.UseVisualStyleBackColor = true;
             btnAdd.Click += btnAdd_Click;
             // 
@@ -148,6 +148,7 @@ namespace D_WinFormsApp
             btnEdit.TabIndex = 2;
             btnEdit.Text = "&Edit";
             btnEdit.TextAlign = ContentAlignment.MiddleRight;
+            toolTip.SetToolTip(btnEdit, "Edit (Alt+E)");
             btnEdit.UseVisualStyleBackColor = true;
             btnEdit.Click += btnEdit_Click;
             // 
@@ -162,6 +163,7 @@ namespace D_WinFormsApp
             btnDelete.TabIndex = 3;
             btnDelete.Text = "&Delete";
             btnDelete.TextAlign = ContentAlignment.MiddleRight;
+            toolTip.SetToolTip(btnDelete, "Delete (Alt+D)");
             btnDelete.UseVisualStyleBackColor = true;
             btnDelete.Click += btnDelete_Click;
             // 
@@ -176,6 +178,7 @@ namespace D_WinFormsApp
             btnShowAccounts.TabIndex = 4;
             btnShowAccounts.Text = "&Show Accounts";
             btnShowAccounts.TextAlign = ContentAlignment.MiddleRight;
+            toolTip.SetToolTip(btnShowAccounts, "Show Accounts (Alt+S)");
             btnShowAccounts.UseVisualStyleBackColor = true;
             btnShowAccounts.Click += btnShowAccounts_Click;
             // 

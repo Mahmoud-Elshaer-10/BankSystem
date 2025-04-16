@@ -15,12 +15,6 @@ namespace D_WinFormsApp
             SetupFilterToolTips(cbFilterBy, txtFilterValue, btnClearFilter);
             PopulateFilterDropdown<Account>(cbFilterBy);
             ConfigureFilterDebounce(txtFilterValue, cbFilterBy, lblRecordsCount, dgvAccounts, LoadAccountsAsync);
-
-            // Add button tooltips to notify users of keyboard shortcuts
-            toolTip.SetToolTip(btnAdd, "Add (Alt+A)");
-            toolTip.SetToolTip(btnEdit, "Edit (Alt+E)");
-            toolTip.SetToolTip(btnDelete, "Delete (Alt+D)");
-            toolTip.SetToolTip(btnShowClient, "Show Client (Alt+S)");
         }
 
         private async void AccountListForm_Load(object sender, EventArgs e)
@@ -222,47 +216,5 @@ namespace D_WinFormsApp
             ExportToCsv<Account>(dgvAccounts, "accounts.csv");
         }
 
-        private void ExportToCsv<T>(DataGridView grid, string defaultFileName)
-        {
-            if (grid.DataSource is not List<T> data || data.Count == 0)
-            {
-                ShowMessage("No data to export.");
-                return;
-            }
-
-            using SaveFileDialog sfd = new()
-            {
-                Filter = "CSV Files (*.csv)|*.csv",
-                FileName = defaultFileName
-            };
-            if (sfd.ShowDialog() != DialogResult.OK)
-                return;
-
-            try
-            {
-                var sb = new StringBuilder();
-                var headers = grid.Columns.Cast<DataGridViewColumn>()
-                    .Select(c => $"\"{c.HeaderText.Replace("\"", "\"\"")}\"");
-                sb.AppendLine(string.Join(",", headers));
-
-                foreach (var item in data)
-                {
-                    var fields = typeof(T).GetProperties()
-                        .Select(p =>
-                        {
-                            var value = p.GetValue(item)?.ToString() ?? "";
-                            return $"\"{value.Replace("\"", "\"\"")}\"";
-                        });
-                    sb.AppendLine(string.Join(",", fields));
-                }
-
-                File.WriteAllText(sfd.FileName, sb.ToString());
-                ShowMessage("Export successful!");
-            }
-            catch (Exception ex)
-            {
-                ShowError($"Export failed: {ex.Message}");
-            }
-        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using System.Text;
 using System.Text.RegularExpressions;
 
 namespace D_WinFormsApp
@@ -187,6 +188,49 @@ namespace D_WinFormsApp
                 return false;
             }
             return true;
+        }
+
+        protected void ExportToCsv<T>(DataGridView grid, string defaultFileName)
+        {
+            if (grid.DataSource is not List<T> data || data.Count == 0)
+            {
+                ShowMessage("No data to export.");
+                return;
+            }
+
+            using SaveFileDialog sfd = new()
+            {
+                Filter = "CSV Files (*.csv)|*.csv",
+                FileName = defaultFileName
+            };
+            if (sfd.ShowDialog() != DialogResult.OK)
+                return;
+
+            try
+            {
+                var sb = new StringBuilder();
+                var headers = grid.Columns.Cast<DataGridViewColumn>()
+                    .Select(c => $"\"{c.HeaderText.Replace("\"", "\"\"")}\"");
+                sb.AppendLine(string.Join(",", headers));
+
+                foreach (var item in data)
+                {
+                    var fields = typeof(T).GetProperties()
+                        .Select(p =>
+                        {
+                            var value = p.GetValue(item)?.ToString() ?? "";
+                            return $"\"{value.Replace("\"", "\"\"")}\"";
+                        });
+                    sb.AppendLine(string.Join(",", fields));
+                }
+
+                File.WriteAllText(sfd.FileName, sb.ToString());
+                ShowMessage("Export successful!");
+            }
+            catch (Exception ex)
+            {
+                ShowError($"Export failed: {ex.Message}");
+            }
         }
     }
 }

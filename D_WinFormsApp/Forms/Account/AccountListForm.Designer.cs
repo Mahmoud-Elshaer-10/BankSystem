@@ -18,13 +18,14 @@ namespace D_WinFormsApp
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             dgvAccounts = new MyDataGridView();
             contextMenuStrip = new ContextMenuStrip(components);
             addAccountToolStripMenuItem = new ToolStripMenuItem();
             editAccountToolStripMenuItem = new ToolStripMenuItem();
             deleteAccountToolStripMenuItem = new ToolStripMenuItem();
             showClientToolStripMenuItem = new ToolStripMenuItem();
+            exportToCSVToolStripMenuItem = new ToolStripMenuItem();
             btnAdd = new MyButton();
             btnEdit = new MyButton();
             btnDelete = new MyButton();
@@ -35,7 +36,6 @@ namespace D_WinFormsApp
             btnClearFilter = new MyButton();
             label2 = new Label();
             btnExport = new MyButton();
-            exportToCSVToolStripMenuItem = new ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)errorProvider).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgvAccounts).BeginInit();
             contextMenuStrip.SuspendLayout();
@@ -44,8 +44,7 @@ namespace D_WinFormsApp
             // lblTime
             // 
             lblTime.Location = new Point(600, 12);
-            lblTime.Size = new Size(75, 19);
-            lblTime.Text = "15:01:57";
+            lblTime.Text = "15:27:26";
             // 
             // dgvAccounts
             // 
@@ -53,14 +52,14 @@ namespace D_WinFormsApp
             dgvAccounts.AllowUserToDeleteRows = false;
             dgvAccounts.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             dgvAccounts.BackgroundColor = Color.White;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = Color.LightGray;
-            dataGridViewCellStyle1.Font = new Font("Segoe UI", 12F);
-            dataGridViewCellStyle1.ForeColor = Color.Black;
-            dataGridViewCellStyle1.SelectionBackColor = Color.LightGray;
-            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            dgvAccounts.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = Color.LightGray;
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 12F);
+            dataGridViewCellStyle2.ForeColor = Color.Black;
+            dataGridViewCellStyle2.SelectionBackColor = Color.LightGray;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
+            dgvAccounts.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             dgvAccounts.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvAccounts.ContextMenuStrip = contextMenuStrip;
             dgvAccounts.EnableHeadersVisualStyles = false;
@@ -77,7 +76,7 @@ namespace D_WinFormsApp
             // 
             contextMenuStrip.Items.AddRange(new ToolStripItem[] { addAccountToolStripMenuItem, editAccountToolStripMenuItem, deleteAccountToolStripMenuItem, showClientToolStripMenuItem, exportToCSVToolStripMenuItem });
             contextMenuStrip.Name = "contextMenuStrip";
-            contextMenuStrip.Size = new Size(194, 136);
+            contextMenuStrip.Size = new Size(194, 114);
             // 
             // addAccountToolStripMenuItem
             // 
@@ -115,6 +114,15 @@ namespace D_WinFormsApp
             showClientToolStripMenuItem.Text = "Show Client";
             showClientToolStripMenuItem.Click += showClientToolStripMenuItem_Click;
             // 
+            // exportToCSVToolStripMenuItem
+            // 
+            exportToCSVToolStripMenuItem.Image = Properties.Resources.notes;
+            exportToCSVToolStripMenuItem.Name = "exportToCSVToolStripMenuItem";
+            exportToCSVToolStripMenuItem.ShortcutKeys = Keys.Alt | Keys.X;
+            exportToCSVToolStripMenuItem.Size = new Size(193, 22);
+            exportToCSVToolStripMenuItem.Text = "Export to CSV";
+            exportToCSVToolStripMenuItem.Click += exportToCSVToolStripMenuItem_Click;
+            // 
             // btnAdd
             // 
             btnAdd.Image = Properties.Resources.AddIcon;
@@ -126,6 +134,7 @@ namespace D_WinFormsApp
             btnAdd.TabIndex = 1;
             btnAdd.Text = "&Add";
             btnAdd.TextAlign = ContentAlignment.MiddleRight;
+            toolTip.SetToolTip(btnAdd, "Add (Alt+A)");
             btnAdd.UseVisualStyleBackColor = true;
             btnAdd.Click += btnAdd_Click;
             // 
@@ -140,6 +149,7 @@ namespace D_WinFormsApp
             btnEdit.TabIndex = 2;
             btnEdit.Text = "&Edit";
             btnEdit.TextAlign = ContentAlignment.MiddleRight;
+            toolTip.SetToolTip(btnEdit, "Edit (Alt+E)");
             btnEdit.UseVisualStyleBackColor = true;
             btnEdit.Click += btnEdit_Click;
             // 
@@ -154,6 +164,7 @@ namespace D_WinFormsApp
             btnDelete.TabIndex = 3;
             btnDelete.Text = "&Delete";
             btnDelete.TextAlign = ContentAlignment.MiddleRight;
+            toolTip.SetToolTip(btnDelete, "Delete (Alt+D)");
             btnDelete.UseVisualStyleBackColor = true;
             btnDelete.Click += btnDelete_Click;
             // 
@@ -168,6 +179,7 @@ namespace D_WinFormsApp
             btnShowClient.TabIndex = 4;
             btnShowClient.Text = "&Show Client";
             btnShowClient.TextAlign = ContentAlignment.MiddleRight;
+            toolTip.SetToolTip(btnShowClient, "Show Client (Alt+S)");
             btnShowClient.UseVisualStyleBackColor = true;
             btnShowClient.Click += btnShowClient_Click;
             // 
@@ -238,15 +250,6 @@ namespace D_WinFormsApp
             toolTip.SetToolTip(btnExport, "Export to CSV (Alt+X)");
             btnExport.UseVisualStyleBackColor = true;
             btnExport.Click += btnExport_Click;
-            // 
-            // exportToCSVToolStripMenuItem
-            // 
-            exportToCSVToolStripMenuItem.Image = Properties.Resources.notes;
-            exportToCSVToolStripMenuItem.Name = "exportToCSVToolStripMenuItem";
-            exportToCSVToolStripMenuItem.ShortcutKeys = Keys.Alt | Keys.X;
-            exportToCSVToolStripMenuItem.Size = new Size(193, 22);
-            exportToCSVToolStripMenuItem.Text = "Export to CSV";
-            exportToCSVToolStripMenuItem.Click += exportToCSVToolStripMenuItem_Click;
             // 
             // AccountListForm
             // 
