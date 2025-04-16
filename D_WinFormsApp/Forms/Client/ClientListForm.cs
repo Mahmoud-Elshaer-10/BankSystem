@@ -2,6 +2,7 @@ using D_WinFormsApp.Controls;
 using D_WinFormsApp.Helpers;
 using D_WinFormsApp.Models;
 using System.Net.Http.Json;
+using System.Text;
 
 namespace D_WinFormsApp
 {
@@ -33,6 +34,7 @@ namespace D_WinFormsApp
         {
             try
             {
+                Cursor = Cursors.WaitCursor; // Add loading indicator
                 HttpResponseMessage response;
                 if (string.IsNullOrEmpty(field) || string.IsNullOrEmpty(value))
                 {
@@ -69,6 +71,10 @@ namespace D_WinFormsApp
             {
                 InvokeIfNeeded(() => ShowError(ex.Message));
                 return new List<Client>();
+            }
+            finally
+            {
+                Cursor = Cursors.Default; // Reset cursor
             }
         }
 
@@ -196,6 +202,59 @@ namespace D_WinFormsApp
         private void deleteClientToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DeleteClient();
+        }
+
+        private void btnExport_Click(object sender, EventArgs e)
+        {
+            ExportToCsv<Client>(dgvClients, "clients.csv");
+        }
+
+        private void exportToCSVToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ExportToCsv<Client>(dgvClients, "clients.csv");
+        }
+
+        private void ExportToCsv<T>(DataGridView grid, string defaultFileName)
+        {
+            if (grid.DataSource is not List<T> data || data.Count == 0)
+            {
+                ShowMessage("No data to export.");
+                return;
+            }
+
+            using SaveFileDialog sfd = new()
+            {
+                Filter = "CSV Files (*.csv)|*.csv",
+                FileName = defaultFileName
+            };
+            if (sfd.ShowDialog() != DialogResult.OK)
+                return;
+
+            try
+            {
+                var sb = new StringBuilder();
+                var headers = grid.Columns.Cast<DataGridViewColumn>()
+                    .Select(c => $"\"{c.HeaderText.Replace("\"", "\"\"")}\"");
+                sb.AppendLine(string.Join(",", headers));
+
+                foreach (var item in data)
+                {
+                    var fields = typeof(T).GetProperties()
+                        .Select(p =>
+                        {
+                            var value = p.GetValue(item)?.ToString() ?? "";
+                            return $"\"{value.Replace("\"", "\"\"")}\"";
+                        });
+                    sb.AppendLine(string.Join(",", fields));
+                }
+
+                File.WriteAllText(sfd.FileName, sb.ToString());
+                ShowMessage("Export successful!");
+            }
+            catch (Exception ex)
+            {
+                ShowError($"Export failed: {ex.Message}");
+            }
         }
     }
 }

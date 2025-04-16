@@ -24,6 +24,7 @@ namespace D_WinFormsApp
             editClientToolStripMenuItem = new ToolStripMenuItem();
             deleteClientToolStripMenuItem = new ToolStripMenuItem();
             showAccountsToolStripMenuItem = new ToolStripMenuItem();
+            exportToCSVToolStripMenuItem = new ToolStripMenuItem();
             btnAdd = new MyButton();
             btnEdit = new MyButton();
             btnDelete = new MyButton();
@@ -33,6 +34,7 @@ namespace D_WinFormsApp
             lblRecordsCount = new Label();
             btnClearFilter = new MyButton();
             label2 = new Label();
+            btnExport = new MyButton();
             ((System.ComponentModel.ISupportInitialize)errorProvider).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgvClients).BeginInit();
             contextMenuStrip.SuspendLayout();
@@ -41,7 +43,7 @@ namespace D_WinFormsApp
             // lblTime
             // 
             lblTime.Location = new Point(679, 12);
-            lblTime.Text = "20:54:02";
+            lblTime.Text = "14:59:24";
             // 
             // dgvClients
             // 
@@ -71,7 +73,7 @@ namespace D_WinFormsApp
             // 
             // contextMenuStrip
             // 
-            contextMenuStrip.Items.AddRange(new ToolStripItem[] { addClientToolStripMenuItem, editClientToolStripMenuItem, deleteClientToolStripMenuItem, showAccountsToolStripMenuItem });
+            contextMenuStrip.Items.AddRange(new ToolStripItem[] { addClientToolStripMenuItem, editClientToolStripMenuItem, deleteClientToolStripMenuItem, showAccountsToolStripMenuItem, exportToCSVToolStripMenuItem });
             contextMenuStrip.Name = "contextMenuStrip";
             contextMenuStrip.Size = new Size(193, 114);
             // 
@@ -110,6 +112,15 @@ namespace D_WinFormsApp
             showAccountsToolStripMenuItem.Size = new Size(192, 22);
             showAccountsToolStripMenuItem.Text = "Show Accounts";
             showAccountsToolStripMenuItem.Click += showAccountsToolStripMenuItem_Click;
+            // 
+            // exportToCSVToolStripMenuItem
+            // 
+            exportToCSVToolStripMenuItem.Image = Properties.Resources.notes;
+            exportToCSVToolStripMenuItem.Name = "exportToCSVToolStripMenuItem";
+            exportToCSVToolStripMenuItem.ShortcutKeys = Keys.Alt | Keys.X;
+            exportToCSVToolStripMenuItem.Size = new Size(192, 22);
+            exportToCSVToolStripMenuItem.Text = "Export to CSV";
+            exportToCSVToolStripMenuItem.Click += exportToCSVToolStripMenuItem_Click;
             // 
             // btnAdd
             // 
@@ -190,7 +201,7 @@ namespace D_WinFormsApp
             // lblRecordsCount
             // 
             lblRecordsCount.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            lblRecordsCount.Location = new Point(552, 68);
+            lblRecordsCount.Location = new Point(552, 66);
             lblRecordsCount.Name = "lblRecordsCount";
             lblRecordsCount.Size = new Size(215, 23);
             lblRecordsCount.TabIndex = 7;
@@ -221,9 +232,25 @@ namespace D_WinFormsApp
             label2.TabIndex = 11;
             label2.Text = "Filter By:";
             // 
+            // btnExport
+            // 
+            btnExport.Image = Properties.Resources.notes;
+            btnExport.ImageAlign = ContentAlignment.MiddleLeft;
+            btnExport.Location = new Point(452, 12);
+            btnExport.Name = "btnExport";
+            btnExport.Padding = new Padding(4);
+            btnExport.Size = new Size(100, 37);
+            btnExport.TabIndex = 12;
+            btnExport.Text = "E&xport";
+            btnExport.TextAlign = ContentAlignment.MiddleRight;
+            toolTip.SetToolTip(btnExport, "Export to CSV (Alt+X)");
+            btnExport.UseVisualStyleBackColor = true;
+            btnExport.Click += btnExport_Click;
+            // 
             // ClientListForm
             // 
             ClientSize = new Size(779, 472);
+            Controls.Add(btnExport);
             Controls.Add(label2);
             Controls.Add(btnClearFilter);
             Controls.Add(lblRecordsCount);
@@ -248,6 +275,7 @@ namespace D_WinFormsApp
             Controls.SetChildIndex(btnClearFilter, 0);
             Controls.SetChildIndex(label2, 0);
             Controls.SetChildIndex(lblTime, 0);
+            Controls.SetChildIndex(btnExport, 0);
             ((System.ComponentModel.ISupportInitialize)errorProvider).EndInit();
             ((System.ComponentModel.ISupportInitialize)dgvClients).EndInit();
             contextMenuStrip.ResumeLayout(false);
@@ -270,5 +298,7 @@ namespace D_WinFormsApp
         private Label lblRecordsCount;
         private MyButton btnClearFilter;
         private Label label2;
+        private MyButton btnExport;
+        private ToolStripMenuItem exportToCSVToolStripMenuItem;
     }
 }

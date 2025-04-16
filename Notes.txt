@@ -1,9 +1,15 @@
 
 
 
-Input Sanitization (ClientForm)
-Loading Indicator (ClientListForm, AccountListForm)
-Export to CSV (ClientListForm or AccountListForm)
+the solution has no erros or warnings but has some messages like the following:
+'using' statement can be simplified
+Collection initialization can be simplified
+Naming rule violation: These words must begin with upper case characters: addAccountToolStripMenuItem_Click
+are these ok to ignore?
+
+
+
+grid sorting feature
 
 
 
