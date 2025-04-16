@@ -1,12 +1,8 @@
 
 
-
-
-
-
-Duplicate Check:
-Idea: Check for duplicate Email (in ClientForm) or ClientID (in AccountForm) via API before saving.
-
+Input Sanitization (ClientForm)
+Loading Indicator (ClientListForm, AccountListForm)
+Export to CSV (ClientListForm or AccountListForm)
 
 
 
