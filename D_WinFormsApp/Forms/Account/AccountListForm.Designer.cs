@@ -44,7 +44,7 @@ namespace D_WinFormsApp
             // lblTime
             // 
             lblTime.Location = new Point(600, 12);
-            lblTime.Text = "16:26:05";
+            lblTime.Text = "21:42:34";
             // 
             // dgvAccounts
             // 
@@ -73,6 +73,7 @@ namespace D_WinFormsApp
             dgvAccounts.Size = new Size(676, 356);
             dgvAccounts.TabIndex = 0;
             dgvAccounts.TabStop = false;
+            dgvAccounts.CellFormatting += dgvAccounts_CellFormatting;
             dgvAccounts.DoubleClick += dgvAccounts_DoubleClick;
             // 
             // contextMenuStrip
