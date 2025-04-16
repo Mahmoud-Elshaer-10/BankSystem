@@ -17,7 +17,7 @@ namespace D_WinFormsApp
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             dgvClients = new MyDataGridView();
             contextMenuStrip = new ContextMenuStrip(components);
             addClientToolStripMenuItem = new ToolStripMenuItem();
@@ -43,7 +43,7 @@ namespace D_WinFormsApp
             // lblTime
             // 
             lblTime.Location = new Point(679, 12);
-            lblTime.Text = "15:26:16";
+            lblTime.Text = "16:25:30";
             // 
             // dgvClients
             // 
@@ -51,24 +51,27 @@ namespace D_WinFormsApp
             dgvClients.AllowUserToDeleteRows = false;
             dgvClients.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             dgvClients.BackgroundColor = Color.White;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = Color.LightGray;
-            dataGridViewCellStyle2.Font = new Font("Segoe UI", 12F);
-            dataGridViewCellStyle2.ForeColor = Color.Black;
-            dataGridViewCellStyle2.SelectionBackColor = Color.LightGray;
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
-            dgvClients.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = Color.LightGray;
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 12F);
+            dataGridViewCellStyle1.ForeColor = Color.Black;
+            dataGridViewCellStyle1.SelectionBackColor = Color.LightGray;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dgvClients.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dgvClients.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvClients.ContextMenuStrip = contextMenuStrip;
+            dgvClients.EditMode = DataGridViewEditMode.EditProgrammatically;
             dgvClients.EnableHeadersVisualStyles = false;
             dgvClients.Location = new Point(12, 100);
+            dgvClients.MultiSelect = false;
             dgvClients.Name = "dgvClients";
             dgvClients.ReadOnly = true;
             dgvClients.RowHeadersWidth = 51;
             dgvClients.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvClients.Size = new Size(755, 356);
             dgvClients.TabIndex = 0;
+            dgvClients.TabStop = false;
             dgvClients.DoubleClick += dgvClients_DoubleClick;
             // 
             // contextMenuStrip
@@ -189,7 +192,7 @@ namespace D_WinFormsApp
             cbFilterBy.Location = new Point(93, 65);
             cbFilterBy.Name = "cbFilterBy";
             cbFilterBy.Size = new Size(120, 29);
-            cbFilterBy.TabIndex = 5;
+            cbFilterBy.TabIndex = 6;
             cbFilterBy.SelectedIndexChanged += cbFilterBy_SelectedIndexChanged;
             // 
             // txtFilterValue
@@ -197,7 +200,7 @@ namespace D_WinFormsApp
             txtFilterValue.Location = new Point(231, 65);
             txtFilterValue.Name = "txtFilterValue";
             txtFilterValue.Size = new Size(170, 29);
-            txtFilterValue.TabIndex = 6;
+            txtFilterValue.TabIndex = 7;
             txtFilterValue.Visible = false;
             txtFilterValue.KeyPress += txtFilterValue_KeyPress;
             // 
@@ -243,7 +246,7 @@ namespace D_WinFormsApp
             btnExport.Name = "btnExport";
             btnExport.Padding = new Padding(4);
             btnExport.Size = new Size(100, 37);
-            btnExport.TabIndex = 12;
+            btnExport.TabIndex = 5;
             btnExport.Text = "E&xport";
             btnExport.TextAlign = ContentAlignment.MiddleRight;
             toolTip.SetToolTip(btnExport, "Export to CSV (Alt+X)");

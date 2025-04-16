@@ -23,10 +23,13 @@ namespace D_WinFormsApp.Controls
             AllowUserToDeleteRows = false;
             BackgroundColor = Color.White;
             ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            EditMode = DataGridViewEditMode.EditProgrammatically;
+            MultiSelect = false;
             ReadOnly = true;
             SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             RowHeadersWidth = 51;
             RowTemplate.Height = 29;
+            TabStop = false;
             AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
         }
 

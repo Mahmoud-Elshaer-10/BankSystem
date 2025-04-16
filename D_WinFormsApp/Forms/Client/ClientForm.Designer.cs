@@ -46,7 +46,7 @@ namespace D_WinFormsApp
             // lblTime
             // 
             lblTime.Location = new Point(303, 12);
-            lblTime.Text = "20:50:42";
+            lblTime.Text = "16:29:14";
             // 
             // lblFullName
             // 
@@ -79,7 +79,7 @@ namespace D_WinFormsApp
             txtEmail.Location = new Point(104, 86);
             txtEmail.Name = "txtEmail";
             txtEmail.Size = new Size(271, 29);
-            txtEmail.TabIndex = 3;
+            txtEmail.TabIndex = 2;
             txtEmail.Leave += txtEmail_Leave;
             // 
             // lblPhone
@@ -96,7 +96,7 @@ namespace D_WinFormsApp
             txtPhone.Location = new Point(104, 124);
             txtPhone.Name = "txtPhone";
             txtPhone.Size = new Size(271, 29);
-            txtPhone.TabIndex = 5;
+            txtPhone.TabIndex = 3;
             txtPhone.KeyPress += txtPhone_KeyPress;
             txtPhone.Leave += txtPhone_Leave;
             // 
@@ -114,7 +114,7 @@ namespace D_WinFormsApp
             txtAddress.Location = new Point(104, 162);
             txtAddress.Name = "txtAddress";
             txtAddress.Size = new Size(271, 29);
-            txtAddress.TabIndex = 7;
+            txtAddress.TabIndex = 4;
             txtAddress.Leave += txtAddress_Leave;
             // 
             // btnSave
@@ -125,7 +125,7 @@ namespace D_WinFormsApp
             btnSave.Name = "btnSave";
             btnSave.Padding = new Padding(4);
             btnSave.Size = new Size(94, 39);
-            btnSave.TabIndex = 8;
+            btnSave.TabIndex = 5;
             btnSave.Text = "&Save";
             btnSave.TextAlign = ContentAlignment.MiddleRight;
             btnSave.UseVisualStyleBackColor = true;
@@ -139,7 +139,7 @@ namespace D_WinFormsApp
             btnCancel.Name = "btnCancel";
             btnCancel.Padding = new Padding(2);
             btnCancel.Size = new Size(94, 39);
-            btnCancel.TabIndex = 9;
+            btnCancel.TabIndex = 6;
             btnCancel.Text = "&Cancel";
             btnCancel.TextAlign = ContentAlignment.MiddleRight;
             btnCancel.UseVisualStyleBackColor = true;

@@ -38,14 +38,14 @@ namespace D_WinFormsApp
             // lblTime
             // 
             lblTime.Location = new Point(264, 12);
-            lblTime.Text = "20:43:40";
+            lblTime.Text = "16:27:13";
             // 
             // txtClientID
             // 
             txtClientID.Location = new Point(122, 42);
             txtClientID.Name = "txtClientID";
             txtClientID.Size = new Size(200, 29);
-            txtClientID.TabIndex = 0;
+            txtClientID.TabIndex = 1;
             txtClientID.Leave += txtClientID_Leave;
             // 
             // txtBalance
@@ -53,7 +53,7 @@ namespace D_WinFormsApp
             txtBalance.Location = new Point(122, 82);
             txtBalance.Name = "txtBalance";
             txtBalance.Size = new Size(200, 29);
-            txtBalance.TabIndex = 1;
+            txtBalance.TabIndex = 2;
             txtBalance.KeyPress += txtBalance_KeyPress;
             txtBalance.Leave += txtBalance_Leave;
             // 
@@ -83,7 +83,7 @@ namespace D_WinFormsApp
             btnSave.Name = "btnSave";
             btnSave.Padding = new Padding(4);
             btnSave.Size = new Size(94, 39);
-            btnSave.TabIndex = 4;
+            btnSave.TabIndex = 3;
             btnSave.Text = "&Save";
             btnSave.TextAlign = ContentAlignment.MiddleRight;
             btnSave.UseVisualStyleBackColor = true;
@@ -97,7 +97,7 @@ namespace D_WinFormsApp
             btnCancel.Name = "btnCancel";
             btnCancel.Padding = new Padding(2);
             btnCancel.Size = new Size(94, 39);
-            btnCancel.TabIndex = 5;
+            btnCancel.TabIndex = 4;
             btnCancel.Text = "&Cancel";
             btnCancel.TextAlign = ContentAlignment.MiddleRight;
             btnCancel.UseVisualStyleBackColor = true;
