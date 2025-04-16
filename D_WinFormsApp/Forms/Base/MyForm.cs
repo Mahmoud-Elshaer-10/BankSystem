@@ -235,27 +235,42 @@ namespace D_WinFormsApp
 
         protected void EnableSorting<T>(DataGridView grid)
         {
+            // Tracks sort direction (ascending true, descending false) for each column by index.
             Dictionary<int, bool> sortDirections = new Dictionary<int, bool>();
+
+            // Attaches an event handler to grid’s header clicks
             grid.ColumnHeaderMouseClick += (s, e) =>
             {
                 if (grid.DataSource is not List<T> data || data.Count == 0 || e.ColumnIndex < 0)
                     return;
+
                 var column = grid.Columns[e.ColumnIndex];
                 if (column?.DataPropertyName == null)
                     return;
+
+                // Use reflection to Get the PropertyInfo for the column’s property (e.g., Client.FullName)
                 var property = typeof(T).GetProperty(column.DataPropertyName);
                 if (property == null)
                     return;
+
+                // Toggle sort direction. Sets ascending: If column was sorted, toggles direction; else defaults to true (ascending).
                 bool ascending = sortDirections.ContainsKey(e.ColumnIndex) ? !sortDirections[e.ColumnIndex] : true;
                 sortDirections[e.ColumnIndex] = ascending;
+
+                // Sort the data based on the property value using LINQ
                 List<T> sorted = ascending
                     ? data.OrderBy(x => property.GetValue(x)).ToList()
                     : data.OrderByDescending(x => property.GetValue(x)).ToList();
+
+                // Update the DataGridView with the sorted data
                 grid.DataSource = sorted;
-                // Set glyphs after binding
+
+                // Clears sort arrows from all columns except the clicked one.
                 foreach (DataGridViewColumn c in grid.Columns)
                     if (c.Index != e.ColumnIndex)
                         c.HeaderCell.SortGlyphDirection = SortOrder.None;
+
+                // Sets the sort arrow for the clicked column.
                 if (grid.Columns[e.ColumnIndex].DataGridView == grid)
                     grid.Columns[e.ColumnIndex].HeaderCell.SortGlyphDirection = ascending ? SortOrder.Ascending : SortOrder.Descending;
             };
