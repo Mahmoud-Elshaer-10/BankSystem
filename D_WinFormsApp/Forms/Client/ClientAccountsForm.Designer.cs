@@ -24,8 +24,8 @@ namespace D_WinFormsApp
             // 
             // lblTime
             // 
-            lblTime.Location = new Point(400, 12);
-            lblTime.Text = "21:55:27";
+            lblTime.Location = new Point(440, 12);
+            lblTime.Text = "17:36:36";
             // 
             // dgvAccounts
             // 
@@ -51,7 +51,7 @@ namespace D_WinFormsApp
             dgvAccounts.RowHeadersWidth = 51;
             dgvAccounts.RowTemplate.Height = 29;
             dgvAccounts.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvAccounts.Size = new Size(476, 201);
+            dgvAccounts.Size = new Size(515, 201);
             dgvAccounts.TabIndex = 0;
             dgvAccounts.TabStop = false;
             dgvAccounts.CellFormatting += dgvAccounts_CellFormatting;
@@ -60,7 +60,7 @@ namespace D_WinFormsApp
             // 
             AutoScaleDimensions = new SizeF(9F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(500, 265);
+            ClientSize = new Size(540, 265);
             Controls.Add(dgvAccounts);
             Name = "ClientAccountsForm";
             Text = "Client Accounts";

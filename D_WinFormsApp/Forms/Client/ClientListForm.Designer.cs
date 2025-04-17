@@ -17,7 +17,7 @@ namespace D_WinFormsApp
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             dgvClients = new MyDataGridView();
             contextMenuStrip = new ContextMenuStrip(components);
             addClientToolStripMenuItem = new ToolStripMenuItem();
@@ -43,8 +43,8 @@ namespace D_WinFormsApp
             // 
             // lblTime
             // 
-            lblTime.Location = new Point(679, 12);
-            lblTime.Text = "16:25:30";
+            lblTime.Location = new Point(788, 12);
+            lblTime.Text = "17:43:36";
             // 
             // dgvClients
             // 
@@ -52,14 +52,14 @@ namespace D_WinFormsApp
             dgvClients.AllowUserToDeleteRows = false;
             dgvClients.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             dgvClients.BackgroundColor = Color.White;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = Color.LightGray;
-            dataGridViewCellStyle2.Font = new Font("Segoe UI", 12F);
-            dataGridViewCellStyle2.ForeColor = Color.Black;
-            dataGridViewCellStyle2.SelectionBackColor = Color.LightGray;
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
-            dgvClients.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = Color.LightGray;
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 12F);
+            dataGridViewCellStyle1.ForeColor = Color.Black;
+            dataGridViewCellStyle1.SelectionBackColor = Color.LightGray;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dgvClients.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dgvClients.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvClients.ContextMenuStrip = contextMenuStrip;
             dgvClients.EditMode = DataGridViewEditMode.EditProgrammatically;
@@ -70,7 +70,7 @@ namespace D_WinFormsApp
             dgvClients.ReadOnly = true;
             dgvClients.RowHeadersWidth = 51;
             dgvClients.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvClients.Size = new Size(755, 356);
+            dgvClients.Size = new Size(862, 356);
             dgvClients.TabIndex = 0;
             dgvClients.TabStop = false;
             dgvClients.DoubleClick += dgvClients_DoubleClick;
@@ -208,7 +208,7 @@ namespace D_WinFormsApp
             // lblRecordsCount
             // 
             lblRecordsCount.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            lblRecordsCount.Location = new Point(552, 66);
+            lblRecordsCount.Location = new Point(648, 70);
             lblRecordsCount.Name = "lblRecordsCount";
             lblRecordsCount.Size = new Size(215, 23);
             lblRecordsCount.TabIndex = 7;
@@ -265,7 +265,7 @@ namespace D_WinFormsApp
             // 
             // ClientListForm
             // 
-            ClientSize = new Size(779, 472);
+            ClientSize = new Size(888, 472);
             Controls.Add(dtpFilter);
             Controls.Add(btnExport);
             Controls.Add(label2);
