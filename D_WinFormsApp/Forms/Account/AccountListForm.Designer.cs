@@ -36,6 +36,7 @@ namespace D_WinFormsApp
             btnClearFilter = new MyButton();
             label2 = new Label();
             btnExport = new MyButton();
+            dtpFilter = new DateTimePicker();
             ((System.ComponentModel.ISupportInitialize)errorProvider).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgvAccounts).BeginInit();
             contextMenuStrip.SuspendLayout();
@@ -44,7 +45,7 @@ namespace D_WinFormsApp
             // lblTime
             // 
             lblTime.Location = new Point(600, 12);
-            lblTime.Text = "21:42:34";
+            lblTime.Text = "13:11:58";
             // 
             // dgvAccounts
             // 
@@ -255,9 +256,19 @@ namespace D_WinFormsApp
             btnExport.UseVisualStyleBackColor = true;
             btnExport.Click += btnExport_Click;
             // 
+            // dtpFilter
+            // 
+            dtpFilter.Format = DateTimePickerFormat.Short;
+            dtpFilter.Location = new Point(219, 63);
+            dtpFilter.Name = "dtpFilter";
+            dtpFilter.Size = new Size(128, 29);
+            dtpFilter.TabIndex = 13;
+            dtpFilter.Visible = false;
+            // 
             // AccountListForm
             // 
             ClientSize = new Size(700, 466);
+            Controls.Add(dtpFilter);
             Controls.Add(btnExport);
             Controls.Add(label2);
             Controls.Add(btnClearFilter);
@@ -284,6 +295,7 @@ namespace D_WinFormsApp
             Controls.SetChildIndex(label2, 0);
             Controls.SetChildIndex(lblTime, 0);
             Controls.SetChildIndex(btnExport, 0);
+            Controls.SetChildIndex(dtpFilter, 0);
             ((System.ComponentModel.ISupportInitialize)errorProvider).EndInit();
             ((System.ComponentModel.ISupportInitialize)dgvAccounts).EndInit();
             contextMenuStrip.ResumeLayout(false);
@@ -308,5 +320,6 @@ namespace D_WinFormsApp
         private Label label2;
         private MyButton btnExport;
         private ToolStripMenuItem exportToCSVToolStripMenuItem;
+        private DateTimePicker dtpFilter;
     }
 }

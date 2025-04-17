@@ -14,7 +14,7 @@ namespace D_WinFormsApp
 
             SetupFilterToolTips(cbFilterBy, txtFilterValue, btnClearFilter);
             PopulateFilterDropdown<Account>(cbFilterBy);
-            ConfigureFilterDebounce(txtFilterValue, cbFilterBy, lblRecordsCount, dgvAccounts, LoadAccountsAsync);
+            ConfigureFilterDebounce(txtFilterValue, cbFilterBy, lblRecordsCount, dgvAccounts, LoadAccountsAsync, dtpFilter);
             EnableSorting<Account>(dgvAccounts);
         }
 
@@ -44,25 +44,21 @@ namespace D_WinFormsApp
                 if (response.IsSuccessStatusCode)
                 {
                     var accounts = await response.Content.ReadFromJsonAsync<List<Account>>();
-                    if (accounts != null && accounts.Count > 0)
-                    {
                         InvokeIfNeeded(() =>
                         {
-                            dgvAccounts.DataSource = accounts;
+                            dgvAccounts.DataSource = accounts ?? [];
                             lblRecordsCount.Text = $"Records: {dgvAccounts.RowCount}";
                         });
-                        return accounts;
-                    }
-                    else
-                    {
-                        ShowMessage("No accounts found.");
-                        return new List<Account>();
-                    }
+                        return accounts ?? [];
                 }
                 else if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
                 {
-                    ShowMessage("No accounts found.");
-                    return new List<Account>();
+                    InvokeIfNeeded(() =>
+                    {
+                        dgvAccounts.DataSource = new List<Account>();
+                        lblRecordsCount.Text = $"Records: {dgvAccounts.RowCount}";
+                    });
+                    return [];
                 }
                 else
                 {
@@ -72,7 +68,7 @@ namespace D_WinFormsApp
             catch (Exception ex)
             {
                 ShowError(ex.Message);
-                return new List<Account>();
+                return [];
             }
             finally
             {
@@ -82,7 +78,8 @@ namespace D_WinFormsApp
 
         private void cbFilterBy_SelectedIndexChanged(object sender, EventArgs e)
         {
-            txtFilterValue.Visible = (cbFilterBy.Text != "None");
+            txtFilterValue.Visible = (cbFilterBy.Text != "None") && (cbFilterBy.Text != "Created At");
+            dtpFilter.Visible = cbFilterBy.Text == "Created At";
             btnClearFilter.Visible = txtFilterValue.Visible;
             if (txtFilterValue.Visible)
             {
@@ -225,8 +222,18 @@ namespace D_WinFormsApp
             if (column.DataPropertyName == "Balance")
             {
                 if (e.Value is decimal balance)
+                {
                     e.Value = balance.ToString("C2"); // e.g., $100.50
-                e.FormattingApplied = true;
+                    e.FormattingApplied = true;
+                }
+            }
+            else if (column.DataPropertyName == "CreatedAt")
+            {
+                if (e.Value is DateTime createdAt)
+                {
+                    e.Value = createdAt.ToString("MM/dd/yyyy"); // e.g., 04/17/2025
+                    e.FormattingApplied = true;
+                }
             }
         }
     }

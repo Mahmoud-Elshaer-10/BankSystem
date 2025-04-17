@@ -67,7 +67,7 @@ namespace D_WinFormsApp
         /// Configures debounce for filter input to delay grid updates until typing stops and applies async filtering using the provided grid and load function.
         /// </summary>
         protected void ConfigureFilterDebounce<T>(TextBox filterValue, ComboBox filterBy, Label recordsCount,
-            DataGridView grid, Func<string, string, Task<List<T>>> loadDataAsync)
+           DataGridView grid, Func<string, string, Task<List<T>>> loadDataAsync, DateTimePicker? dtpFilter = null)
         {
             filterValue.TextChanged += (s, e) =>
             {
@@ -75,12 +75,36 @@ namespace D_WinFormsApp
                 debounceTimer.Stop(); // Cancel prior timer
                 debounceTimer.Start(); // Delay filter 300ms until typing stops
             };
+
+            if (dtpFilter != null)
+            {
+                dtpFilter.ValueChanged += (s, e) =>
+                {
+                    pendingFilterValue = dtpFilter.Value.ToString("yyyy-MM-ddTHH:mm:ss");
+                    debounceTimer.Stop();
+                    debounceTimer.Start();
+                };
+            }
+
             debounceTimer.Tick += async (s, e) =>
             {
-                debounceTimer.Stop();
-                await ApplyFilterAsync(filterValue.Text, filterBy, recordsCount, grid, loadDataAsync);
+                debounceTimer.Stop(); // Stop timer immediately
+                string value = filterBy.Text == "Created At" && dtpFilter != null && dtpFilter.Visible
+                    ? dtpFilter.Value.ToString("yyyy-MM-ddTHH:mm:ss")
+                    : filterValue.Text;
+
+                if (filterBy.Text == "Created At" && !string.IsNullOrWhiteSpace(value))
+                {
+                    if (!DateTime.TryParse(value, out _))
+                    {
+                        ShowMessage("Invalid date format. Use MM/dd/yyyy, yyyy-MM-dd, or similar.");
+                        return;
+                    }
+                }
+                await ApplyFilterAsync(value, filterBy, recordsCount, grid, loadDataAsync);
             };
         }
+
 
         /// <summary>
         /// Applies an async filter to the grid, updating the records count and loading data from the API.
