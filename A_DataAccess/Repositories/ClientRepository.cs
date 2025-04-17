@@ -22,7 +22,8 @@ namespace A_DataAccess.Repositories
                             reader.GetString(reader.GetOrdinal("FullName")),
                             reader.GetSafeString("Email"),
                             reader.GetSafeString("Phone"),
-                            reader.GetSafeString("Address")
+                            reader.GetSafeString("Address"),
+                            reader.GetDateTime(reader.GetOrdinal("CreatedAt"))
                         ));
                     }
                 }
@@ -49,7 +50,8 @@ namespace A_DataAccess.Repositories
                             reader.GetString(reader.GetOrdinal("FullName")),
                             reader.GetSafeString("Email"),
                             reader.GetSafeString("Phone"),
-                            reader.GetSafeString("Address")
+                            reader.GetSafeString("Address"),
+                            reader.GetDateTime(reader.GetOrdinal("CreatedAt"))
                         ));
                     }
                 }
@@ -74,12 +76,13 @@ namespace A_DataAccess.Repositories
                             reader.GetString(reader.GetOrdinal("FullName")),
                             reader.GetSafeString("Email"),
                             reader.GetSafeString("Phone"),
-                            reader.GetSafeString("Address")
+                            reader.GetSafeString("Address"),
+                             reader.GetDateTime(reader.GetOrdinal("CreatedAt"))
                         );
                     }
                 }
             }
-            return new ClientDTO(0, null, null, null, null);
+            return new ClientDTO(0, null, null, null, null, null);
         }
 
         public static int AddClient(ClientDTO client)
@@ -130,13 +133,14 @@ namespace A_DataAccess.Repositories
 
     public class ClientDTO
     {
-        public ClientDTO(int clientID, string? fullName, string? email, string? phone, string? address)
+        public ClientDTO(int clientID, string? fullName, string? email, string? phone, string? address, DateTime? createdAt)
         {
             this.ClientID = clientID;
             this.FullName = fullName;
             this.Email = email;
             this.Phone = phone;
             this.Address = address;
+            CreatedAt = createdAt;
         }
 
         public int ClientID { get; set; }
@@ -144,5 +148,6 @@ namespace A_DataAccess.Repositories
         public string? Email { get; set; }
         public string? Phone { get; set; }
         public string? Address { get; set; }
+        public DateTime? CreatedAt { get; set; }
     }
 }

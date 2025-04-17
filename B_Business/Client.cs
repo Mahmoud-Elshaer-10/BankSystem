@@ -6,12 +6,13 @@ namespace B_Business
     {
         public EntityMode Mode = EntityMode.AddNew;
 
-        public ClientDTO CDTO => new ClientDTO(this.ClientID, this.FullName, this.Email, this.Phone, this.Address);
+        public ClientDTO CDTO => new ClientDTO(this.ClientID, this.FullName, this.Email, this.Phone, this.Address, this.CreatedAt);
         public int ClientID { get; set; }
         public string? FullName { get; set; }
         public string? Email { get; set; }
         public string? Phone { get; set; }
         public string? Address { get; set; }
+        public DateTime? CreatedAt { get; set; }
 
         public Client(ClientDTO CDTO, EntityMode cMode = EntityMode.AddNew)
         {
@@ -20,6 +21,7 @@ namespace B_Business
             this.Email = CDTO.Email;
             this.Phone = CDTO.Phone;
             this.Address = CDTO.Address;
+            this.CreatedAt = CDTO.CreatedAt;
 
             Mode = cMode;
         }
@@ -59,7 +61,7 @@ namespace B_Business
             {
                 return new Client(CDTO, EntityMode.Update);
             }
-            return new Client(new ClientDTO(0, null, null, null, null), EntityMode.AddNew);
+            return new Client(new ClientDTO(0, null, null, null, null, null), EntityMode.AddNew);
         }
 
         public bool Save()

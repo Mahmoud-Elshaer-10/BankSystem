@@ -227,14 +227,14 @@ namespace D_WinFormsApp
                     e.FormattingApplied = true;
                 }
             }
-            else if (column.DataPropertyName == "CreatedAt")
-            {
-                if (e.Value is DateTime createdAt)
-                {
-                    e.Value = createdAt.ToString("MM/dd/yyyy"); // e.g., 04/17/2025
-                    e.FormattingApplied = true;
-                }
-            }
+            //else if (column.DataPropertyName == "CreatedAt")
+            //{
+            //    if (e.Value is DateTime createdAt)
+            //    {
+            //        e.Value = createdAt.ToString("MM/dd/yyyy"); // e.g., 04/17/2025
+            //        e.FormattingApplied = true;
+            //    }
+            //}
         }
     }
 }

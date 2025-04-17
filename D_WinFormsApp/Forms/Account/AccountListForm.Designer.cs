@@ -18,7 +18,7 @@ namespace D_WinFormsApp
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             dgvAccounts = new MyDataGridView();
             contextMenuStrip = new ContextMenuStrip(components);
             addAccountToolStripMenuItem = new ToolStripMenuItem();
@@ -45,7 +45,7 @@ namespace D_WinFormsApp
             // lblTime
             // 
             lblTime.Location = new Point(600, 12);
-            lblTime.Text = "13:11:58";
+            lblTime.Text = "16:25:47";
             // 
             // dgvAccounts
             // 
@@ -53,14 +53,14 @@ namespace D_WinFormsApp
             dgvAccounts.AllowUserToDeleteRows = false;
             dgvAccounts.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             dgvAccounts.BackgroundColor = Color.White;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = Color.LightGray;
-            dataGridViewCellStyle1.Font = new Font("Segoe UI", 12F);
-            dataGridViewCellStyle1.ForeColor = Color.Black;
-            dataGridViewCellStyle1.SelectionBackColor = Color.LightGray;
-            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            dgvAccounts.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = Color.LightGray;
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 12F);
+            dataGridViewCellStyle2.ForeColor = Color.Black;
+            dataGridViewCellStyle2.SelectionBackColor = Color.LightGray;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
+            dgvAccounts.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             dgvAccounts.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvAccounts.ContextMenuStrip = contextMenuStrip;
             dgvAccounts.EditMode = DataGridViewEditMode.EditProgrammatically;
@@ -259,7 +259,7 @@ namespace D_WinFormsApp
             // dtpFilter
             // 
             dtpFilter.Format = DateTimePickerFormat.Short;
-            dtpFilter.Location = new Point(219, 63);
+            dtpFilter.Location = new Point(226, 63);
             dtpFilter.Name = "dtpFilter";
             dtpFilter.Size = new Size(128, 29);
             dtpFilter.TabIndex = 13;

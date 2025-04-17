@@ -17,7 +17,7 @@ namespace D_WinFormsApp
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             dgvClients = new MyDataGridView();
             contextMenuStrip = new ContextMenuStrip(components);
             addClientToolStripMenuItem = new ToolStripMenuItem();
@@ -35,6 +35,7 @@ namespace D_WinFormsApp
             btnClearFilter = new MyButton();
             label2 = new Label();
             btnExport = new MyButton();
+            dtpFilter = new DateTimePicker();
             ((System.ComponentModel.ISupportInitialize)errorProvider).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgvClients).BeginInit();
             contextMenuStrip.SuspendLayout();
@@ -51,14 +52,14 @@ namespace D_WinFormsApp
             dgvClients.AllowUserToDeleteRows = false;
             dgvClients.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             dgvClients.BackgroundColor = Color.White;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = Color.LightGray;
-            dataGridViewCellStyle1.Font = new Font("Segoe UI", 12F);
-            dataGridViewCellStyle1.ForeColor = Color.Black;
-            dataGridViewCellStyle1.SelectionBackColor = Color.LightGray;
-            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            dgvClients.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = Color.LightGray;
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 12F);
+            dataGridViewCellStyle2.ForeColor = Color.Black;
+            dataGridViewCellStyle2.SelectionBackColor = Color.LightGray;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
+            dgvClients.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             dgvClients.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvClients.ContextMenuStrip = contextMenuStrip;
             dgvClients.EditMode = DataGridViewEditMode.EditProgrammatically;
@@ -253,9 +254,19 @@ namespace D_WinFormsApp
             btnExport.UseVisualStyleBackColor = true;
             btnExport.Click += btnExport_Click;
             // 
+            // dtpFilter
+            // 
+            dtpFilter.Format = DateTimePickerFormat.Short;
+            dtpFilter.Location = new Point(231, 65);
+            dtpFilter.Name = "dtpFilter";
+            dtpFilter.Size = new Size(128, 29);
+            dtpFilter.TabIndex = 14;
+            dtpFilter.Visible = false;
+            // 
             // ClientListForm
             // 
             ClientSize = new Size(779, 472);
+            Controls.Add(dtpFilter);
             Controls.Add(btnExport);
             Controls.Add(label2);
             Controls.Add(btnClearFilter);
@@ -282,6 +293,7 @@ namespace D_WinFormsApp
             Controls.SetChildIndex(label2, 0);
             Controls.SetChildIndex(lblTime, 0);
             Controls.SetChildIndex(btnExport, 0);
+            Controls.SetChildIndex(dtpFilter, 0);
             ((System.ComponentModel.ISupportInitialize)errorProvider).EndInit();
             ((System.ComponentModel.ISupportInitialize)dgvClients).EndInit();
             contextMenuStrip.ResumeLayout(false);
@@ -306,5 +318,6 @@ namespace D_WinFormsApp
         private Label label2;
         private MyButton btnExport;
         private ToolStripMenuItem exportToCSVToolStripMenuItem;
+        private DateTimePicker dtpFilter;
     }
 }

@@ -72,7 +72,7 @@ namespace C_API.Controllers
             {
                 return BadRequest("Invalid client data.");
             }
-            Client client = new Client(new ClientDTO(newClientDTO.ClientID, newClientDTO.FullName, newClientDTO.Email, newClientDTO.Phone, newClientDTO.Address));
+            Client client = new Client(new ClientDTO(newClientDTO.ClientID, newClientDTO.FullName, newClientDTO.Email, newClientDTO.Phone, newClientDTO.Address, newClientDTO.CreatedAt));
             client.Save();
             newClientDTO.ClientID = client.ClientID;
             return CreatedAtRoute("GetClientById", new { id = newClientDTO.ClientID }, newClientDTO);

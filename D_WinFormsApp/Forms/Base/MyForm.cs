@@ -118,7 +118,7 @@ namespace D_WinFormsApp
                 string uiField = filterBy.Text;
                 string field = uiField == "None" ? "" : MapFieldToColumn(uiField);
 
-                List<T> data = await loadDataAsync(field, filterValue) ?? new List<T>();
+                List<T> data = await loadDataAsync(field, filterValue) ?? [];
 
                 InvokeIfNeeded(() =>
                 {
