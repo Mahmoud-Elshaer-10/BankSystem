@@ -5,10 +5,6 @@
         public MainForm()
         {
             InitializeComponent();
-
-            // Add button tooltips to notify user of keyboard shortcuts
-            toolTip.SetToolTip(btnClients, "Show Clients (Alt+C)");
-            toolTip.SetToolTip(btnAccounts, "Show Accounts (Alt+A)");
         }
 
         protected override void OnKeyDown(KeyEventArgs e)
@@ -21,18 +17,20 @@
 
         private void btnClients_Click(object sender, EventArgs e)
         {
-            using (var form = new ClientListForm())
-            {
-                form.ShowDialog();
-            }
+            using var form = new ClientListForm();
+            form.ShowDialog();
         }
 
         private void btnAccounts_Click(object sender, EventArgs e)
         {
-            using (var form = new AccountListForm())
-            {
-                form.ShowDialog();
-            }
+            using var form = new AccountListForm();
+            form.ShowDialog();
+        }
+
+        private void btnDashboard_Click(object sender, EventArgs e)
+        {
+            using var form = new DashboardForm();
+            form.ShowDialog();
         }
     }
 }

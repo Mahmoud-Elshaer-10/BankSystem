@@ -44,7 +44,6 @@
             ShowInTaskbar = false;
             StartPosition = FormStartPosition.CenterScreen;
             Text = "MyForm";
-            TopMost = true;
             ResumeLayout(false);
         }
 

@@ -19,13 +19,14 @@ namespace D_WinFormsApp
         {
             btnClients = new MyButton();
             btnAccounts = new MyButton();
+            btnDashboard = new MyButton();
             ((System.ComponentModel.ISupportInitialize)errorProvider).BeginInit();
             SuspendLayout();
             // 
             // lblTime
             // 
             lblTime.Location = new Point(150, 12);
-            lblTime.Text = "16:30:00";
+            lblTime.Text = "21:46:39";
             // 
             // btnClients
             // 
@@ -38,6 +39,7 @@ namespace D_WinFormsApp
             btnClients.TabIndex = 1;
             btnClients.Text = "Manage &Clients";
             btnClients.TextAlign = ContentAlignment.MiddleRight;
+            toolTip.SetToolTip(btnClients, "Show Clients (Alt+C)");
             btnClients.UseVisualStyleBackColor = true;
             btnClients.Click += btnClients_Click;
             // 
@@ -52,14 +54,30 @@ namespace D_WinFormsApp
             btnAccounts.TabIndex = 2;
             btnAccounts.Text = "Manage &Accounts";
             btnAccounts.TextAlign = ContentAlignment.MiddleRight;
+            toolTip.SetToolTip(btnAccounts, "Show Accounts (Alt+A)");
             btnAccounts.UseVisualStyleBackColor = true;
             btnAccounts.Click += btnAccounts_Click;
+            // 
+            // btnDashboard
+            // 
+            btnDashboard.ImageAlign = ContentAlignment.MiddleLeft;
+            btnDashboard.Location = new Point(32, 155);
+            btnDashboard.Name = "btnDashboard";
+            btnDashboard.Padding = new Padding(4);
+            btnDashboard.Size = new Size(186, 44);
+            btnDashboard.TabIndex = 3;
+            btnDashboard.Text = "&Dashboard";
+            btnDashboard.TextAlign = ContentAlignment.MiddleRight;
+            toolTip.SetToolTip(btnDashboard, "Show Dashboard (Alt+D)");
+            btnDashboard.UseVisualStyleBackColor = true;
+            btnDashboard.Click += btnDashboard_Click;
             // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(9F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(250, 180);
+            ClientSize = new Size(250, 240);
+            Controls.Add(btnDashboard);
             Controls.Add(btnAccounts);
             Controls.Add(btnClients);
             MinimizeBox = true;
@@ -68,6 +86,7 @@ namespace D_WinFormsApp
             Text = "Bank System";
             Controls.SetChildIndex(btnClients, 0);
             Controls.SetChildIndex(btnAccounts, 0);
+            Controls.SetChildIndex(btnDashboard, 0);
             Controls.SetChildIndex(lblTime, 0);
             ((System.ComponentModel.ISupportInitialize)errorProvider).EndInit();
             ResumeLayout(false);
@@ -76,5 +95,6 @@ namespace D_WinFormsApp
 
         private MyButton btnClients;
         private MyButton btnAccounts;
+        private MyButton btnDashboard;
     }
 }

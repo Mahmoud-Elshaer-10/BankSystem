@@ -40,6 +40,20 @@ namespace C_API.Controllers
             return Ok(clients);
         }
 
+        [HttpGet("Summary", Name = "GetClientSummary")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public ActionResult<object> GetClientSummary()
+        {
+            var clients = Client.GetClientsByFilter("", "");
+            if (clients == null || clients.Count == 0)
+            {
+                return NotFound("No clients found!");
+            }
+            var summary = new { TotalClients = clients.Count };
+            return Ok(summary);
+        }
+
         [HttpGet("{id}", Name = "GetClientById")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

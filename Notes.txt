@@ -1,8 +1,8 @@
 
 
+better get count, sum, avg from database using sql queries via stored procedure rather than using linq for better performance
 
-
-Implement a dashboard with summary stats (e.g., total accounts, average balance)
+icon for dashboard
 
 Write unit tests for ClientRepository.cs or API endpoints to show TDD skills.
 

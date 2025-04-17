@@ -40,6 +40,25 @@ namespace C_API.Controllers
             return Ok(accounts);
         }
 
+        [HttpGet("Summary", Name = "GetAccountSummary")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public ActionResult<object> GetAccountSummary()
+        {
+            var accounts = Account.GetAccountsByFilter("", "");
+            if (accounts == null || accounts.Count == 0)
+            {
+                return NotFound("No accounts found!");
+            }
+            var summary = new
+            {
+                TotalAccounts = accounts.Count,
+                AverageBalance = accounts.Any() ? accounts.Average(a => a.Balance) : 0,
+                TotalBalance = accounts.Sum(a => a.Balance)
+            };
+            return Ok(summary);
+        }
+
         [HttpGet("ByClient/{clientId}", Name = "GetAccountsByClient")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
