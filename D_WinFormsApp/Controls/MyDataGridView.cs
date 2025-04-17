@@ -31,6 +31,7 @@ namespace D_WinFormsApp.Controls
             RowTemplate.Height = 29;
             TabStop = false;
             AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(240, 240, 240); // Color.LightGray still somehow darker than this
         }
 
         /// <summary>

@@ -1,5 +1,18 @@
 
 
 
-Next polish (e.g., demo, colors)?
+
+Implement a dashboard with summary stats (e.g., total accounts, average balance)
+
+Write unit tests for ClientRepository.cs or API endpoints to show TDD skills.
+
+Package the app for distribution (e.g., installer)
+
+Demo Script
+
+document the app in a GitHub README for recruiters.
+
+
+
+
 
