@@ -54,6 +54,11 @@ namespace B_Business
             return ClientRepository.GetClientsByFilter(field, value);
         }
 
+        public static int GetClientSummary()
+        {
+            return ClientRepository.GetClientSummary();
+        }
+
         public static Client Find(int clientID)
         {
             ClientDTO CDTO = ClientRepository.GetClientByID(clientID);

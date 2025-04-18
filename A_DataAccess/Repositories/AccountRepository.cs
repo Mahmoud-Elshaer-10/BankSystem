@@ -144,6 +144,28 @@ namespace A_DataAccess.Repositories
                 return result != null && result != DBNull.Value; // True if row deleted
             }
         }
+
+        public static AccountSummaryDTO GetAccountSummary()
+        {
+            using (SqlConnection conn = DatabaseHelper.GetConnection())
+            using (SqlCommand cmd = new SqlCommand("GetAccountSummary", conn))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                conn.Open();
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        return new AccountSummaryDTO(
+                            reader.GetInt32(reader.GetOrdinal("TotalAccounts")),
+                            reader.IsDBNull(reader.GetOrdinal("AverageBalance")) ? 0 : reader.GetDecimal(reader.GetOrdinal("AverageBalance")),
+                            reader.IsDBNull(reader.GetOrdinal("TotalBalance")) ? 0 : reader.GetDecimal(reader.GetOrdinal("TotalBalance"))
+                        );
+                    }
+                }
+            }
+            return new AccountSummaryDTO(0, 0, 0);
+        }
     }
 
     public class AccountDTO
@@ -160,5 +182,19 @@ namespace A_DataAccess.Repositories
         public int ClientID { get; set; }
         public decimal Balance { get; set; }
         public DateTime CreatedAt { get; set; }
+    }
+
+    public class AccountSummaryDTO
+    {
+        public AccountSummaryDTO(int totalAccounts, decimal averageBalance, decimal totalBalance)
+        {
+            TotalAccounts = totalAccounts;
+            AverageBalance = averageBalance;
+            TotalBalance = totalBalance;
+        }
+
+        public int TotalAccounts { get; set; }
+        public decimal AverageBalance { get; set; }
+        public decimal TotalBalance { get; set; }
     }
 }

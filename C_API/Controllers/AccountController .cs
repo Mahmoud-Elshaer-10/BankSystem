@@ -42,21 +42,15 @@ namespace C_API.Controllers
 
         [HttpGet("Summary", Name = "GetAccountSummary")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult<object> GetAccountSummary()
         {
-            var accounts = Account.GetAccountsByFilter("", "");
-            if (accounts == null || accounts.Count == 0)
+            var summary = Account.GetAccountSummary();
+            return Ok(new
             {
-                return NotFound("No accounts found!");
-            }
-            var summary = new
-            {
-                TotalAccounts = accounts.Count,
-                AverageBalance = accounts.Any() ? accounts.Average(a => a.Balance) : 0,
-                TotalBalance = accounts.Sum(a => a.Balance)
-            };
-            return Ok(summary);
+                totalAccounts = summary.TotalAccounts,
+                averageBalance = summary.AverageBalance,
+                totalBalance = summary.TotalBalance
+            });
         }
 
         [HttpGet("ByClient/{clientId}", Name = "GetAccountsByClient")]

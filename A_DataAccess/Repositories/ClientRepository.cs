@@ -77,7 +77,7 @@ namespace A_DataAccess.Repositories
                             reader.GetSafeString("Email"),
                             reader.GetSafeString("Phone"),
                             reader.GetSafeString("Address"),
-                             reader.GetDateTime(reader.GetOrdinal("CreatedAt"))
+                            reader.GetDateTime(reader.GetOrdinal("CreatedAt"))
                         );
                     }
                 }
@@ -127,6 +127,17 @@ namespace A_DataAccess.Repositories
                 conn.Open();
                 object result = cmd.ExecuteScalar();
                 return result != null && result != DBNull.Value; // True if row deleted
+            }
+        }
+
+        public static int GetClientSummary()
+        {
+            using (SqlConnection conn = DatabaseHelper.GetConnection())
+            using (SqlCommand cmd = new SqlCommand("GetClientSummary", conn))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                conn.Open();
+                return Convert.ToInt32(cmd.ExecuteScalar());
             }
         }
     }

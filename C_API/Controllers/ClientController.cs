@@ -42,15 +42,10 @@ namespace C_API.Controllers
 
         [HttpGet("Summary", Name = "GetClientSummary")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult<object> GetClientSummary()
         {
-            var clients = Client.GetClientsByFilter("", "");
-            if (clients == null || clients.Count == 0)
-            {
-                return NotFound("No clients found!");
-            }
-            var summary = new { TotalClients = clients.Count };
+            var totalClients = Client.GetClientSummary();
+            var summary = new { totalClients };
             return Ok(summary);
         }
 

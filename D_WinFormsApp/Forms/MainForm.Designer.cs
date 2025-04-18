@@ -26,7 +26,7 @@ namespace D_WinFormsApp
             // lblTime
             // 
             lblTime.Location = new Point(150, 12);
-            lblTime.Text = "21:46:39";
+            lblTime.Text = "15:03:38";
             // 
             // btnClients
             // 
@@ -60,6 +60,7 @@ namespace D_WinFormsApp
             // 
             // btnDashboard
             // 
+            btnDashboard.Image = Properties.Resources.graph;
             btnDashboard.ImageAlign = ContentAlignment.MiddleLeft;
             btnDashboard.Location = new Point(32, 155);
             btnDashboard.Name = "btnDashboard";

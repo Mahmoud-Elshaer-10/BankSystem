@@ -56,6 +56,11 @@ namespace B_Business
             return AccountRepository.GetAccountsByClient(clientId);
         }
 
+        public static AccountSummaryDTO GetAccountSummary()
+        {
+            return AccountRepository.GetAccountSummary();
+        }
+
         public static Account Find(int accountID)
         {
             AccountDTO ADTO = AccountRepository.GetAccountByID(accountID);
