@@ -1,8 +1,5 @@
 
 
-better get count, sum, avg from database using sql queries via stored procedure rather than using linq for better performance
-
-icon for dashboard
 
 Write unit tests for ClientRepository.cs or API endpoints to show TDD skills.
 
