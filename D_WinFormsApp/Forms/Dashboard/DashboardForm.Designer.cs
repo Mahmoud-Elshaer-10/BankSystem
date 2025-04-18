@@ -22,8 +22,6 @@ namespace D_WinFormsApp
 
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
-            toolTip = new ToolTip(components);
             lblTotalClients = new Label();
             lblTotalAccounts = new Label();
             lblAverageBalance = new Label();
@@ -31,49 +29,50 @@ namespace D_WinFormsApp
             ((System.ComponentModel.ISupportInitialize)errorProvider).BeginInit();
             SuspendLayout();
             // 
+            // lblTime
+            // 
+            lblTime.Location = new Point(200, 12);
+            lblTime.Text = "15:32:05";
+            // 
             // lblTotalClients
             // 
             lblTotalClients.AutoSize = true;
-            lblTotalClients.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            lblTotalClients.Location = new Point(20, 20);
+            lblTotalClients.Font = new Font("Arial", 12F);
+            lblTotalClients.Location = new Point(20, 42);
             lblTotalClients.Name = "lblTotalClients";
-            lblTotalClients.Size = new Size(150, 30);
+            lblTotalClients.Size = new Size(112, 18);
             lblTotalClients.TabIndex = 0;
             lblTotalClients.Text = "Total Clients: ...";
-            toolTip.SetToolTip(lblTotalClients, "Number of clients in the system");
             // 
             // lblTotalAccounts
             // 
             lblTotalAccounts.AutoSize = true;
-            lblTotalAccounts.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            lblTotalAccounts.Location = new Point(20, 60);
+            lblTotalAccounts.Font = new Font("Arial", 12F);
+            lblTotalAccounts.Location = new Point(20, 82);
             lblTotalAccounts.Name = "lblTotalAccounts";
-            lblTotalAccounts.Size = new Size(150, 30);
+            lblTotalAccounts.Size = new Size(127, 18);
             lblTotalAccounts.TabIndex = 1;
             lblTotalAccounts.Text = "Total Accounts: ...";
-            toolTip.SetToolTip(lblTotalAccounts, "Number of accounts in the system");
             // 
             // lblAverageBalance
             // 
             lblAverageBalance.AutoSize = true;
-            lblAverageBalance.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            lblAverageBalance.Location = new Point(20, 100);
+            lblAverageBalance.Font = new Font("Arial", 12F);
+            lblAverageBalance.Location = new Point(20, 122);
             lblAverageBalance.Name = "lblAverageBalance";
-            lblAverageBalance.Size = new Size(150, 30);
+            lblAverageBalance.Size = new Size(148, 18);
             lblAverageBalance.TabIndex = 2;
             lblAverageBalance.Text = "Average Balance: ...";
-            toolTip.SetToolTip(lblAverageBalance, "Average balance across all accounts");
             // 
             // lblTotalBalance
             // 
             lblTotalBalance.AutoSize = true;
-            lblTotalBalance.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            lblTotalBalance.Location = new Point(20, 140);
+            lblTotalBalance.Font = new Font("Arial", 12F);
+            lblTotalBalance.Location = new Point(20, 162);
             lblTotalBalance.Name = "lblTotalBalance";
-            lblTotalBalance.Size = new Size(150, 30);
+            lblTotalBalance.Size = new Size(121, 18);
             lblTotalBalance.TabIndex = 3;
             lblTotalBalance.Text = "Total Balance: ...";
-            toolTip.SetToolTip(lblTotalBalance, "Sum of all account balances");
             // 
             // DashboardForm
             // 
@@ -84,10 +83,13 @@ namespace D_WinFormsApp
             Controls.Add(lblAverageBalance);
             Controls.Add(lblTotalAccounts);
             Controls.Add(lblTotalClients);
-            FormBorderStyle = FormBorderStyle.FixedSingle;
-            MaximizeBox = false;
             Name = "DashboardForm";
             Text = "Bank System Dashboard";
+            Controls.SetChildIndex(lblTotalClients, 0);
+            Controls.SetChildIndex(lblTotalAccounts, 0);
+            Controls.SetChildIndex(lblAverageBalance, 0);
+            Controls.SetChildIndex(lblTotalBalance, 0);
+            Controls.SetChildIndex(lblTime, 0);
             ((System.ComponentModel.ISupportInitialize)errorProvider).EndInit();
             ResumeLayout(false);
             PerformLayout();

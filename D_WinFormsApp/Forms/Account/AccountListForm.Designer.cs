@@ -19,6 +19,7 @@ namespace D_WinFormsApp
         {
             components = new System.ComponentModel.Container();
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             dgvAccounts = new MyDataGridView();
             contextMenuStrip = new ContextMenuStrip(components);
             addAccountToolStripMenuItem = new ToolStripMenuItem();
@@ -45,22 +46,24 @@ namespace D_WinFormsApp
             // lblTime
             // 
             lblTime.Location = new Point(613, 12);
-            lblTime.Text = "17:41:38";
+            lblTime.Text = "15:30:51";
             // 
             // dgvAccounts
             // 
             dgvAccounts.AllowUserToAddRows = false;
             dgvAccounts.AllowUserToDeleteRows = false;
+            dataGridViewCellStyle1.BackColor = Color.FromArgb(240, 240, 240);
+            dgvAccounts.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             dgvAccounts.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             dgvAccounts.BackgroundColor = Color.White;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = Color.LightGray;
-            dataGridViewCellStyle1.Font = new Font("Segoe UI", 12F);
-            dataGridViewCellStyle1.ForeColor = Color.Black;
-            dataGridViewCellStyle1.SelectionBackColor = Color.LightGray;
-            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            dgvAccounts.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = Color.LightGray;
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 12F);
+            dataGridViewCellStyle2.ForeColor = Color.Black;
+            dataGridViewCellStyle2.SelectionBackColor = Color.LightGray;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
+            dgvAccounts.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             dgvAccounts.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvAccounts.ContextMenuStrip = contextMenuStrip;
             dgvAccounts.EditMode = DataGridViewEditMode.EditProgrammatically;
@@ -219,12 +222,12 @@ namespace D_WinFormsApp
             // 
             // btnClearFilter
             // 
-            btnClearFilter.Image = Properties.Resources.clear;
+            btnClearFilter.Image = Properties.Resources.clear2;
             btnClearFilter.ImageAlign = ContentAlignment.MiddleLeft;
-            btnClearFilter.Location = new Point(410, 63);
+            btnClearFilter.Location = new Point(402, 63);
             btnClearFilter.Name = "btnClearFilter";
             btnClearFilter.Padding = new Padding(4);
-            btnClearFilter.Size = new Size(40, 29);
+            btnClearFilter.Size = new Size(29, 29);
             btnClearFilter.TabIndex = 8;
             btnClearFilter.TextAlign = ContentAlignment.MiddleRight;
             btnClearFilter.UseVisualStyleBackColor = true;
