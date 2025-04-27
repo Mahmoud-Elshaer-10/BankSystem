@@ -92,7 +92,7 @@ namespace C_API.Controllers
                 return NotFound($"Account with ID {id} not found.");
             }
 
-            return Ok(account.ADTO);
+            return Ok(account.ToDTO());
         }
 
         [HttpPost(Name = "AddAccount")]
@@ -134,7 +134,7 @@ namespace C_API.Controllers
             account.Balance = updatedAccount.Balance;
 
             if (account.Save())
-                return Ok(account.ADTO);
+                return Ok(account.ToDTO());
             else
                 return StatusCode(500, new { message = "Error Updating Account" });
         }

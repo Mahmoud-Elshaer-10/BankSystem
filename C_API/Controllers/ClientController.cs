@@ -67,7 +67,7 @@ namespace C_API.Controllers
                 return NotFound($"Client with ID {id} not found.");
             }
 
-            ClientDTO CDTO = Client.CDTO;
+            ClientDTO CDTO = Client.ToDTO();
             return Ok(CDTO);
         }
 
@@ -112,7 +112,7 @@ namespace C_API.Controllers
             Client.Address = updatedClient.Address;
 
             if (Client.Save())
-                return Ok(Client.CDTO);
+                return Ok(Client.ToDTO());
             else
                 return StatusCode(500, new { message = "Error Updating Client" });
         }

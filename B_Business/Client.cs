@@ -2,11 +2,8 @@
 
 namespace B_Business
 {
-    public class Client
+    public class Client : BaseEntity<ClientDTO>
     {
-        public EntityMode Mode = EntityMode.AddNew;
-
-        public ClientDTO CDTO => new ClientDTO(this.ClientID, this.FullName, this.Email, this.Phone, this.Address, this.CreatedAt);
         public int ClientID { get; set; }
         public string? FullName { get; set; }
         public string? Email { get; set; }
@@ -14,34 +11,36 @@ namespace B_Business
         public string? Address { get; set; }
         public DateTime? CreatedAt { get; set; }
 
-        public Client(ClientDTO CDTO, EntityMode cMode = EntityMode.AddNew)
+        public Client(ClientDTO dto, EntityMode mode = EntityMode.AddNew)
         {
-            this.ClientID = CDTO.ClientID;
-            this.FullName = CDTO.FullName;
-            this.Email = CDTO.Email;
-            this.Phone = CDTO.Phone;
-            this.Address = CDTO.Address;
-            this.CreatedAt = CDTO.CreatedAt;
-
-            Mode = cMode;
+            ClientID = dto.ClientID;
+            FullName = dto.FullName;
+            Email = dto.Email;
+            Phone = dto.Phone;
+            Address = dto.Address;
+            CreatedAt = dto.CreatedAt;
+            Mode = mode;
         }
 
-        private bool _AddNewClient()
+        //public new bool Save()
+        //{
+        //    return base.Save();
+        //}
+
+        public override ClientDTO ToDTO()
         {
-            try
-            {
-                this.ClientID = ClientRepository.AddClient(CDTO);
-                return true;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
+            return new ClientDTO(ClientID, FullName, Email, Phone, Address, CreatedAt);
         }
 
-        private bool _UpdateClient()
+        protected override bool AddNew()
         {
-            return ClientRepository.UpdateClient(CDTO);
+            ClientID = ClientRepository.AddClient(ToDTO());
+            return ClientID > 0;
+        }
+
+        protected override bool Update()
+        {
+            return ClientRepository.UpdateClient(ToDTO());
         }
 
         public static List<ClientDTO> GetAllClients()
@@ -61,33 +60,10 @@ namespace B_Business
 
         public static Client Find(int clientID)
         {
-            ClientDTO CDTO = ClientRepository.GetClientByID(clientID);
-            if (CDTO.ClientID != 0)
-            {
-                return new Client(CDTO, EntityMode.Update);
-            }
-            return new Client(new ClientDTO(0, null, null, null, null, null), EntityMode.AddNew);
-        }
-
-        public bool Save()
-        {
-            switch (Mode)
-            {
-                case EntityMode.AddNew:
-                    if (_AddNewClient())
-                    {
-                        Mode = EntityMode.Update;
-                        return true;
-                    }
-                    else
-                    {
-                        return false;
-                    }
-
-                case EntityMode.Update:
-                    return _UpdateClient();
-            }
-            return false;
+            var dto = ClientRepository.GetClientByID(clientID);
+            return dto.ClientID != 0
+                ? new Client(dto, EntityMode.Update)
+                : new Client(new ClientDTO(0, null, null, null, null, null), EntityMode.AddNew);
         }
 
         public static bool DeleteClient(int clientID)

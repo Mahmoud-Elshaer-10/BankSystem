@@ -2,43 +2,41 @@
 
 namespace B_Business
 {
-    public class Account
+    public class Account : BaseEntity<AccountDTO>
     {
-        public EntityMode Mode = EntityMode.AddNew;
-
-        public AccountDTO ADTO => new AccountDTO(this.AccountID, this.ClientID, this.Balance, this.CreatedAt);
-
         public int AccountID { get; set; }
         public int ClientID { get; set; }
         public decimal Balance { get; set; }
         public DateTime CreatedAt { get; set; }
 
-        public Account(AccountDTO ADTO, EntityMode cMode = EntityMode.AddNew)
+        public Account(AccountDTO dto, EntityMode mode = EntityMode.AddNew)
         {
-            this.AccountID = ADTO.AccountID;
-            this.ClientID = ADTO.ClientID;
-            this.Balance = ADTO.Balance;
-            this.CreatedAt = ADTO.CreatedAt;
-
-            Mode = cMode;
+            AccountID = dto.AccountID;
+            ClientID = dto.ClientID;
+            Balance = dto.Balance;
+            CreatedAt = dto.CreatedAt;
+            Mode = mode;
         }
 
-        private bool _AddNewAccount()
+        //public new bool Save()
+        //{
+        //    return base.Save();
+        //}
+
+        public override AccountDTO ToDTO()
         {
-            try
-            {
-                this.AccountID = AccountRepository.AddAccount(ADTO);
-                return true; // Success if no exception is thrown
-            }
-            catch (Exception)
-            {
-                return false; // Failure if an exception occurs
-            }
+            return new AccountDTO(AccountID, ClientID, Balance, CreatedAt);
         }
 
-        private bool _UpdateAccount()
+        protected override bool AddNew()
         {
-            return AccountRepository.UpdateAccount(ADTO);
+            AccountID = AccountRepository.AddAccount(ToDTO());
+            return AccountID > 0;
+        }
+
+        protected override bool Update()
+        {
+            return AccountRepository.UpdateAccount(ToDTO());
         }
 
         public static List<AccountDTO> GetAllAccounts()
@@ -63,33 +61,10 @@ namespace B_Business
 
         public static Account Find(int accountID)
         {
-            AccountDTO ADTO = AccountRepository.GetAccountByID(accountID);
-            if (ADTO.AccountID != 0)
-            {
-                return new Account(ADTO, EntityMode.Update);
-            }
-            return new Account(new AccountDTO(0, 0, 0, DateTime.MinValue), EntityMode.AddNew);
-        }
-
-        public bool Save()
-        {
-            switch (Mode)
-            {
-                case EntityMode.AddNew:
-                    if (_AddNewAccount())
-                    {
-                        Mode = EntityMode.Update;
-                        return true;
-                    }
-                    else
-                    {
-                        return false;
-                    }
-
-                case EntityMode.Update:
-                    return _UpdateAccount();
-            }
-            return false;
+            var dto = AccountRepository.GetAccountByID(accountID);
+            return dto.AccountID != 0
+                ? new Account(dto, EntityMode.Update)
+                : new Account(new AccountDTO(0, 0, 0, DateTime.MinValue), EntityMode.AddNew);
         }
 
         public static bool DeleteAccount(int accountID)
