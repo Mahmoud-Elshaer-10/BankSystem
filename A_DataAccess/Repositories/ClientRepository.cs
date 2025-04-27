@@ -1,144 +1,82 @@
-﻿using System.Data;
-using Microsoft.Data.SqlClient;
+﻿using Microsoft.Data.SqlClient;
 
 namespace A_DataAccess.Repositories
 {
-    public class ClientRepository
+    public static class ClientRepository
     {
         public static List<ClientDTO> GetAllClients()
         {
-            List<ClientDTO> clients = new List<ClientDTO>();
-            using (SqlConnection conn = DatabaseHelper.GetConnection())
-            using (SqlCommand cmd = new SqlCommand("GetAllClients", conn))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-                conn.Open();
-                using (SqlDataReader reader = cmd.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        clients.Add(new ClientDTO(
-                            reader.GetInt32(reader.GetOrdinal("ClientID")),
-                            reader.GetString(reader.GetOrdinal("FullName")),
-                            reader.GetSafeString("Email"),
-                            reader.GetSafeString("Phone"),
-                            reader.GetSafeString("Address"),
-                            reader.GetDateTime(reader.GetOrdinal("CreatedAt"))
-                        ));
-                    }
-                }
-            }
-            return clients;
+            return BaseRepository.ExecuteReader(
+                "GetAllClients",
+                reader => new ClientDTO(
+                    reader.GetInt32(reader.GetOrdinal("ClientID")),
+                    reader.GetString(reader.GetOrdinal("FullName")),
+                    reader.GetSafeString("Email"),
+                    reader.GetSafeString("Phone"),
+                    reader.GetSafeString("Address"),
+                    reader.GetDateTime(reader.GetOrdinal("CreatedAt"))));
         }
 
         public static List<ClientDTO> GetClientsByFilter(string field, string value)
         {
-            List<ClientDTO> clients = new List<ClientDTO>();
-            using (SqlConnection conn = DatabaseHelper.GetConnection())
-            using (SqlCommand cmd = new SqlCommand("GetClientsByFilter", conn))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@Field", field);
-                cmd.Parameters.AddWithValue("@Value", value ?? ""); // Handle null value
-                conn.Open();
-                using (SqlDataReader reader = cmd.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        clients.Add(new ClientDTO(
-                            reader.GetInt32(reader.GetOrdinal("ClientID")),
-                            reader.GetString(reader.GetOrdinal("FullName")),
-                            reader.GetSafeString("Email"),
-                            reader.GetSafeString("Phone"),
-                            reader.GetSafeString("Address"),
-                            reader.GetDateTime(reader.GetOrdinal("CreatedAt"))
-                        ));
-                    }
-                }
-            }
-            return clients;
+            return BaseRepository.ExecuteReader(
+                "GetClientsByFilter",
+                reader => new ClientDTO(
+                    reader.GetInt32(reader.GetOrdinal("ClientID")),
+                    reader.GetString(reader.GetOrdinal("FullName")),
+                    reader.GetSafeString("Email"),
+                    reader.GetSafeString("Phone"),
+                    reader.GetSafeString("Address"),
+                    reader.GetDateTime(reader.GetOrdinal("CreatedAt"))),
+                new SqlParameter("@Field", field),
+                new SqlParameter("@Value", value ?? ""));
         }
 
-        public static ClientDTO GetClientByID(int clientID)
+        public static ClientDTO? GetClientByID(int clientID)
         {
-            using (SqlConnection conn = DatabaseHelper.GetConnection())
-            using (SqlCommand cmd = new SqlCommand("GetClientByID", conn))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@ClientID", clientID);
-                conn.Open();
-                using (SqlDataReader reader = cmd.ExecuteReader())
-                {
-                    if (reader.Read())
-                    {
-                        return new ClientDTO(
-                            reader.GetInt32(reader.GetOrdinal("ClientID")),
-                            reader.GetString(reader.GetOrdinal("FullName")),
-                            reader.GetSafeString("Email"),
-                            reader.GetSafeString("Phone"),
-                            reader.GetSafeString("Address"),
-                            reader.GetDateTime(reader.GetOrdinal("CreatedAt"))
-                        );
-                    }
-                }
-            }
-            return new ClientDTO(0, null, null, null, null, null);
+            return BaseRepository.ExecuteSingle(
+                "GetClientByID",
+                reader => new ClientDTO(
+                    reader.GetInt32(reader.GetOrdinal("ClientID")),
+                    reader.GetString(reader.GetOrdinal("FullName")),
+                    reader.GetSafeString("Email"),
+                    reader.GetSafeString("Phone"),
+                    reader.GetSafeString("Address"),
+                    reader.GetDateTime(reader.GetOrdinal("CreatedAt"))),
+                new SqlParameter("@ClientID", clientID));
         }
 
         public static int AddClient(ClientDTO client)
         {
-            using (SqlConnection conn = DatabaseHelper.GetConnection())
-            using (SqlCommand cmd = new SqlCommand("AddClient", conn))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@FullName", client.FullName);
-                cmd.Parameters.AddWithValue("@Email", client.Email);
-                cmd.Parameters.AddWithValue("@Phone", client.Phone);
-                cmd.Parameters.AddWithValue("@Address", client.Address);
-                conn.Open();
-                return Convert.ToInt32(cmd.ExecuteScalar());
-            }
+            return BaseRepository.ExecuteScalar(
+                "AddClient",
+                new SqlParameter("@FullName", client.FullName),
+                new SqlParameter("@Email", client.Email),
+                new SqlParameter("@Phone", client.Phone),
+                new SqlParameter("@Address", client.Address));
         }
 
         public static bool UpdateClient(ClientDTO client)
         {
-            using (SqlConnection conn = DatabaseHelper.GetConnection())
-            using (SqlCommand cmd = new SqlCommand("UpdateClient", conn))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@ClientID", client.ClientID);
-                cmd.Parameters.AddWithValue("@FullName", client.FullName);
-                cmd.Parameters.AddWithValue("@Email", client.Email);
-                cmd.Parameters.AddWithValue("@Phone", client.Phone);
-                cmd.Parameters.AddWithValue("@Address", client.Address);
-                conn.Open();
-                object result = cmd.ExecuteScalar();
-                return result != null && result != DBNull.Value; // True if row updated
-            }
+            return BaseRepository.ExecuteScalar(
+                "UpdateClient",
+                new SqlParameter("@ClientID", client.ClientID),
+                new SqlParameter("@FullName", client.FullName),
+                new SqlParameter("@Email", client.Email),
+                new SqlParameter("@Phone", client.Phone),
+                new SqlParameter("@Address", client.Address)) > 0;
         }
 
         public static bool DeleteClient(int clientID)
         {
-            using (SqlConnection conn = DatabaseHelper.GetConnection())
-            using (SqlCommand cmd = new SqlCommand("DeleteClient", conn))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@ClientID", clientID);
-                conn.Open();
-                object result = cmd.ExecuteScalar();
-                return result != null && result != DBNull.Value; // True if row deleted
-            }
+            return BaseRepository.ExecuteScalar(
+                "DeleteClient",
+                new SqlParameter("@ClientID", clientID)) > 0;
         }
 
         public static int GetClientSummary()
         {
-            using (SqlConnection conn = DatabaseHelper.GetConnection())
-            using (SqlCommand cmd = new SqlCommand("GetClientSummary", conn))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-                conn.Open();
-                return Convert.ToInt32(cmd.ExecuteScalar());
-            }
+            return BaseRepository.ExecuteScalar("GetClientSummary");
         }
     }
 
@@ -146,11 +84,11 @@ namespace A_DataAccess.Repositories
     {
         public ClientDTO(int clientID, string? fullName, string? email, string? phone, string? address, DateTime? createdAt)
         {
-            this.ClientID = clientID;
-            this.FullName = fullName;
-            this.Email = email;
-            this.Phone = phone;
-            this.Address = address;
+            ClientID = clientID;
+            FullName = fullName;
+            Email = email;
+            Phone = phone;
+            Address = address;
             CreatedAt = createdAt;
         }
 
