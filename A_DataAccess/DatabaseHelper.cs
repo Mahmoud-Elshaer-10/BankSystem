@@ -1,13 +1,24 @@
 ﻿using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.Configuration;
 
 namespace A_DataAccess
 {
     public static class DatabaseHelper
     {
-        private static readonly string _connectionString = "Server=.;Database=BankSystem;User Id=sa;Password=123456;TrustServerCertificate=True;";
+        //private static readonly string _connectionString = "Server=.;Database=BankSystem;User Id=sa;Password=123456;TrustServerCertificate=True;";
+        private static string? _connectionString;
+
+        public static void Configure(IConfiguration configuration)
+        {
+            _connectionString = configuration.GetConnectionString("BankSystemDb");
+        }
 
         public static SqlConnection GetConnection()
         {
+            if (string.IsNullOrEmpty(_connectionString))
+            {
+                throw new InvalidOperationException("DatabaseHelper not configured. Call Configure with IConfiguration.");
+            }
             return new SqlConnection(_connectionString);
         }
 
