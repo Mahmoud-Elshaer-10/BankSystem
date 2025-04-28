@@ -39,6 +39,12 @@ namespace B_Business
             return AccountRepository.UpdateAccount(ToDTO());
         }
 
+        protected override void Validate()
+        {
+            if (ClientID < 1)
+                throw new ArgumentException("ClientID must be positive.");
+        }
+
         public static List<AccountDTO> GetAllAccounts()
         {
             return AccountRepository.GetAllAccounts();
@@ -62,7 +68,7 @@ namespace B_Business
         public static Account Find(int accountID)
         {
             var dto = AccountRepository.GetAccountByID(accountID);
-            return dto.AccountID != 0
+            return dto != null && dto.AccountID != 0
                 ? new Account(dto, EntityMode.Update)
                 : new Account(new AccountDTO(0, 0, 0, DateTime.MinValue), EntityMode.AddNew);
         }

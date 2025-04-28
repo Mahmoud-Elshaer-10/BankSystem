@@ -9,7 +9,6 @@ namespace D_WinFormsApp
         private Label lblTotalAccounts;
         private Label lblAverageBalance;
         private Label lblTotalBalance;
-        private ToolTip toolTip;
 
         protected override void Dispose(bool disposing)
         {

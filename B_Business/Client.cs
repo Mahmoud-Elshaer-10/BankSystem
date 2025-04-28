@@ -1,4 +1,5 @@
 ﻿using A_DataAccess.Repositories;
+using System.Text.RegularExpressions;
 
 namespace B_Business
 {
@@ -43,6 +44,18 @@ namespace B_Business
             return ClientRepository.UpdateClient(ToDTO());
         }
 
+        protected override void Validate()
+        {
+            if (string.IsNullOrEmpty(FullName))
+                throw new ArgumentException("FullName is required.");
+            if (string.IsNullOrEmpty(Email) || !Regex.IsMatch(Email, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
+                throw new ArgumentException("Valid Email is required.");
+            if (string.IsNullOrEmpty(Phone) || !Regex.IsMatch(Phone, @"^\+?\d{10,15}$"))
+                throw new ArgumentException("Valid Phone number is required.");
+            if (string.IsNullOrEmpty(Address))
+                throw new ArgumentException("Address is required.");
+        }
+
         public static List<ClientDTO> GetAllClients()
         {
             return ClientRepository.GetAllClients();
@@ -61,7 +74,7 @@ namespace B_Business
         public static Client Find(int clientID)
         {
             var dto = ClientRepository.GetClientByID(clientID);
-            return dto.ClientID != 0
+            return dto != null && dto.ClientID != 0
                 ? new Client(dto, EntityMode.Update)
                 : new Client(new ClientDTO(0, null, null, null, null, null), EntityMode.AddNew);
         }

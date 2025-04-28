@@ -1,4 +1,6 @@
-﻿namespace B_Business
+﻿using System;
+
+namespace B_Business
 {
     public abstract class BaseEntity<T>
     {
@@ -12,6 +14,7 @@
         {
             try
             {
+                Validate();
                 switch (Mode)
                 {
                     case EntityMode.AddNew:
@@ -23,13 +26,27 @@
                         return false;
                     case EntityMode.Update:
                         return Update();
+                    default:
+                        throw new InvalidOperationException("Invalid entity mode.");
                 }
-                return false;
             }
-            catch
+            catch (Exception ex)
             {
-                return false;
+                throw new EntityOperationException("Failed to save entity.", ex);
             }
+        }
+
+        protected virtual void Validate()
+        {
+            // Derived classes override for specific validation
+        }
+    }
+
+    public class EntityOperationException : Exception
+    {
+        public EntityOperationException(string message, Exception innerException)
+            : base(message, innerException)
+        {
         }
     }
 }
