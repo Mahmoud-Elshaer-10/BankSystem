@@ -60,7 +60,7 @@ namespace C_API.Controllers
                 return BadRequest($"Not accepted ID {id}");
             }
 
-            Client Client = Client.Find(id);
+            Client? Client = Client.Find(id);
 
             if (Client == null)
             {
@@ -99,7 +99,7 @@ namespace C_API.Controllers
                 return BadRequest("Invalid Client data.");
             }
 
-            Client Client = Client.Find(id);
+            Client? Client = Client.Find(id);
 
             if (Client == null)
             {

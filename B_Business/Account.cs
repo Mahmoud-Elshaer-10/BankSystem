@@ -39,12 +39,6 @@ namespace B_Business
             return AccountRepository.UpdateAccount(ToDTO());
         }
 
-        protected override void Validate()
-        {
-            if (ClientID < 1)
-                throw new ArgumentException("ClientID must be positive.");
-        }
-
         public static List<AccountDTO> GetAllAccounts()
         {
             return AccountRepository.GetAllAccounts();

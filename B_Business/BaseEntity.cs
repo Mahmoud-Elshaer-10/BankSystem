@@ -14,7 +14,6 @@ namespace B_Business
         {
             try
             {
-                Validate();
                 switch (Mode)
                 {
                     case EntityMode.AddNew:
@@ -27,26 +26,13 @@ namespace B_Business
                     case EntityMode.Update:
                         return Update();
                     default:
-                        throw new InvalidOperationException("Invalid entity mode.");
+                        return false;
                 }
             }
-            catch (Exception ex)
+            catch 
             {
-                throw new EntityOperationException("Failed to save entity.", ex);
+                return false;
             }
-        }
-
-        protected virtual void Validate()
-        {
-            // Derived classes override for specific validation
-        }
-    }
-
-    public class EntityOperationException : Exception
-    {
-        public EntityOperationException(string message, Exception innerException)
-            : base(message, innerException)
-        {
         }
     }
 }
