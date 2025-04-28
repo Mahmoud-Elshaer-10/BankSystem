@@ -22,10 +22,10 @@ namespace B_Business
             Mode = mode;
         }
 
-        //public new bool Save()
-        //{
-        //    return base.Save();
-        //}
+        public new bool Save()
+        {
+            return base.Save();
+        }
 
         public override ClientDTO ToDTO()
         {
