@@ -48,6 +48,7 @@ namespace D_WinFormsApp
                     {
                         dgvClients.DataSource = clients ?? new List<Client>();
                         lblRecordsCount.Text = $"Records: {dgvClients.RowCount}";
+                        AutoResizeFormToDataGridView(dgvClients);
                     });
                     return clients ?? [];
                 }

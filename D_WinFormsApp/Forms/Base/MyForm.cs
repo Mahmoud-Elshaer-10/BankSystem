@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using D_WinFormsApp.Controls;
+using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -16,6 +17,9 @@ namespace D_WinFormsApp
         protected string pendingFilterValue = "";
         protected ErrorProvider errorProvider = new ErrorProvider();
 
+        private Dictionary<string, int> _preferredColumnWidths = new Dictionary<string, int>();
+        private int _preferredGridWidth = 400; // Default fallback
+
         public MyForm()
         {
             InitializeComponent();
@@ -25,6 +29,87 @@ namespace D_WinFormsApp
 
             errorProvider.BlinkStyle = ErrorBlinkStyle.BlinkIfDifferentError; // Optional: blink on error
         }
+
+
+
+
+        protected void AutoResizeFormToDataGridView(MyDataGridView dataGridView)
+        {
+            if (dataGridView == null)
+                return;
+
+            // Suspend layout
+            SuspendLayout();
+            dataGridView.SuspendLayout();
+
+            try
+            {
+                // Ensure columns are auto-sized
+                dataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+                dataGridView.AutoResizeColumns();
+
+                int totalWidth;
+                if (dataGridView.Columns.Count == 0 || dataGridView.Rows.Count == 0)
+                {
+                    // Use preferred grid width for empty data
+                    totalWidth = _preferredGridWidth;
+                }
+                else
+                {
+                    // Calculate total width
+                    totalWidth = dataGridView.RowHeadersVisible ? dataGridView.RowHeadersWidth : 0;
+                    foreach (DataGridViewColumn column in dataGridView.Columns)
+                    {
+                        totalWidth += column.Width;
+                        // Store column width
+                        _preferredColumnWidths[column.Name] = column.Width;
+                    }
+                    totalWidth += SystemInformation.VerticalScrollBarWidth + 12; // Scrollbar/borders
+                    totalWidth += dataGridView.BorderStyle == BorderStyle.None ? 0 : 6;
+                    totalWidth += dataGridView.Margin.Left + dataGridView.Margin.Right;
+
+                    // Store preferred grid width
+                    _preferredGridWidth = totalWidth;
+                }
+
+                // Get form's non-client dimensions
+                int nonClientWidth = Width - ClientSize.Width;
+
+                // Calculate new form width
+                int newFormWidth = totalWidth + nonClientWidth + 24; // Increased margin for safety
+
+                // Respect screen bounds
+                int maxWidth = Screen.PrimaryScreen.WorkingArea.Width;
+                newFormWidth = Math.Min(newFormWidth, maxWidth);
+
+                // Enforce minimum width
+                int minFormWidth = 400;
+                newFormWidth = Math.Max(newFormWidth, minFormWidth);
+
+                // Update DataGridView and form
+                dataGridView.Width = totalWidth;
+                Width = newFormWidth;
+
+                // Center form if resized significantly
+                if (Math.Abs(Width - newFormWidth) > 50)
+                {
+                    Location = new Point(
+                        (Screen.PrimaryScreen.WorkingArea.Width - Width) / 2,
+                        Location.Y);
+                }
+            }
+            finally
+            {
+                // Resume and force layout
+                dataGridView.ResumeLayout(true);
+                ResumeLayout(true);
+                dataGridView.Refresh(); // Ensure grid redraws
+                PerformLayout();
+            }
+        }
+
+
+
 
         protected bool ValidateField(Control control, string value, string errorMessage)
         {
@@ -67,7 +152,7 @@ namespace D_WinFormsApp
         /// Configures debounce for filter input to delay grid updates until typing stops and applies async filtering using the provided grid and load function.
         /// </summary>
         protected void ConfigureFilterDebounce<T>(TextBox filterValue, ComboBox filterBy, Label recordsCount,
-           DataGridView grid, Func<string, string, Task<List<T>>> loadDataAsync, DateTimePicker? dtpFilter = null)
+           MyDataGridView grid, Func<string, string, Task<List<T>>> loadDataAsync, DateTimePicker? dtpFilter = null)
         {
             filterValue.TextChanged += (s, e) =>
             {
@@ -110,7 +195,7 @@ namespace D_WinFormsApp
         /// Applies an async filter to the grid, updating the records count and loading data from the API.
         /// </summary>
         protected async Task ApplyFilterAsync<T>(string filterValue, ComboBox filterBy, Label recordsCount,
-            DataGridView grid, Func<string, string, Task<List<T>>> loadDataAsync)
+            MyDataGridView grid, Func<string, string, Task<List<T>>> loadDataAsync)
         {
             try
             {
@@ -125,6 +210,7 @@ namespace D_WinFormsApp
                     // Invoke ensures the code runs on the UI thread, since UI updates (like changing the DataGridView content) need to be done on the main thread.
                     grid.DataSource = data;
                     recordsCount.Text = $"Records: {grid.RowCount}";
+                    AutoResizeFormToDataGridView(grid);
                 });
             }
             catch (Exception ex)
