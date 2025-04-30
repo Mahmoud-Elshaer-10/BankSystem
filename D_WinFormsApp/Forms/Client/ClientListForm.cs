@@ -56,7 +56,7 @@ namespace D_WinFormsApp
                 {
                     InvokeIfNeeded(() =>
                     {
-                        dgvClients.DataSource = new List<Account>();
+                        dgvClients.DataSource = new List<Client>();
                         lblRecordsCount.Text = $"Records: {dgvClients.RowCount}";
                     });
                     return [];
