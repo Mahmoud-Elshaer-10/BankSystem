@@ -46,7 +46,7 @@ namespace D_WinFormsApp
             // lblTime
             // 
             lblTime.Location = new Point(613, 12);
-            lblTime.Text = "15:30:51";
+            lblTime.Text = "18:17:03";
             // 
             // dgvAccounts
             // 
@@ -54,6 +54,7 @@ namespace D_WinFormsApp
             dgvAccounts.AllowUserToDeleteRows = false;
             dataGridViewCellStyle1.BackColor = Color.FromArgb(240, 240, 240);
             dgvAccounts.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dgvAccounts.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             dgvAccounts.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             dgvAccounts.BackgroundColor = Color.White;
             dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
@@ -212,6 +213,7 @@ namespace D_WinFormsApp
             // 
             // lblRecordsCount
             // 
+            lblRecordsCount.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             lblRecordsCount.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             lblRecordsCount.Location = new Point(527, 65);
             lblRecordsCount.Name = "lblRecordsCount";

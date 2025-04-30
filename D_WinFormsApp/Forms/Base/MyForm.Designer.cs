@@ -36,7 +36,6 @@
             AutoScaleMode = AutoScaleMode.None;
             ClientSize = new Size(484, 261);
             Font = new Font("Segoe UI", 12F);
-            FormBorderStyle = FormBorderStyle.FixedSingle;
             Icon = (Icon)resources.GetObject("$this.Icon");
             MaximizeBox = false;
             MinimizeBox = false;

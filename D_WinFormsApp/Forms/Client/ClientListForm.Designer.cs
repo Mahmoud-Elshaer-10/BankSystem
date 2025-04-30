@@ -53,6 +53,7 @@ namespace D_WinFormsApp
             dgvClients.AllowUserToDeleteRows = false;
             dataGridViewCellStyle1.BackColor = Color.FromArgb(240, 240, 240);
             dgvClients.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dgvClients.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             dgvClients.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             dgvClients.BackgroundColor = Color.White;
             dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
@@ -210,6 +211,7 @@ namespace D_WinFormsApp
             // 
             // lblRecordsCount
             // 
+            lblRecordsCount.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             lblRecordsCount.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             lblRecordsCount.Location = new Point(648, 70);
             lblRecordsCount.Name = "lblRecordsCount";
@@ -221,6 +223,7 @@ namespace D_WinFormsApp
             // btnClearFilter
             // 
             btnClearFilter.Image = Properties.Resources.clear2;
+            btnClearFilter.ImageAlign = ContentAlignment.MiddleLeft;
             btnClearFilter.Location = new Point(407, 65);
             btnClearFilter.Name = "btnClearFilter";
             btnClearFilter.Padding = new Padding(4);
