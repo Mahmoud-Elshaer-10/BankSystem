@@ -1,8 +1,6 @@
 
 
 
-in AccountForm.cs, typing wrong client id crashes the app
-
 is there a way to make the form expand if the datagridview expands (to avoid having horizontal scroll as possible)
 
 Write unit tests for ClientRepository.cs or API endpoints to show TDD skills.

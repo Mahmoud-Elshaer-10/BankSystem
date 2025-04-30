@@ -59,12 +59,12 @@ namespace B_Business
             return AccountRepository.GetAccountSummary();
         }
 
-        public static Account Find(int accountID)
+        public static Account? Find(int accountID)
         {
             var dto = AccountRepository.GetAccountByID(accountID);
             return dto != null && dto.AccountID != 0
                 ? new Account(dto, EntityMode.Update)
-                : new Account(new AccountDTO(0, 0, 0, DateTime.MinValue), EntityMode.AddNew);
+                : null;
         }
 
         public static bool DeleteAccount(int accountID)
