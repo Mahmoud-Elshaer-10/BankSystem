@@ -45,7 +45,8 @@ namespace D_WinFormsApp
             // lblTime
             // 
             lblTime.Location = new Point(788, 12);
-            lblTime.Text = "15:21:44";
+            lblTime.Size = new Size(75, 19);
+            lblTime.Text = "20:12:22";
             // 
             // dgvClients
             // 

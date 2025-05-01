@@ -1,7 +1,11 @@
 
+int nonClientWidth = Width - ClientSize.Width;
+what is ClientSize?
 
+in visual studio
+right click > create unit tests, execute in interactive (ctrl e e)
+bookmarks
 
-is there a way to make the form expand if the datagridview expands (to avoid having horizontal scroll as possible)
 
 Write unit tests for ClientRepository.cs or API endpoints to show TDD skills.
 

@@ -16,9 +16,7 @@ namespace D_WinFormsApp
         protected System.Windows.Forms.Timer debounceTimer = new System.Windows.Forms.Timer { Interval = 300 };
         protected string pendingFilterValue = "";
         protected ErrorProvider errorProvider = new ErrorProvider();
-
-        private Dictionary<string, int> _preferredColumnWidths = new Dictionary<string, int>();
-        private int _preferredGridWidth = 400; // Default fallback
+        private int _lastGridWidth = 0; // Stores last known grid width
 
         public MyForm()
         {
@@ -30,86 +28,73 @@ namespace D_WinFormsApp
             errorProvider.BlinkStyle = ErrorBlinkStyle.BlinkIfDifferentError; // Optional: blink on error
         }
 
-
-
-
         protected void AutoResizeFormToDataGridView(MyDataGridView dataGridView)
         {
             if (dataGridView == null)
                 return;
 
             // Suspend layout
-            SuspendLayout();
-            dataGridView.SuspendLayout();
+            //SuspendLayout();
+            //dataGridView.SuspendLayout();
 
-            try
+            //try
+            //{
+            // Auto-size columns
+            //dataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            //dataGridView.AutoResizeColumns();
+
+            // Calculate grid width
+            int totalWidth = dataGridView.RowHeadersVisible ? dataGridView.RowHeadersWidth : 0;
+            if (dataGridView.Columns.Count > 0 && dataGridView.Rows.Count > 0)
             {
-                // Ensure columns are auto-sized
-                dataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-                dataGridView.AutoResizeColumns();
-
-                int totalWidth;
-                if (dataGridView.Columns.Count == 0 || dataGridView.Rows.Count == 0)
+                foreach (DataGridViewColumn column in dataGridView.Columns)
                 {
-                    // Use preferred grid width for empty data
-                    totalWidth = _preferredGridWidth;
+                    totalWidth += column.Width;
                 }
-                else
-                {
-                    // Calculate total width
-                    totalWidth = dataGridView.RowHeadersVisible ? dataGridView.RowHeadersWidth : 0;
-                    foreach (DataGridViewColumn column in dataGridView.Columns)
-                    {
-                        totalWidth += column.Width;
-                        // Store column width
-                        _preferredColumnWidths[column.Name] = column.Width;
-                    }
-                    totalWidth += SystemInformation.VerticalScrollBarWidth + 12; // Scrollbar/borders
-                    totalWidth += dataGridView.BorderStyle == BorderStyle.None ? 0 : 6;
-                    totalWidth += dataGridView.Margin.Left + dataGridView.Margin.Right;
+                totalWidth += SystemInformation.VerticalScrollBarWidth + 12; // Scrollbar/borders
+                totalWidth += dataGridView.BorderStyle == BorderStyle.None ? 0 : 6;
+                totalWidth += dataGridView.Margin.Left + dataGridView.Margin.Right;
 
-                    // Store preferred grid width
-                    _preferredGridWidth = totalWidth;
-                }
-
-                // Get form's non-client dimensions
-                int nonClientWidth = Width - ClientSize.Width;
-
-                // Calculate new form width
-                int newFormWidth = totalWidth + nonClientWidth + 24; // Increased margin for safety
-
-                // Respect screen bounds
-                int maxWidth = Screen.PrimaryScreen.WorkingArea.Width;
-                newFormWidth = Math.Min(newFormWidth, maxWidth);
-
-                // Enforce minimum width
-                int minFormWidth = 400;
-                newFormWidth = Math.Max(newFormWidth, minFormWidth);
-
-                // Update DataGridView and form
-                dataGridView.Width = totalWidth;
-                Width = newFormWidth;
-
-                // Center form if resized significantly
-                if (Math.Abs(Width - newFormWidth) > 50)
-                {
-                    Location = new Point(
-                        (Screen.PrimaryScreen.WorkingArea.Width - Width) / 2,
-                        Location.Y);
-                }
+                // Store last known width
+                _lastGridWidth = totalWidth;
             }
-            finally
+            else
             {
-                // Resume and force layout
-                dataGridView.ResumeLayout(true);
-                ResumeLayout(true);
-                dataGridView.Refresh(); // Ensure grid redraws
-                PerformLayout();
+                // Use last known width for empty data
+                totalWidth = _lastGridWidth > 0 ? _lastGridWidth : dataGridView.Width;
             }
+
+            // Get form's non-client width
+            int nonClientWidth = Width - ClientSize.Width;
+
+            // Calculate new form width
+            int newFormWidth = totalWidth + nonClientWidth + 24;
+
+            // Respect screen bounds
+            int maxWidth = Screen.PrimaryScreen.WorkingArea.Width;
+            newFormWidth = Math.Min(newFormWidth, maxWidth);
+
+            // Update DataGridView and form
+            dataGridView.Width = totalWidth;
+            Width = newFormWidth;
+
+            // Center form if resized significantly
+            if (Math.Abs(Width - newFormWidth) > 50)
+            {
+                Location = new Point(
+                    (Screen.PrimaryScreen.WorkingArea.Width - Width) / 2,
+                    Location.Y);
+            }
+            //}
+            //finally
+            //{
+            //    // Resume layout
+            //    //dataGridView.ResumeLayout(true);
+            //    //ResumeLayout(true);
+            //    //dataGridView.Refresh();
+            //    //PerformLayout();
+            //}
         }
-
-
-
 
         protected bool ValidateField(Control control, string value, string errorMessage)
         {
