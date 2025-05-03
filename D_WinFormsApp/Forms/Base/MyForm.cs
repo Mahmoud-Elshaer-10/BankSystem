@@ -187,16 +187,8 @@ namespace D_WinFormsApp
                 Cursor = Cursors.WaitCursor; // Show wait cursor
                 string uiField = filterBy.Text;
                 string field = uiField == "None" ? "" : MapFieldToColumn(uiField);
-
                 List<T> data = await loadDataAsync(field, filterValue) ?? [];
-
-                InvokeIfNeeded(() =>
-                {
-                    // Invoke ensures the code runs on the UI thread, since UI updates (like changing the DataGridView content) need to be done on the main thread.
-                    grid.DataSource = data;
-                    recordsCount.Text = $"Records: {grid.RowCount}";
-                    AutoResizeFormToDataGridView(grid);
-                });
+                AutoResizeFormToDataGridView(grid);
             }
             catch (Exception ex)
             {

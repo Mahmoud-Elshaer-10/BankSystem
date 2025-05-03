@@ -44,12 +44,12 @@ namespace D_WinFormsApp
                 {
                     var clients = await response.Content.ReadFromJsonAsync<List<Client>>();
                     // Invoke ensures the code runs on the UI thread, since UI updates (like changing the DataGridView content) need to be done on the main thread.
-                    InvokeIfNeeded(() =>
-                    {
-                        dgvClients.DataSource = clients ?? new List<Client>();
-                        lblRecordsCount.Text = $"Records: {dgvClients.RowCount}";
-                        AutoResizeFormToDataGridView(dgvClients);
-                    });
+                    //InvokeIfNeeded(() =>
+                    //{
+                    dgvClients.DataSource = clients ?? new List<Client>();
+                    lblRecordsCount.Text = $"Records: {dgvClients.RowCount}";
+                    AutoResizeFormToDataGridView(dgvClients);
+                    //});
                     return clients ?? [];
                 }
                 else if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
