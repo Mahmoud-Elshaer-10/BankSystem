@@ -35,13 +35,10 @@ namespace D_WinFormsApp
                     var client = await response.Content.ReadFromJsonAsync<Client>();
                     if (client != null)
                     {
-                        InvokeIfNeeded(() =>
-                        {
                             txtFullName.Text = client.FullName ?? "";
                             txtEmail.Text = client.Email ?? "";
                             txtPhone.Text = client.Phone ?? "";
                             txtAddress.Text = client.Address ?? "";
-                        });
                     }
                 }
                 else if (response.StatusCode == System.Net.HttpStatusCode.NotFound)

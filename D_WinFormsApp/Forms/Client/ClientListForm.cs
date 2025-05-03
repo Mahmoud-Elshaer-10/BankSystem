@@ -13,7 +13,7 @@ namespace D_WinFormsApp
 
             SetupFilterToolTips(cbFilterBy, txtFilterValue, btnClearFilter);
             PopulateFilterDropdown<Client>(cbFilterBy);
-            ConfigureFilterDebounce(txtFilterValue, cbFilterBy, lblRecordsCount, dgvClients, LoadClientsAsync, dtpFilter);
+            ConfigureFilterDebounce(txtFilterValue, cbFilterBy, dgvClients, LoadClientsAsync, dtpFilter);
             EnableSorting<Client>(dgvClients);
         }
 
@@ -43,22 +43,15 @@ namespace D_WinFormsApp
                 if (response.IsSuccessStatusCode)
                 {
                     var clients = await response.Content.ReadFromJsonAsync<List<Client>>();
-                    // Invoke ensures the code runs on the UI thread, since UI updates (like changing the DataGridView content) need to be done on the main thread.
-                    //InvokeIfNeeded(() =>
-                    //{
                     dgvClients.DataSource = clients ?? new List<Client>();
                     lblRecordsCount.Text = $"Records: {dgvClients.RowCount}";
                     AutoResizeFormToDataGridView(dgvClients);
-                    //});
                     return clients ?? [];
                 }
                 else if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
                 {
-                    InvokeIfNeeded(() =>
-                    {
-                        dgvClients.DataSource = new List<Client>();
-                        lblRecordsCount.Text = $"Records: {dgvClients.RowCount}";
-                    });
+                    dgvClients.DataSource = new List<Client>();
+                    lblRecordsCount.Text = $"Records: {dgvClients.RowCount}";
                     return [];
                 }
                 else
@@ -68,7 +61,7 @@ namespace D_WinFormsApp
             }
             catch (Exception ex)
             {
-                InvokeIfNeeded(() => ShowError(ex.Message));
+                ShowError(ex.Message);
                 return [];
             }
             finally
@@ -111,10 +104,8 @@ namespace D_WinFormsApp
         {
             if (ValidateSelection(dgvClients, out object selected) && selected is Client selectedClient)
             {
-                using (var form = new ClientAccountsForm(selectedClient.ClientID))
-                {
-                    form.ShowDialog();
-                }
+                using var form = new ClientAccountsForm(selectedClient.ClientID);
+                form.ShowDialog();
             }
         }
 
@@ -135,12 +126,10 @@ namespace D_WinFormsApp
 
         private void AddClient()
         {
-            using (var form = new ClientForm())
+            using var form = new ClientForm();
+            if (form.ShowDialog() == DialogResult.OK)
             {
-                if (form.ShowDialog() == DialogResult.OK)
-                {
-                    _ = LoadClientsAsync("", ""); // Fire and forget, Refresh full list
-                }
+                _ = LoadClientsAsync("", ""); // Fire and forget, Refresh full list
             }
         }
 
@@ -158,12 +147,10 @@ namespace D_WinFormsApp
         {
             if (ValidateSelection(dgvClients, out object selected) && selected is Client selectedClient)
             {
-                using (var form = new ClientForm(FormMode.Update, selectedClient.ClientID))
+                using var form = new ClientForm(FormMode.Update, selectedClient.ClientID);
+                if (form.ShowDialog() == DialogResult.OK)
                 {
-                    if (form.ShowDialog() == DialogResult.OK)
-                    {
-                        _ = LoadClientsAsync("", ""); // Refresh full list
-                    }
+                    _ = LoadClientsAsync("", ""); // Refresh full list
                 }
             }
         }

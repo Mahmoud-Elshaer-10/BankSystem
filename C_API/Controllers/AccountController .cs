@@ -85,7 +85,7 @@ namespace C_API.Controllers
                 return BadRequest($"Not accepted ID {id}");
             }
 
-            Account account = Account.Find(id);
+            Account? account = Account.Find(id);
 
             if (account == null)
             {
@@ -124,7 +124,7 @@ namespace C_API.Controllers
                 return BadRequest("Invalid account data.");
             }
 
-            Account account = Account.Find(id);
+            Account? account = Account.Find(id);
             if (account == null)
             {
                 return NotFound($"Account with ID {id} not found.");

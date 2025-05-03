@@ -34,11 +34,8 @@ namespace D_WinFormsApp
                     var account = await response.Content.ReadFromJsonAsync<Account>();
                     if (account != null)
                     {
-                        InvokeIfNeeded(() =>
-                        {
                             txtBalance.Text = account.Balance.ToString("0.00") ?? "";
                             txtClientID.Text = account.ClientID.ToString() ?? "";
-                        });
                     }
                     else
                     {

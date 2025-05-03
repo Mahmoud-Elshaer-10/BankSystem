@@ -33,16 +33,6 @@ namespace D_WinFormsApp
             if (dataGridView == null)
                 return;
 
-            // Suspend layout
-            //SuspendLayout();
-            //dataGridView.SuspendLayout();
-
-            //try
-            //{
-            // Auto-size columns
-            //dataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-            //dataGridView.AutoResizeColumns();
-
             // Calculate grid width
             int totalWidth = dataGridView.RowHeadersVisible ? dataGridView.RowHeadersWidth : 0;
             if (dataGridView.Columns.Count > 0 && dataGridView.Rows.Count > 0)
@@ -71,7 +61,7 @@ namespace D_WinFormsApp
             int newFormWidth = totalWidth + nonClientWidth + 24;
 
             // Respect screen bounds
-            int maxWidth = Screen.PrimaryScreen.WorkingArea.Width;
+            int maxWidth = Screen.PrimaryScreen?.WorkingArea.Width ?? 800;
             newFormWidth = Math.Min(newFormWidth, maxWidth);
 
             // Update DataGridView and form
@@ -82,18 +72,9 @@ namespace D_WinFormsApp
             if (Math.Abs(Width - newFormWidth) > 50)
             {
                 Location = new Point(
-                    (Screen.PrimaryScreen.WorkingArea.Width - Width) / 2,
+                    (Screen.PrimaryScreen?.WorkingArea.Width ?? 800 - Width) / 2,
                     Location.Y);
             }
-            //}
-            //finally
-            //{
-            //    // Resume layout
-            //    //dataGridView.ResumeLayout(true);
-            //    //ResumeLayout(true);
-            //    //dataGridView.Refresh();
-            //    //PerformLayout();
-            //}
         }
 
         protected bool ValidateField(Control control, string value, string errorMessage)
@@ -136,7 +117,7 @@ namespace D_WinFormsApp
         /// <summary>
         /// Configures debounce for filter input to delay grid updates until typing stops and applies async filtering using the provided grid and load function.
         /// </summary>
-        protected void ConfigureFilterDebounce<T>(TextBox filterValue, ComboBox filterBy, Label recordsCount,
+        protected void ConfigureFilterDebounce<T>(TextBox filterValue, ComboBox filterBy,
            MyDataGridView grid, Func<string, string, Task<List<T>>> loadDataAsync, DateTimePicker? dtpFilter = null)
         {
             filterValue.TextChanged += (s, e) =>
@@ -171,7 +152,7 @@ namespace D_WinFormsApp
                         return;
                     }
                 }
-                await ApplyFilterAsync(value, filterBy, recordsCount, grid, loadDataAsync);
+                await ApplyFilterAsync(value, filterBy, grid, loadDataAsync);
             };
         }
 
@@ -179,7 +160,7 @@ namespace D_WinFormsApp
         /// <summary>
         /// Applies an async filter to the grid, updating the records count and loading data from the API.
         /// </summary>
-        protected async Task ApplyFilterAsync<T>(string filterValue, ComboBox filterBy, Label recordsCount,
+        protected async Task ApplyFilterAsync<T>(string filterValue, ComboBox filterBy,
             MyDataGridView grid, Func<string, string, Task<List<T>>> loadDataAsync)
         {
             try
@@ -256,14 +237,6 @@ namespace D_WinFormsApp
         protected DialogResult ShowMessage(string message, string caption = "Info", MessageBoxButtons buttons = MessageBoxButtons.OK, MessageBoxIcon icon = MessageBoxIcon.Information)
         {
             return MessageBox.Show(message, caption, buttons, icon);
-        }
-
-        protected void InvokeIfNeeded(Action action)
-        {
-            if (InvokeRequired)
-                Invoke(action);
-            else
-                action();
         }
 
         protected bool ValidateSelection(DataGridView dgv, out object selectedItem)

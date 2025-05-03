@@ -14,7 +14,7 @@ namespace D_WinFormsApp
 
             SetupFilterToolTips(cbFilterBy, txtFilterValue, btnClearFilter);
             PopulateFilterDropdown<Account>(cbFilterBy);
-            ConfigureFilterDebounce(txtFilterValue, cbFilterBy, lblRecordsCount, dgvAccounts, LoadAccountsAsync, dtpFilter);
+            ConfigureFilterDebounce(txtFilterValue, cbFilterBy, dgvAccounts, LoadAccountsAsync, dtpFilter);
             EnableSorting<Account>(dgvAccounts);
         }
 
@@ -44,20 +44,14 @@ namespace D_WinFormsApp
                 if (response.IsSuccessStatusCode)
                 {
                     var accounts = await response.Content.ReadFromJsonAsync<List<Account>>();
-                    InvokeIfNeeded(() =>
-                    {
-                        dgvAccounts.DataSource = accounts ?? [];
-                        lblRecordsCount.Text = $"Records: {dgvAccounts.RowCount}";
-                    });
+                    dgvAccounts.DataSource = accounts ?? [];
+                    lblRecordsCount.Text = $"Records: {dgvAccounts.RowCount}";
                     return accounts ?? [];
                 }
                 else if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
                 {
-                    InvokeIfNeeded(() =>
-                    {
-                        dgvAccounts.DataSource = new List<Account>();
-                        lblRecordsCount.Text = $"Records: {dgvAccounts.RowCount}";
-                    });
+                    dgvAccounts.DataSource = new List<Account>();
+                    lblRecordsCount.Text = $"Records: {dgvAccounts.RowCount}";
                     return [];
                 }
                 else
@@ -225,10 +219,10 @@ namespace D_WinFormsApp
                 {
                     //e.Value = balance < 0 ? $"-{balance:C2}" : balance.ToString("C2"); // e.g., -($100.50) or $100.50
                     e.Value = balance.ToString("$#,##0.00"); // e.g., -$100.50 or $100.50
-                    // Safe: Color.Red and Color.DarkGreen are non-null
-                    #pragma warning disable CS8602 // Dereference of a possibly null reference.
+                                                             // Safe: Color.Red and Color.DarkGreen are non-null
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
                     e.CellStyle.ForeColor = balance < 0 ? Color.Red : Color.DarkGreen;
-                    #pragma warning restore CS8602 // Dereference of a possibly null reference.
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
                     e.FormattingApplied = true;
                 }
             }

@@ -1,6 +1,4 @@
 
-int nonClientWidth = Width - ClientSize.Width;
-what is ClientSize?
 
 in visual studio
 right click > create unit tests, execute in interactive (ctrl e e)

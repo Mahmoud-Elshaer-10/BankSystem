@@ -55,13 +55,10 @@ namespace D_WinFormsApp
                 }
 
                 // Update UI
-                InvokeIfNeeded(() =>
-                {
                     lblTotalClients.Text = $"Total Clients: {totalClients}";
                     lblTotalAccounts.Text = $"Total Accounts: {totalAccounts}";
                     lblAverageBalance.Text = $"Average Balance: {averageBalance:C2}";
                     lblTotalBalance.Text = $"Total Balance: {totalBalance:C2}";
-                });
             }
             catch (Exception ex)
             {

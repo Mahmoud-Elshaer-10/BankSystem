@@ -31,7 +31,7 @@ namespace D_WinFormsApp
                     var accounts = await response.Content.ReadFromJsonAsync<List<Account>>();
                     if (accounts != null && accounts.Count > 0)
                     {
-                        InvokeIfNeeded(() => dgvAccounts.DataSource = accounts);
+                        dgvAccounts.DataSource = accounts;
                     }
                     else
                     {
