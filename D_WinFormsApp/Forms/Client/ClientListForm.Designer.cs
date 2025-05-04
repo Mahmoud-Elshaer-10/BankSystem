@@ -45,7 +45,7 @@ namespace D_WinFormsApp
             // lblTime
             // 
             lblTime.Location = new Point(599, 12);
-            lblTime.Text = "16:31:02";
+            lblTime.Text = "21:58:22";
             // 
             // dgvClients
             // 
@@ -54,7 +54,6 @@ namespace D_WinFormsApp
             dataGridViewCellStyle1.BackColor = Color.FromArgb(240, 240, 240);
             dgvClients.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             dgvClients.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            dgvClients.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             dgvClients.BackgroundColor = Color.White;
             dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = Color.LightGray;

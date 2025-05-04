@@ -127,7 +127,7 @@ namespace D_WinFormsApp
                 string uiField = filterBy.Text;
                 string field = uiField == "None" ? "" : MapFieldToColumn(uiField);
                 List<T> data = await loadDataAsync(field, filterValue) ?? [];
-                AutoResizeFormToDataGridView(grid);
+                //AutoResizeFormToDataGridView(grid); // if called here not derived class, does not get called for initial load
             }
             catch (Exception ex)
             {
@@ -177,8 +177,8 @@ namespace D_WinFormsApp
             newFormWidth = Math.Min(newFormWidth, maxWidth);
 
             // Update DataGridView and form
-            dataGridView.Width = totalWidth;
             Width = newFormWidth;
+            //dataGridView.Width = totalWidth; // automatically resized based on form width
 
             // Center form if resized significantly
             //if (Math.Abs(Width - newFormWidth) > 50)

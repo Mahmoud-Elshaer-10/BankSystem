@@ -17,6 +17,6 @@ document the app in a GitHub README for recruiters.
 
 Interview Explanation:
 
-AutoResizeFormToDataGridView have to be called twice (in both files MyForm and derived form)
-“I implemented a dynamic form resize feature to fit the DataGridView content, eliminating scrollbars. Initially, I aimed for a single resize call, but found that layout events required a second call to stabilize the UI. For simplicity and reliability, I kept both calls, ensuring the feature works across all scenarios. In the future, I’d explore layout optimizations to reduce calls.”
+Question: “How did you resolve unexpected resizing in your WinForms app?”
+Answer: “I found that setting the DataGridView’s width before the form’s width caused anchoring to increase the grid’s width by the form’s width increment. By setting the form’s width first and the DataGridView’s width last, I overrode the anchoring adjustment, ensuring correct sizing with a single method call.”
 
