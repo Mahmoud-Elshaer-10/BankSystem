@@ -32,6 +32,7 @@ namespace D_WinFormsApp
                     if (accounts != null && accounts.Count > 0)
                     {
                         dgvAccounts.DataSource = accounts;
+                        AutoResizeFormToDataGridView(dgvAccounts);
                     }
                     else
                     {

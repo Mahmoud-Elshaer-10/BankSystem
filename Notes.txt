@@ -13,7 +13,10 @@ Demo Script
 
 document the app in a GitHub README for recruiters.
 
+====================================================================================
 
+Interview Explanation:
 
-
+AutoResizeFormToDataGridView have to be called twice (in both files MyForm and derived form)
+“I implemented a dynamic form resize feature to fit the DataGridView content, eliminating scrollbars. Initially, I aimed for a single resize call, but found that layout events required a second call to stabilize the UI. For simplicity and reliability, I kept both calls, ensuring the feature works across all scenarios. In the future, I’d explore layout optimizations to reduce calls.”
 

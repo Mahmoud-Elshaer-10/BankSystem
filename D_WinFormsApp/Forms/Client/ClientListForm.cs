@@ -16,9 +16,8 @@ namespace D_WinFormsApp
             EnableSorting<Client>(dgvClients);
         }
 
-        private async void ClientListForm_Load(object sender, EventArgs e)
+        private void ClientListForm_Load(object sender, EventArgs e)
         {
-            await LoadClientsAsync("", ""); // Load all clients initially
             cbFilterBy.SelectedIndex = 0; // Default to "None"
             txtFilterValue.Text = ""; // Clear filter
         }

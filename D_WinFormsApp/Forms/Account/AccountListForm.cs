@@ -16,9 +16,8 @@ namespace D_WinFormsApp
             EnableSorting<Account>(dgvAccounts);
         }
 
-        private async void AccountListForm_Load(object sender, EventArgs e)
+        private void AccountListForm_Load(object sender, EventArgs e)
         {
-            await LoadAccountsAsync("", "");
             cbFilterBy.SelectedIndex = 0;
             txtFilterValue.Text = "";
         }
