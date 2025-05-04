@@ -46,7 +46,8 @@ namespace D_WinFormsApp
             // lblTime
             // 
             lblTime.Location = new Point(613, 12);
-            lblTime.Text = "18:17:03";
+            lblTime.Size = new Size(74, 19);
+            lblTime.Text = "15:33:11";
             // 
             // dgvAccounts
             // 
@@ -54,7 +55,6 @@ namespace D_WinFormsApp
             dgvAccounts.AllowUserToDeleteRows = false;
             dataGridViewCellStyle1.BackColor = Color.FromArgb(240, 240, 240);
             dgvAccounts.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
-            dgvAccounts.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             dgvAccounts.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             dgvAccounts.BackgroundColor = Color.White;
             dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
@@ -69,13 +69,13 @@ namespace D_WinFormsApp
             dgvAccounts.ContextMenuStrip = contextMenuStrip;
             dgvAccounts.EditMode = DataGridViewEditMode.EditProgrammatically;
             dgvAccounts.EnableHeadersVisualStyles = false;
-            dgvAccounts.Location = new Point(12, 97);
+            dgvAccounts.Location = new Point(0, 110);
             dgvAccounts.MultiSelect = false;
             dgvAccounts.Name = "dgvAccounts";
             dgvAccounts.ReadOnly = true;
             dgvAccounts.RowHeadersWidth = 51;
             dgvAccounts.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvAccounts.Size = new Size(689, 356);
+            dgvAccounts.Size = new Size(713, 356);
             dgvAccounts.TabIndex = 0;
             dgvAccounts.TabStop = false;
             dgvAccounts.CellFormatting += dgvAccounts_CellFormatting;

@@ -44,9 +44,8 @@ namespace D_WinFormsApp
             // 
             // lblTime
             // 
-            lblTime.Location = new Point(788, 12);
-            lblTime.Size = new Size(75, 19);
-            lblTime.Text = "20:12:22";
+            lblTime.Location = new Point(599, 12);
+            lblTime.Text = "16:31:02";
             // 
             // dgvClients
             // 
@@ -54,7 +53,7 @@ namespace D_WinFormsApp
             dgvClients.AllowUserToDeleteRows = false;
             dataGridViewCellStyle1.BackColor = Color.FromArgb(240, 240, 240);
             dgvClients.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
-            dgvClients.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            dgvClients.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dgvClients.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             dgvClients.BackgroundColor = Color.White;
             dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
@@ -75,7 +74,7 @@ namespace D_WinFormsApp
             dgvClients.ReadOnly = true;
             dgvClients.RowHeadersWidth = 51;
             dgvClients.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvClients.Size = new Size(862, 356);
+            dgvClients.Size = new Size(673, 356);
             dgvClients.TabIndex = 0;
             dgvClients.TabStop = false;
             dgvClients.DoubleClick += dgvClients_DoubleClick;
@@ -214,7 +213,7 @@ namespace D_WinFormsApp
             // 
             lblRecordsCount.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             lblRecordsCount.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            lblRecordsCount.Location = new Point(648, 70);
+            lblRecordsCount.Location = new Point(459, 70);
             lblRecordsCount.Name = "lblRecordsCount";
             lblRecordsCount.Size = new Size(215, 23);
             lblRecordsCount.TabIndex = 7;
@@ -271,7 +270,7 @@ namespace D_WinFormsApp
             // 
             // ClientListForm
             // 
-            ClientSize = new Size(888, 472);
+            ClientSize = new Size(699, 472);
             Controls.Add(dtpFilter);
             Controls.Add(btnExport);
             Controls.Add(label2);

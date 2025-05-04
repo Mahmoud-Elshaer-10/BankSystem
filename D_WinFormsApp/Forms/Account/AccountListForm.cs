@@ -1,8 +1,6 @@
-﻿using D_WinFormsApp.Controls;
-using D_WinFormsApp.Helpers;
+﻿using D_WinFormsApp.Helpers;
 using D_WinFormsApp.Models;
 using System.Net.Http.Json;
-using System.Text;
 
 namespace D_WinFormsApp
 {
@@ -25,6 +23,9 @@ namespace D_WinFormsApp
             txtFilterValue.Text = "";
         }
 
+        /// <summary>
+        /// Loads accounts from the API and updates the grid.
+        /// </summary>
         private async Task<List<Account>> LoadAccountsAsync(string field, string value)
         {
             try
@@ -46,6 +47,7 @@ namespace D_WinFormsApp
                     var accounts = await response.Content.ReadFromJsonAsync<List<Account>>();
                     dgvAccounts.DataSource = accounts ?? [];
                     lblRecordsCount.Text = $"Records: {dgvAccounts.RowCount}";
+                    AutoResizeFormToDataGridView(dgvAccounts);
                     return accounts ?? [];
                 }
                 else if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
@@ -103,12 +105,10 @@ namespace D_WinFormsApp
 
         private void AddAccount()
         {
-            using (var form = new AccountForm(FormMode.AddNew))
+            using var form = new AccountForm();
+            if (form.ShowDialog() == DialogResult.OK)
             {
-                if (form.ShowDialog() == DialogResult.OK)
-                {
-                    _ = LoadAccountsAsync("", "");
-                }
+                _ = LoadAccountsAsync("", "");
             }
         }
 
@@ -126,12 +126,10 @@ namespace D_WinFormsApp
         {
             if (ValidateSelection(dgvAccounts, out object selected) && selected is Account selectedAccount)
             {
-                using (var form = new AccountForm(FormMode.Update, selectedAccount.AccountID))
+                using var form = new AccountForm(FormMode.Update, selectedAccount.AccountID);
+                if (form.ShowDialog() == DialogResult.OK)
                 {
-                    if (form.ShowDialog() == DialogResult.OK)
-                    {
-                        _ = LoadAccountsAsync("", "");
-                    }
+                    _ = LoadAccountsAsync("", "");
                 }
             }
         }
@@ -150,7 +148,7 @@ namespace D_WinFormsApp
         {
             if (ValidateSelection(dgvAccounts, out object selected) && selected is Account selectedAccount)
             {
-                var result = ShowMessage($"Delete account for Client ID '{selectedAccount.ClientID}'?", "Confirm Delete", MessageBoxButtons.YesNo);
+                var result = ShowMessage($"Delete account '{selectedAccount.AccountID}'?", "Confirm", MessageBoxButtons.YesNo);
                 if (result == DialogResult.Yes)
                 {
                     var response = await ApiClient.Client.DeleteAsync($"Account/{selectedAccount.AccountID}");
