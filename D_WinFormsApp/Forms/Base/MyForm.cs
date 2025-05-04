@@ -183,9 +183,9 @@ namespace D_WinFormsApp
             // Center form if resized significantly
             //if (Math.Abs(Width - newFormWidth) > 50)
             //{
-            //    Location = new Point(
-            //        (Screen.PrimaryScreen?.WorkingArea.Width ?? 800 - Width) / 2,
-            //        Location.Y);
+            //Location = new Point(
+            //Screen.FromControl(this).WorkingArea.Left + (Screen.FromControl(this).WorkingArea.Width - Width) / 2,
+            //            Location.Y);
             //}
         }
 
