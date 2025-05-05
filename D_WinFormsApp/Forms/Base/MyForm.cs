@@ -127,7 +127,7 @@ namespace D_WinFormsApp
                 string uiField = filterBy.Text;
                 string field = uiField == "None" ? "" : MapFieldToColumn(uiField);
                 List<T> data = await loadDataAsync(field, filterValue) ?? [];
-                AutoResizeFormToDataGridView(grid); // if called here not derived class, does not get called for initial load
+                //AutoResizeFormToDataGridView(grid); // if called here not in derived class, does not get called for initial load and when none is selected
             }
             catch (Exception ex)
             {
