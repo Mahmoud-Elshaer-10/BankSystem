@@ -43,7 +43,7 @@ namespace D_WinFormsApp
                     var clients = await response.Content.ReadFromJsonAsync<List<Client>>();
                     dgvClients.DataSource = clients ?? new List<Client>();
                     lblRecordsCount.Text = $"Records: {dgvClients.RowCount}";
-                    AutoResizeFormToDataGridView(dgvClients);
+                    //AutoResizeFormToDataGridView(dgvClients); // works for all cases but prefer to call in MyForm
                     return clients ?? [];
                 }
                 else if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
@@ -81,6 +81,9 @@ namespace D_WinFormsApp
             else
             {
                 _ = LoadClientsAsync("", ""); // Reset to full list when "None" is selected
+                //txtFilterValue.Text = "a";  // another soultion to simualte text change to trigger the event and load full list
+                //txtFilterValue.Text = "";
+                //await ApplyFilterAsync("", cbFilterBy, dgvClients, LoadClientsAsync); // to make sure AutoResizeFormToDataGridView called in MyForm
             }
         }
 

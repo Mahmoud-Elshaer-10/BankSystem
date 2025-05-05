@@ -1,4 +1,7 @@
 
+//AutoResizeFormToDataGridView(grid); // if called here not derived class, does not get called for initial load
+try to make it work in MyForm
+
 
 in visual studio
 right click > create unit tests, execute in interactive (ctrl e e)
