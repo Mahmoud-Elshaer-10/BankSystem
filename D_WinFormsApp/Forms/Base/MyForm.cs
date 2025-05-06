@@ -14,7 +14,6 @@ namespace D_WinFormsApp
         private System.Windows.Forms.Timer clockTimer = new System.Windows.Forms.Timer { Interval = 1000 };
         protected ToolTip toolTip = new ToolTip();
         protected System.Windows.Forms.Timer debounceTimer = new System.Windows.Forms.Timer { Interval = 300 };
-        protected string pendingFilterValue = "";
         protected ErrorProvider errorProvider = new ErrorProvider();
         private int _initialFormWidth; // Stores initial form width to prevent shrinking
         private int _lastGridWidth = 0; // Stores last known grid width
@@ -80,7 +79,6 @@ namespace D_WinFormsApp
         {
             filterValue.TextChanged += (s, e) =>
             {
-                pendingFilterValue = filterValue.Text;
                 debounceTimer.Stop(); // Cancel prior timer
                 debounceTimer.Start(); // Delay filter 300ms until typing stops
             };
@@ -89,7 +87,6 @@ namespace D_WinFormsApp
             {
                 dtpFilter.ValueChanged += (s, e) =>
                 {
-                    pendingFilterValue = dtpFilter.Value.ToString("yyyy-MM-ddTHH:mm:ss");
                     debounceTimer.Stop();
                     debounceTimer.Start();
                 };
@@ -126,8 +123,7 @@ namespace D_WinFormsApp
                 Cursor = Cursors.WaitCursor; // Show wait cursor
                 string uiField = filterBy.Text;
                 string field = uiField == "None" ? "" : MapFieldToColumn(uiField);
-                List<T> data = await loadDataAsync(field, filterValue) ?? [];
-                //AutoResizeFormToDataGridView(grid); // if called here not in derived class, does not get called for initial load and when none is selected
+                await loadDataAsync(field, filterValue);
             }
             catch (Exception ex)
             {
@@ -306,7 +302,7 @@ namespace D_WinFormsApp
             // Tracks sort direction (ascending true, descending false) for each column by index.
             Dictionary<int, bool> sortDirections = new Dictionary<int, bool>();
 
-            // Attaches an event handler to grid’s header clicks
+            // Attaches an event handler to grid's header clicks
             grid.ColumnHeaderMouseClick += (s, e) =>
             {
                 if (grid.DataSource is not List<T> data || data.Count == 0 || e.ColumnIndex < 0)
@@ -316,7 +312,7 @@ namespace D_WinFormsApp
                 if (column?.DataPropertyName == null)
                     return;
 
-                // Use reflection to Get the PropertyInfo for the column’s property (e.g., Client.FullName)
+                // Use reflection to Get the PropertyInfo for the column's property (e.g., Client.FullName)
                 var property = typeof(T).GetProperty(column.DataPropertyName);
                 if (property == null)
                     return;

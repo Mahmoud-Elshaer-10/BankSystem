@@ -1,13 +1,9 @@
 
-//AutoResizeFormToDataGridView(grid); // if called here not derived class, does not get called for initial load
-try to make it work in MyForm
 
 
-in visual studio
-right click > create unit tests, execute in interactive (ctrl e e)
-bookmarks
 
 
+====================================================================================
 Write unit tests for ClientRepository.cs or API endpoints to show TDD skills.
 
 Package the app for distribution (e.g., installer)
@@ -15,11 +11,4 @@ Package the app for distribution (e.g., installer)
 Demo Script
 
 document the app in a GitHub README for recruiters.
-
-====================================================================================
-
-Interview Explanation:
-
-Question: “How did you resolve unexpected resizing in your WinForms app?”
-Answer: “I found that setting the DataGridView’s width before the form’s width caused anchoring to increase the grid’s width by the form’s width increment. By setting the form’s width first and the DataGridView’s width last, I overrode the anchoring adjustment, ensuring correct sizing with a single method call.”
 

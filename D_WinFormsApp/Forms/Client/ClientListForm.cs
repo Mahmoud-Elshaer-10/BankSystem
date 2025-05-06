@@ -71,8 +71,8 @@ namespace D_WinFormsApp
         private void cbFilterBy_SelectedIndexChanged(object sender, EventArgs e)
         {
             txtFilterValue.Visible = (cbFilterBy.Text != "None") && (cbFilterBy.Text != "Created At");
-            dtpFilter.Visible = cbFilterBy.Text == "Created At";
             btnClearFilter.Visible = txtFilterValue.Visible;
+            dtpFilter.Visible = cbFilterBy.Text == "Created At";
             if (txtFilterValue.Visible)
             {
                 txtFilterValue.Text = "";
