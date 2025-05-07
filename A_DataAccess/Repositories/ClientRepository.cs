@@ -80,23 +80,13 @@ namespace A_DataAccess.Repositories
         }
     }
 
-    public class ClientDTO
+    public class ClientDTO(int clientID, string? fullName, string? email, string? phone, string? address, DateTime? createdAt)
     {
-        public ClientDTO(int clientID, string? fullName, string? email, string? phone, string? address, DateTime? createdAt)
-        {
-            ClientID = clientID;
-            FullName = fullName;
-            Email = email;
-            Phone = phone;
-            Address = address;
-            CreatedAt = createdAt;
-        }
-
-        public int ClientID { get; set; }
-        public string? FullName { get; set; }
-        public string? Email { get; set; }
-        public string? Phone { get; set; }
-        public string? Address { get; set; }
-        public DateTime? CreatedAt { get; set; }
+        public int ClientID { get; set; } = clientID;
+        public string? FullName { get; set; } = fullName;
+        public string? Email { get; set; } = email;
+        public string? Phone { get; set; } = phone;
+        public string? Address { get; set; } = address;
+        public DateTime? CreatedAt { get; set; } = createdAt;
     }
 }

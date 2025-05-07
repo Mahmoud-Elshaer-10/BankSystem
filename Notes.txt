@@ -1,3 +1,5 @@
+noticed bug:
+toolTip weird behaviour. like when opening ClientAccountsForm then pressing escape key (does not happen if click close button using the mouse), toolTip appears with a client name of the current selected.
 
 
 

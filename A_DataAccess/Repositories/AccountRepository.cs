@@ -88,33 +88,18 @@ namespace A_DataAccess.Repositories
         }
     }
 
-    public class AccountDTO
+    public class AccountDTO(int accountID, int clientID, decimal balance, DateTime createdAt)
     {
-        public AccountDTO(int accountID, int clientID, decimal balance, DateTime createdAt)
-        {
-            AccountID = accountID;
-            ClientID = clientID;
-            Balance = balance;
-            CreatedAt = createdAt;
-        }
-
-        public int AccountID { get; set; }
-        public int ClientID { get; set; }
-        public decimal Balance { get; set; }
-        public DateTime CreatedAt { get; set; }
+        public int AccountID { get; set; } = accountID;
+        public int ClientID { get; set; } = clientID;
+        public decimal Balance { get; set; } = balance;
+        public DateTime CreatedAt { get; set; } = createdAt;
     }
 
-    public class AccountSummaryDTO
+    public class AccountSummaryDTO(int totalAccounts, decimal averageBalance, decimal totalBalance)
     {
-        public AccountSummaryDTO(int totalAccounts, decimal averageBalance, decimal totalBalance)
-        {
-            TotalAccounts = totalAccounts;
-            AverageBalance = averageBalance;
-            TotalBalance = totalBalance;
-        }
-
-        public int TotalAccounts { get; set; }
-        public decimal AverageBalance { get; set; }
-        public decimal TotalBalance { get; set; }
+        public int TotalAccounts { get; set; } = totalAccounts;
+        public decimal AverageBalance { get; set; } = averageBalance;
+        public decimal TotalBalance { get; set; } = totalBalance;
     }
 }

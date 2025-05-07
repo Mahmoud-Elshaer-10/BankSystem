@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace B_Business
+﻿namespace B_Business
 {
     public abstract class BaseEntity<T>
     {
