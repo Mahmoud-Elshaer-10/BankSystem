@@ -34,8 +34,8 @@ namespace D_WinFormsApp
                     var account = await response.Content.ReadFromJsonAsync<Account>();
                     if (account != null)
                     {
-                            txtBalance.Text = account.Balance.ToString("0.00") ?? "";
-                            txtClientID.Text = account.ClientID.ToString() ?? "";
+                        txtBalance.Text = account.Balance.ToString("0.00") ?? "";
+                        txtClientID.Text = account.ClientID.ToString() ?? "";
                     }
                     else
                     {
@@ -184,7 +184,7 @@ namespace D_WinFormsApp
             // Allow digits, .
             if (!char.IsDigit(e.KeyChar) && e.KeyChar != '.' && !char.IsControl(e.KeyChar))
             {
-                e.Handled = true; 
+                e.Handled = true;
             }
         }
     }

@@ -14,10 +14,10 @@ namespace A_DataAccess.Repositories
                 new SqlParameter("@ToAccountID", transaction.ToAccountID ?? (object)DBNull.Value));
         }
 
-        public static List<TransactionDTO> GetTransactionsByAccount(int fromAccountID)
+        public static List<TransactionDTO> GetTransactionsByAccount(int fromAccountID, string field = null, string value = null)
         {
             return BaseRepository.ExecuteReader(
-                "GetTransactionsByAccount",
+                "GetTransactionsByAccountFiltered",
                 reader => new TransactionDTO(
                     reader.GetInt32(reader.GetOrdinal("TransactionID")),
                     reader.GetInt32(reader.GetOrdinal("FromAccountID")),
@@ -25,7 +25,9 @@ namespace A_DataAccess.Repositories
                     reader.GetDecimal(reader.GetOrdinal("Amount")),
                     reader.IsDBNull(reader.GetOrdinal("ToAccountID")) ? null : reader.GetInt32(reader.GetOrdinal("ToAccountID")),
                     reader.GetDateTime(reader.GetOrdinal("TransactionDate"))),
-                new SqlParameter("@FromAccountID", fromAccountID));
+                new SqlParameter("@FromAccountID", fromAccountID),
+                new SqlParameter("@Field", field ?? (object)DBNull.Value),
+                new SqlParameter("@Value", value ?? (object)DBNull.Value));
         }
     }
 

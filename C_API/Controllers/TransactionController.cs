@@ -12,14 +12,14 @@ namespace C_API.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult<IEnumerable<TransactionDTO>> GetTransactionsByAccount(int fromAccountId)
+        public ActionResult<IEnumerable<TransactionDTO>> GetTransactionsByAccount(int fromAccountId, [FromQuery] string? field = null, [FromQuery] string? value = null)
         {
             if (fromAccountId < 1)
             {
-                return BadRequest($"Invalid account ID {fromAccountId}");
+                return BadRequest($"Not accepted ID {fromAccountId}");
             }
 
-            var transactions = Transaction.GetTransactionsByAccount(fromAccountId);
+            var transactions = Transaction.GetTransactionsByAccount(fromAccountId, field, value);
             if (transactions == null || transactions.Count == 0)
             {
                 return NotFound($"No transactions found for AccountID {fromAccountId}.");
@@ -43,25 +43,32 @@ namespace C_API.Controllers
                 return BadRequest("Invalid transaction data.");
             }
 
-            var transaction = new Transaction(new TransactionDTO(
-                0,
-                newTransactionDTO.FromAccountID,
-                newTransactionDTO.TransactionType,
-                newTransactionDTO.Amount,
-                newTransactionDTO.ToAccountID,
-                null));
-
-            if (!transaction.Save())
+            try
             {
-                return StatusCode(500, new { message = "Error creating transaction" });
+                var transaction = new Transaction(new TransactionDTO(
+                    0,
+                    newTransactionDTO.FromAccountID,
+                    newTransactionDTO.TransactionType,
+                    newTransactionDTO.Amount,
+                    newTransactionDTO.ToAccountID,
+                    null));
+
+                if (!transaction.Save())
+                {
+                    return StatusCode(500, new { message = "Error saving transaction" });
+                }
+
+                newTransactionDTO.TransactionID = transaction.TransactionID;
+                newTransactionDTO.TransactionDate = transaction.TransactionDate;
+
+                return CreatedAtRoute("GetTransactionsByAccount",
+                    new { fromAccountId = newTransactionDTO.FromAccountID },
+                    transaction.ToDTO());
             }
-
-            newTransactionDTO.TransactionID = transaction.TransactionID;
-            newTransactionDTO.TransactionDate = transaction.TransactionDate;
-
-            return CreatedAtRoute("GetTransactionsByAccount",
-                new { fromAccountId = newTransactionDTO.FromAccountID },
-                newTransactionDTO);
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = $"Error creating transaction: {ex.Message}" });
+            }
         }
     }
 }

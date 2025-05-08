@@ -39,10 +39,9 @@ namespace B_Business
             return false;
         }
 
-        public static List<TransactionDTO> GetTransactionsByAccount(int fromAccountID)
+        public static List<TransactionDTO> GetTransactionsByAccount(int fromAccountID, string field = null, string value = null)
         {
-            return TransactionRepository.GetTransactionsByAccount(fromAccountID);
+            return TransactionRepository.GetTransactionsByAccount(fromAccountID, field, value);
         }
-
     }
 }
