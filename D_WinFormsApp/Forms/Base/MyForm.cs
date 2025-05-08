@@ -95,11 +95,14 @@ namespace D_WinFormsApp
             debounceTimer.Tick += async (s, e) =>
             {
                 debounceTimer.Stop(); // Stop timer immediately
-                string value = filterBy.Text == "Created At" && dtpFilter != null && dtpFilter.Visible
+                string field = filterBy.Text == "None" ? "" : MapFieldToColumn(filterBy.Text);
+                bool isDateField = field != "" && typeof(T).GetProperty(field)?.PropertyType is Type propType &&
+                    (propType == typeof(DateTime) || propType == typeof(DateTime?));
+                string value = isDateField && dtpFilter != null && dtpFilter.Visible
                     ? dtpFilter.Value.ToString("yyyy-MM-ddTHH:mm:ss")
                     : filterValue.Text;
 
-                if (filterBy.Text == "Created At" && !string.IsNullOrWhiteSpace(value))
+                if (isDateField && !string.IsNullOrWhiteSpace(value))
                 {
                     if (!DateTime.TryParse(value, out _))
                     {

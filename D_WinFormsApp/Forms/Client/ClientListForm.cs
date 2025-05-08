@@ -95,7 +95,6 @@ namespace D_WinFormsApp
         {
             txtFilterValue.Text = "";
             txtFilterValue.Focus();
-            dgvClients.DataSource = null;
         }
 
         private void ShowClientAccounts()

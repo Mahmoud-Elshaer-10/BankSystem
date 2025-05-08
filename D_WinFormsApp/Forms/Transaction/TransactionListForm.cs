@@ -93,7 +93,6 @@ namespace D_WinFormsApp
         {
             txtFilterValue.Text = "";
             txtFilterValue.Focus();
-            dgvTransactions.DataSource = null;
         }
 
         private void AddTransaction()

@@ -1,5 +1,14 @@
 
-apply filter functionality for Transactions
+ private void btnClearFilter_Click(object sender, EventArgs e)
+ {
+     txtFilterValue.Text = "";
+     txtFilterValue.Focus();
+     dgvAccounts.DataSource = null;
+ }
+
+first click does not clear the datagridview, but second click does
+
+check redundant stored procedures
 
 centralize dgvAccounts_CellFormatting in MyDataGridView
 
