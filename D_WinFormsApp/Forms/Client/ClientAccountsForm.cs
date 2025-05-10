@@ -50,26 +50,6 @@ namespace D_WinFormsApp
             }
         }
 
-        private void dgvAccounts_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
-        {
-            if (e.ColumnIndex < 0 || e.Value == null)
-                return;
-            var column = dgvAccounts.Columns[e.ColumnIndex];
-            if (column.DataPropertyName == "Balance")
-            {
-                if (e.Value is decimal balance)
-                {
-                    //e.Value = balance < 0 ? $"-{balance:C2}" : balance.ToString("C2"); // e.g., -($100.50) or $100.50
-                    e.Value = balance.ToString("$#,##0.00"); // e.g., -$100.50 or $100.50
-                                                             // Safe: Color.Red and Color.DarkGreen are non-null
-#pragma warning disable CS8602 // Dereference of a possibly null reference.
-                    e.CellStyle.ForeColor = balance < 0 ? Color.Red : Color.DarkGreen;
-#pragma warning restore CS8602 // Dereference of a possibly null reference.
-                    e.FormattingApplied = true;
-                }
-            }
-        }
-
         private void ShowTransactions()
         {
             if (ValidateSelection(dgvAccounts, out object selected) && selected is Account selectedAccount)

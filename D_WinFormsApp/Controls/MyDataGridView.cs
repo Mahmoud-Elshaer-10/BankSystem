@@ -40,7 +40,6 @@ namespace D_WinFormsApp.Controls
         /// </summary>
         private void StyleColumnHeaders()
         {
-
             // differentiate column headers from rows
             ColumnHeadersDefaultCellStyle.BackColor = Color.LightGray;
             ColumnHeadersDefaultCellStyle.ForeColor = Color.Black;
@@ -68,6 +67,41 @@ namespace D_WinFormsApp.Controls
                     column.HeaderText = formatted;
                 }
             }
+        }
+
+        /// <summary>
+        /// Centralized formatting for Balance columns (currency, color).
+        /// </summary>
+        protected override void OnCellFormatting(DataGridViewCellFormattingEventArgs e)
+        {
+            base.OnCellFormatting(e);
+
+            if (e.ColumnIndex < 0 || e.Value == null)
+                return;
+
+            var column = this.Columns[e.ColumnIndex];
+            if (column.DataPropertyName == "Balance" || column.DataPropertyName == "Amount")
+            {
+                if (e.Value is decimal balance)
+                {
+                    //e.Value = balance < 0 ? $"-{balance:C2}" : balance.ToString("C2"); // e.g., -($100.50) or $100.50
+                    e.Value = balance.ToString("$#,##0.00"); // e.g., -$100.50 or $100.50
+                                                             // Safe: Color.Red and Color.DarkGreen are non-null
+
+                    #pragma warning disable CS8602 // Dereference of a possibly null reference.
+                    e.CellStyle.ForeColor = balance < 0 ? Color.Red : Color.DarkGreen;
+                    #pragma warning restore CS8602 // Dereference of a possibly null reference.
+                    e.FormattingApplied = true;
+                }
+            }
+            //else if (column.DataPropertyName == "CreatedAt")
+            //{
+            //    if (e.Value is DateTime createdAt)
+            //    {
+            //        e.Value = createdAt.ToString("MM/dd/yyyy"); // e.g., 04/17/2025
+            //        e.FormattingApplied = true;
+            //    }
+            //}
         }
     }
 }

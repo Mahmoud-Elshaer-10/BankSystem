@@ -30,7 +30,7 @@
             // lblTime
             // 
             lblTime.Location = new Point(440, 12);
-            lblTime.Text = "20:55:13";
+            lblTime.Text = "18:55:24";
             // 
             // dgvAccounts
             // 
@@ -63,7 +63,6 @@
             dgvAccounts.Size = new Size(515, 170);
             dgvAccounts.TabIndex = 0;
             dgvAccounts.TabStop = false;
-            dgvAccounts.CellFormatting += dgvAccounts_CellFormatting;
             dgvAccounts.DoubleClick += dgvAccounts_DoubleClick;
             // 
             // contextMenuStrip
