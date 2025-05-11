@@ -87,7 +87,7 @@ namespace D_WinFormsApp
         private void txtFilterValue_KeyPress(object sender, KeyPressEventArgs e)
         {
             // we allow number only incase Client ID is selected.
-            if (cbFilterBy.Text == "Client ID")
+            if (cbFilterBy.Text == "Client ID" || cbFilterBy.Text == "Phone")
                 e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
         }
 

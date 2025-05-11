@@ -14,7 +14,7 @@ namespace A_DataAccess.Repositories
                 new SqlParameter("@ToAccountID", transaction.ToAccountID ?? (object)DBNull.Value));
         }
 
-        public static List<TransactionDTO> GetTransactionsByAccount(int fromAccountID, string field = null, string value = null)
+        public static List<TransactionDTO> GetTransactionsByAccount(int fromAccountID, string? field = null, string? value = null)
         {
             return BaseRepository.ExecuteReader(
                 "GetTransactionsByAccountFiltered",

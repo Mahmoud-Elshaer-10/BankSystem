@@ -38,7 +38,7 @@ namespace D_WinFormsApp
         {
             try
             {
-                if (!await ValidateInputs())
+                if (!ValidateInputs())
                 {
                     return;
                 }
@@ -70,7 +70,7 @@ namespace D_WinFormsApp
             }
         }
 
-        private async Task<bool> ValidateInputs()
+        private bool ValidateInputs()
         {
             bool isValid = true;
 

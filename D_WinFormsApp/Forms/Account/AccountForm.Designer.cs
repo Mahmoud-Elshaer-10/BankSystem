@@ -38,7 +38,7 @@ namespace D_WinFormsApp
             // lblTime
             // 
             lblTime.Location = new Point(264, 12);
-            lblTime.Text = "16:27:13";
+            lblTime.Text = "21:54:14";
             // 
             // txtClientID
             // 
@@ -46,6 +46,7 @@ namespace D_WinFormsApp
             txtClientID.Name = "txtClientID";
             txtClientID.Size = new Size(200, 29);
             txtClientID.TabIndex = 1;
+            txtClientID.KeyPress += txtClientID_KeyPress;
             txtClientID.Leave += txtClientID_Leave;
             // 
             // txtBalance

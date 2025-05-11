@@ -181,11 +181,14 @@ namespace D_WinFormsApp
 
         private void txtBalance_KeyPress(object sender, KeyPressEventArgs e)
         {
-            // Allow digits, .
-            if (!char.IsDigit(e.KeyChar) && e.KeyChar != '.' && !char.IsControl(e.KeyChar))
-            {
-                e.Handled = true;
-            }
+            // Allow digits and "."
+            e.Handled = !char.IsDigit(e.KeyChar) && e.KeyChar != '.' && !char.IsControl(e.KeyChar);
+
+        }
+
+        private void txtClientID_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
         }
     }
 }

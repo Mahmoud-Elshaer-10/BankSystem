@@ -34,7 +34,7 @@ namespace D_WinFormsApp
             _initialFormWidth = Width; // Set initial width after derived form's InitializeComponent
         }
 
-        protected bool ValidateField(Control control, string value, string errorMessage)
+        protected bool ValidateField(Control control, string? value, string errorMessage)
         {
             if (string.IsNullOrWhiteSpace(value))
             {

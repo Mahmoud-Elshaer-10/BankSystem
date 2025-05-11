@@ -1,10 +1,9 @@
 
 
 
-centralize dgvAccounts_CellFormatting in MyDataGridView
-
-noticed bug:
-toolTip weird behaviour. like when opening ClientAccountsForm then pressing escape key (does not happen if click close button using the mouse), toolTip appears with a client name of the current selected.
+I noticed a bug in winforms:
+toolTip has a weird behaviour. like when opening ClientAccountsForm then pressing escape key (does not happen if click close button using the mouse), toolTip appears with a client name of the current selected.
+Microsoft's own documentation acknowledges this as a WinForms quirk.
 
 consider fetching only necessary data on initial load (paginated API calls).
 
