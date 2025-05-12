@@ -47,7 +47,7 @@ namespace D_WinFormsApp
             // lblTime
             // 
             lblTime.Location = new Point(599, 12);
-            lblTime.Text = "15:48:22";
+            lblTime.Text = "18:23:26";
             // 
             // dgvClients
             // 
@@ -272,9 +272,13 @@ namespace D_WinFormsApp
             // 
             // btnNextPage
             // 
+            btnNextPage.FlatAppearance.BorderSize = 0;
+            btnNextPage.FlatAppearance.MouseDownBackColor = Color.Transparent;
+            btnNextPage.FlatAppearance.MouseOverBackColor = Color.Transparent;
+            btnNextPage.FlatStyle = FlatStyle.Flat;
             btnNextPage.Image = Properties.Resources.Next;
             btnNextPage.ImageAlign = ContentAlignment.MiddleLeft;
-            btnNextPage.Location = new Point(102, 458);
+            btnNextPage.Location = new Point(99, 458);
             btnNextPage.Name = "btnNextPage";
             btnNextPage.Padding = new Padding(4);
             btnNextPage.Size = new Size(81, 37);
@@ -286,12 +290,16 @@ namespace D_WinFormsApp
             // 
             // btnPrevPage
             // 
+            btnPrevPage.FlatAppearance.BorderSize = 0;
+            btnPrevPage.FlatAppearance.MouseDownBackColor = Color.Transparent;
+            btnPrevPage.FlatAppearance.MouseOverBackColor = Color.Transparent;
+            btnPrevPage.FlatStyle = FlatStyle.Flat;
             btnPrevPage.Image = Properties.Resources.previous;
             btnPrevPage.ImageAlign = ContentAlignment.MiddleLeft;
             btnPrevPage.Location = new Point(12, 458);
             btnPrevPage.Name = "btnPrevPage";
             btnPrevPage.Padding = new Padding(4);
-            btnPrevPage.Size = new Size(84, 37);
+            btnPrevPage.Size = new Size(81, 37);
             btnPrevPage.TabIndex = 16;
             btnPrevPage.TextAlign = ContentAlignment.MiddleRight;
             toolTip.SetToolTip(btnPrevPage, "Add (Alt+A)");

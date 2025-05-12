@@ -8,6 +8,7 @@ toolTip has a weird behaviour. like when opening ClientAccountsForm then pressin
 consider fetching only necessary data on initial load (paginated API calls).
 make it global to be used in filter too.
 You can further enhance by disabling buttons at boundaries or showing total pages if needed.
+is there a way to hide the button (make it transparent) to show just the image
 ====================================================================================
 
    [HttpGet("paged")]
