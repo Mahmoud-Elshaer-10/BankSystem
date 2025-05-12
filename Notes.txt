@@ -3,13 +3,23 @@
 
 I noticed a bug in winforms:
 toolTip has a weird behaviour. like when opening ClientAccountsForm then pressing escape key (does not happen if click close button using the mouse), toolTip appears with a client name of the current selected.
-Microsoft's own documentation acknowledges this as a WinForms quirk.
+====================================================================================
 
 consider fetching only necessary data on initial load (paginated API calls).
-
-
-
+make it global to be used in filter too.
+You can further enhance by disabling buttons at boundaries or showing total pages if needed.
 ====================================================================================
+
+   [HttpGet("paged")]
+   public IActionResult GetClientsPaged(int pageNumber = 1, int rowsPerPage = 10)
+   {
+       var clients = Client.GetClientsPaged(pageNumber, rowsPerPage);
+       return Ok(clients);
+   }
+  is the above code better than using ActionResult<IEnumerable<ClientDTO>> and what are the differences.
+  what is the best practice?
+====================================================================================
+
 Write unit tests for ClientRepository.cs or API endpoints to show TDD skills.
 
 Package the app for distribution (e.g., installer)

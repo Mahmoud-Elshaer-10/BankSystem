@@ -16,10 +16,76 @@ namespace D_WinFormsApp
             EnableSorting<Client>(dgvClients);
         }
 
+        private int _currentPage = 1;
+        private int _rowsPerPage = 10;
+
+        private async Task LoadClientsPagedAsync()
+        {
+            try
+            {
+                Cursor = Cursors.WaitCursor;
+                string url = $"Client/paged?pageNumber={_currentPage}&rowsPerPage={_rowsPerPage}";
+                var response = await ApiClient.Client.GetAsync(url);
+                if (response.IsSuccessStatusCode)
+                {
+                    var clients = await response.Content.ReadFromJsonAsync<List<Client>>();
+                    dgvClients.DataSource = clients ?? new List<Client>();
+                    lblRecordsCount.Text = $"Records: {dgvClients.RowCount}";
+                    AutoResizeFormToDataGridView(dgvClients);
+                }
+                else if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
+                {
+                    dgvClients.DataSource = new List<Client>();
+                    lblRecordsCount.Text = $"Records: 0";
+                }
+                else
+                {
+                    throw new HttpRequestException($"API call failed with status: {response.StatusCode}");
+                }
+            }
+            catch (Exception ex)
+            {
+                ShowError(ex.Message);
+            }
+            finally
+            {
+                Cursor = Cursors.Default;
+            }
+        }
+
+        private void btnNextPage_Click(object sender, EventArgs e)
+        {
+            _currentPage++;
+            _ = LoadClientsPagedAsync();
+        }
+
+        private void btnPrevPage_Click(object sender, EventArgs e)
+        {
+            if (_currentPage > 1)
+            {
+                _currentPage--;
+                _ = LoadClientsPagedAsync();
+            }
+        }
+
+        private void btnFirstPage_Click(object sender, EventArgs e)
+        {
+            _currentPage = 1;
+            _ = LoadClientsPagedAsync();
+        }
+
+        private void btnLastPage_Click(object sender, EventArgs e)
+        {
+            // Optionally implement logic to get the last page number
+            // _currentPage = lastPage;
+            // _ = LoadClientsPagedAsync();
+        }
+
         private void ClientListForm_Load(object sender, EventArgs e)
         {
             cbFilterBy.SelectedIndex = 0; // Default to "None"
             txtFilterValue.Text = ""; // Clear filter
+            _ = LoadClientsPagedAsync();
         }
 
         private async Task<List<Client>> LoadClientsAsync(string field, string value)

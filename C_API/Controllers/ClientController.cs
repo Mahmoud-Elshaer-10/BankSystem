@@ -21,6 +21,19 @@ namespace C_API.Controllers
             return Ok(clients);
         }
 
+        [HttpGet("paged", Name = "GetClientsPaged")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public ActionResult<IEnumerable<ClientDTO>> GetClientsPaged(int pageNumber = 1, int rowsPerPage = 10)
+        {
+            var clients = Client.GetClientsPaged(pageNumber, rowsPerPage);
+            if (clients == null || clients.Count == 0)
+            {
+                return NotFound("No Clients Found!");
+            }
+            return Ok(clients);
+        }
+
         [HttpGet("Filter", Name = "GetClientsByFilter")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

@@ -37,6 +37,8 @@ namespace D_WinFormsApp
             label2 = new Label();
             btnExport = new MyButton();
             dtpFilter = new DateTimePicker();
+            btnNextPage = new MyButton();
+            btnPrevPage = new MyButton();
             ((System.ComponentModel.ISupportInitialize)errorProvider).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgvClients).BeginInit();
             contextMenuStrip.SuspendLayout();
@@ -45,7 +47,7 @@ namespace D_WinFormsApp
             // lblTime
             // 
             lblTime.Location = new Point(599, 12);
-            lblTime.Text = "21:58:22";
+            lblTime.Text = "15:48:22";
             // 
             // dgvClients
             // 
@@ -54,6 +56,7 @@ namespace D_WinFormsApp
             dataGridViewCellStyle1.BackColor = Color.FromArgb(240, 240, 240);
             dgvClients.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             dgvClients.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            dgvClients.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             dgvClients.BackgroundColor = Color.White;
             dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = Color.LightGray;
@@ -73,7 +76,7 @@ namespace D_WinFormsApp
             dgvClients.ReadOnly = true;
             dgvClients.RowHeadersWidth = 51;
             dgvClients.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvClients.Size = new Size(673, 356);
+            dgvClients.Size = new Size(673, 352);
             dgvClients.TabIndex = 0;
             dgvClients.TabStop = false;
             dgvClients.DoubleClick += dgvClients_DoubleClick;
@@ -267,9 +270,39 @@ namespace D_WinFormsApp
             dtpFilter.TabIndex = 14;
             dtpFilter.Visible = false;
             // 
+            // btnNextPage
+            // 
+            btnNextPage.Image = Properties.Resources.Next;
+            btnNextPage.ImageAlign = ContentAlignment.MiddleLeft;
+            btnNextPage.Location = new Point(102, 458);
+            btnNextPage.Name = "btnNextPage";
+            btnNextPage.Padding = new Padding(4);
+            btnNextPage.Size = new Size(81, 37);
+            btnNextPage.TabIndex = 15;
+            btnNextPage.TextAlign = ContentAlignment.MiddleRight;
+            toolTip.SetToolTip(btnNextPage, "Add (Alt+A)");
+            btnNextPage.UseVisualStyleBackColor = true;
+            btnNextPage.Click += btnNextPage_Click;
+            // 
+            // btnPrevPage
+            // 
+            btnPrevPage.Image = Properties.Resources.previous;
+            btnPrevPage.ImageAlign = ContentAlignment.MiddleLeft;
+            btnPrevPage.Location = new Point(12, 458);
+            btnPrevPage.Name = "btnPrevPage";
+            btnPrevPage.Padding = new Padding(4);
+            btnPrevPage.Size = new Size(84, 37);
+            btnPrevPage.TabIndex = 16;
+            btnPrevPage.TextAlign = ContentAlignment.MiddleRight;
+            toolTip.SetToolTip(btnPrevPage, "Add (Alt+A)");
+            btnPrevPage.UseVisualStyleBackColor = true;
+            btnPrevPage.Click += btnPrevPage_Click;
+            // 
             // ClientListForm
             // 
-            ClientSize = new Size(699, 472);
+            ClientSize = new Size(699, 503);
+            Controls.Add(btnPrevPage);
+            Controls.Add(btnNextPage);
             Controls.Add(dtpFilter);
             Controls.Add(btnExport);
             Controls.Add(label2);
@@ -298,6 +331,8 @@ namespace D_WinFormsApp
             Controls.SetChildIndex(lblTime, 0);
             Controls.SetChildIndex(btnExport, 0);
             Controls.SetChildIndex(dtpFilter, 0);
+            Controls.SetChildIndex(btnNextPage, 0);
+            Controls.SetChildIndex(btnPrevPage, 0);
             ((System.ComponentModel.ISupportInitialize)errorProvider).EndInit();
             ((System.ComponentModel.ISupportInitialize)dgvClients).EndInit();
             contextMenuStrip.ResumeLayout(false);
@@ -323,5 +358,7 @@ namespace D_WinFormsApp
         private MyButton btnExport;
         private ToolStripMenuItem exportToCSVToolStripMenuItem;
         private DateTimePicker dtpFilter;
+        private MyButton btnNextPage;
+        private MyButton btnPrevPage;
     }
 }

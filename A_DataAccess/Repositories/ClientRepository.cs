@@ -32,6 +32,21 @@ namespace A_DataAccess.Repositories
                 new SqlParameter("@Value", value ?? ""));
         }
 
+        public static List<ClientDTO> GetClientsPaged(int pageNumber, int rowsPerPage)
+        {
+            return BaseRepository.ExecuteReader(
+                "GetClientsPaged",
+                reader => new ClientDTO(
+                    reader.GetInt32(reader.GetOrdinal("ClientID")),
+                    reader.GetString(reader.GetOrdinal("FullName")),
+                    reader.GetSafeString("Email"),
+                    reader.GetSafeString("Phone"),
+                    reader.GetSafeString("Address"),
+                    reader.GetDateTime(reader.GetOrdinal("CreatedAt"))),
+                new SqlParameter("@PageNumber", pageNumber),
+                new SqlParameter("@RowsPerPage", rowsPerPage));
+        }
+
         public static ClientDTO? GetClientByID(int clientID)
         {
             return BaseRepository.ExecuteSingle(

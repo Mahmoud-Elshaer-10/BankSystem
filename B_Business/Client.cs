@@ -53,6 +53,11 @@ namespace B_Business
             return ClientRepository.GetClientsByFilter(field, value);
         }
 
+        public static List<ClientDTO> GetClientsPaged(int pageNumber, int rowsPerPage)
+        {
+            return ClientRepository.GetClientsPaged(pageNumber, rowsPerPage);
+        }
+
         public static int GetClientSummary()
         {
             return ClientRepository.GetClientSummary();
