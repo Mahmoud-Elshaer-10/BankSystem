@@ -1,4 +1,7 @@
 ﻿using D_WinFormsApp.Controls;
+using D_WinFormsApp.Helpers;
+using D_WinFormsApp.Models;
+using System.Net.Http.Json;
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -18,12 +21,19 @@ namespace D_WinFormsApp
         private int _initialFormWidth; // Stores initial form width to prevent shrinking
         private int _lastGridWidth = 0; // Stores last known grid width
 
+        // Pagination fields
+        protected int CurrentPage { get; set; } = 1;
+        protected int RowsPerPage { get; set; } = 10;
+        protected int TotalPages { get; set; }
+        protected Label lblPageInfo = new Label(); // Displays "Page X of Y"
+
         public MyForm()
         {
             InitializeComponent();
 
             SetupKeyHandling();
             InitializeClock();
+            InitializePaginationControls();
 
             errorProvider.BlinkStyle = ErrorBlinkStyle.BlinkIfDifferentError; // Optional: blink on error
         }
@@ -34,7 +44,93 @@ namespace D_WinFormsApp
             _initialFormWidth = Width; // Set initial width after derived form's InitializeComponent
         }
 
-        protected bool ValidateField(Control control, string? value, string errorMessage)
+        /// <summary>
+        /// Initializes pagination UI controls (optional, override in derived forms if needed).
+        /// </summary>
+        protected virtual void InitializePaginationControls()
+        {
+            lblPageInfo.AutoSize = true;
+            lblPageInfo.Location = new Point(10, ClientSize.Height - 30); // Bottom-left, adjust as needed
+            Controls.Add(lblPageInfo);
+        }
+
+        /// <summary>
+        /// Loads paginated data from the API, supporting filtering.
+        /// </summary>
+        protected async Task LoadPagedDataAsync<T>(
+            MyDataGridView grid,
+            Label recordsCountLabel,
+            string baseEndpoint,
+            string field = "",
+            string value = "",
+            int pageNumber = -1,
+            int rowsPerPage = -1)
+        {
+            try
+            {
+                Cursor = Cursors.WaitCursor;
+
+                // Use provided or default pagination values
+                int currentPage = pageNumber > 0 ? pageNumber : CurrentPage;
+                int rows = rowsPerPage > 0 ? rowsPerPage : RowsPerPage;
+
+                // Build API URL
+                var queryParams = new List<string> { $"pageNumber={currentPage}", $"rowsPerPage={rows}" };
+                if (!string.IsNullOrEmpty(field) && !string.IsNullOrEmpty(value))
+                {
+                    queryParams.Add($"field={Uri.EscapeDataString(field)}");
+                    queryParams.Add($"value={Uri.EscapeDataString(value)}");
+                }
+                string url = $"{baseEndpoint}/paged?{string.Join("&", queryParams)}";
+
+                var response = await ApiClient.Client.GetAsync(url);
+                if (response.IsSuccessStatusCode)
+                {
+                    var result = await response.Content.ReadFromJsonAsync<PagedResult<T>>();
+                    if (result != null)
+                    {
+                        grid.DataSource = result.Items ?? new List<T>();
+                        recordsCountLabel.Text = $"Records: {grid.RowCount} of {result.TotalRecords}";
+                        TotalPages = result.TotalPages;
+                        CurrentPage = currentPage;
+                        RowsPerPage = rows;
+                        lblPageInfo.Text = $"Page {CurrentPage} of {TotalPages}";
+                        AutoResizeFormToDataGridView(grid);
+                        UpdatePaginationButtons();
+                        return;
+                    }
+                }
+                else if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
+                {
+                    grid.DataSource = new List<T>();
+                    recordsCountLabel.Text = $"Records: 0";
+                    TotalPages = 0;
+                    lblPageInfo.Text = "Page 0 of 0";
+                }
+                else
+                {
+                    throw new HttpRequestException($"API call failed with status: {response.StatusCode}");
+                }
+            }
+            catch (Exception ex)
+            {
+                ShowError(ex.Message);
+            }
+            finally
+            {
+                Cursor = Cursors.Default;
+            }
+        }
+
+        /// <summary>
+        /// Updates pagination button states (override in derived forms with actual buttons).
+        /// </summary>
+        protected virtual void UpdatePaginationButtons()
+        {
+            // Derived forms should override to enable/disable btnNextPage, btnPrevPage, etc.
+        }
+
+        protected bool ValidateField(Control control, string value, string errorMessage)
         {
             if (string.IsNullOrWhiteSpace(value))
             {
@@ -54,9 +150,9 @@ namespace D_WinFormsApp
             filterBy.Items.Add("None");
 
             var properties = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance) // still works without arguments
-                .Select(p => p.Name)
-                .Select(name => Regex.Replace(name, @"([a-z])([A-Z])", "$1 $2")) // e.g., ClientID -> Client ID
-                .Select(name => Regex.Replace(name, @"(\bID\b)", "ID")); // Keep "ID" intact
+              .Select(p => p.Name)
+              .Select(name => Regex.Replace(name, @"([a-z])([A-Z])", "$1 $2")) // e.g., ClientID -> Client ID
+              .Select(name => Regex.Replace(name, @"(\bID\b)", "ID")); // Keep "ID" intact
 
             filterBy.Items.AddRange([.. properties]);
         }
@@ -75,7 +171,7 @@ namespace D_WinFormsApp
         /// Configures debounce for filter input to delay grid updates until typing stops and applies async filtering using the provided grid and load function.
         /// </summary>
         protected void ConfigureFilterDebounce<T>(TextBox filterValue, ComboBox filterBy,
-           MyDataGridView grid, Func<string, string, Task<List<T>>> loadDataAsync, DateTimePicker? dtpFilter = null)
+           MyDataGridView grid, Label recordsCountLabel, string baseEndpoint, DateTimePicker? dtpFilter = null)
         {
             filterValue.TextChanged += (s, e) =>
             {
@@ -110,32 +206,9 @@ namespace D_WinFormsApp
                         return;
                     }
                 }
-                await ApplyFilterAsync(value, filterBy, grid, loadDataAsync);
+                CurrentPage = 1; // Reset to page 1 on filter change
+                await LoadPagedDataAsync<T>(grid, recordsCountLabel, baseEndpoint, field, value);
             };
-        }
-
-
-        /// <summary>
-        /// Applies an async filter to the grid, updating the records count and loading data from the API.
-        /// </summary>
-        protected async Task ApplyFilterAsync<T>(string filterValue, ComboBox filterBy,
-            MyDataGridView grid, Func<string, string, Task<List<T>>> loadDataAsync)
-        {
-            try
-            {
-                Cursor = Cursors.WaitCursor; // Show wait cursor
-                string uiField = filterBy.Text;
-                string field = uiField == "None" ? "" : MapFieldToColumn(uiField);
-                await loadDataAsync(field, filterValue);
-            }
-            catch (Exception ex)
-            {
-                ShowError(ex.Message);
-            }
-            finally
-            {
-                Cursor = Cursors.Default; // Reset cursor
-            }
         }
 
         protected void AutoResizeFormToDataGridView(MyDataGridView dataGridView)
@@ -234,6 +307,7 @@ namespace D_WinFormsApp
             base.OnResize(e);
             // Keep clock pinned 100px from right edge
             lblTime.Location = new Point(this.ClientSize.Width - 100, 12); // Reposition on resize
+            lblPageInfo.Location = new Point(10, ClientSize.Height - 30);
         }
 
         protected void ShowError(string message)

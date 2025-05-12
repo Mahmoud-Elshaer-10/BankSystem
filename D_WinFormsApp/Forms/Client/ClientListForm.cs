@@ -6,132 +6,50 @@ namespace D_WinFormsApp
 {
     public partial class ClientListForm : MyForm
     {
+        private ComboBox cbRowsPerPage = new ComboBox();
+
         public ClientListForm()
         {
             InitializeComponent();
 
             SetupFilterToolTips(cbFilterBy, txtFilterValue, btnClearFilter);
             PopulateFilterDropdown<Client>(cbFilterBy);
-            ConfigureFilterDebounce(txtFilterValue, cbFilterBy, dgvClients, LoadClientsAsync, dtpFilter);
+            ConfigureFilterDebounce<Client>(txtFilterValue, cbFilterBy, dgvClients, lblRecordsCount, "Client", dtpFilter);
             EnableSorting<Client>(dgvClients);
+            SetupPaginationControls();
         }
 
-        private int _currentPage = 1;
-        private int _rowsPerPage = 10;
-
-        private async Task LoadClientsPagedAsync()
+        private void SetupPaginationControls()
         {
-            try
-            {
-                Cursor = Cursors.WaitCursor;
-                string url = $"Client/paged?pageNumber={_currentPage}&rowsPerPage={_rowsPerPage}";
-                var response = await ApiClient.Client.GetAsync(url);
-                if (response.IsSuccessStatusCode)
-                {
-                    var clients = await response.Content.ReadFromJsonAsync<List<Client>>();
-                    dgvClients.DataSource = clients ?? new List<Client>();
-                    lblRecordsCount.Text = $"Records: {dgvClients.RowCount}";
-                    AutoResizeFormToDataGridView(dgvClients);
-                }
-                else if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
-                {
-                    dgvClients.DataSource = new List<Client>();
-                    lblRecordsCount.Text = $"Records: 0";
-                }
-                else
-                {
-                    throw new HttpRequestException($"API call failed with status: {response.StatusCode}");
-                }
-            }
-            catch (Exception ex)
-            {
-                ShowError(ex.Message);
-            }
-            finally
-            {
-                Cursor = Cursors.Default;
-            }
+            // Assume btnNextPage, btnPrevPage, btnFirstPage, btnLastPage are defined in Designer
+            btnFirstPage.Click += btnFirstPage_Click;
+            btnLastPage.Click += btnLastPage_Click;
+
+            // Configure rows per page dropdown
+            cbRowsPerPage.Items.AddRange(new object[] { 10, 25, 50 });
+            cbRowsPerPage.SelectedIndex = 0; // Default to 10
+            cbRowsPerPage.Size = new Size(60, 25);
+            cbRowsPerPage.Location = new Point(310, ClientSize.Height - 60); // Adjust as needed
+            cbRowsPerPage.SelectedIndexChanged += cbRowsPerPage_SelectedIndexChanged;
+            Controls.Add(cbRowsPerPage);
+
+            // Configure page info label
+            lblPageInfo.Location = new Point(10, ClientSize.Height - 30);
         }
 
-        private void btnNextPage_Click(object sender, EventArgs e)
+        protected override void UpdatePaginationButtons()
         {
-            _currentPage++;
-            _ = LoadClientsPagedAsync();
-        }
-
-        private void btnPrevPage_Click(object sender, EventArgs e)
-        {
-            if (_currentPage > 1)
-            {
-                _currentPage--;
-                _ = LoadClientsPagedAsync();
-            }
-        }
-
-        private void btnFirstPage_Click(object sender, EventArgs e)
-        {
-            _currentPage = 1;
-            _ = LoadClientsPagedAsync();
-        }
-
-        private void btnLastPage_Click(object sender, EventArgs e)
-        {
-            // Optionally implement logic to get the last page number
-            // _currentPage = lastPage;
-            // _ = LoadClientsPagedAsync();
+            btnPrevPage.Enabled = CurrentPage > 1;
+            btnFirstPage.Enabled = CurrentPage > 1;
+            btnNextPage.Enabled = CurrentPage < TotalPages;
+            btnLastPage.Enabled = CurrentPage < TotalPages && TotalPages > 0;
         }
 
         private void ClientListForm_Load(object sender, EventArgs e)
         {
             cbFilterBy.SelectedIndex = 0; // Default to "None"
             txtFilterValue.Text = ""; // Clear filter
-            _ = LoadClientsPagedAsync();
-        }
-
-        private async Task<List<Client>> LoadClientsAsync(string field, string value)
-        {
-            try
-            {
-                Cursor = Cursors.WaitCursor; // Add loading indicator
-                HttpResponseMessage response;
-                if (string.IsNullOrEmpty(field) || string.IsNullOrEmpty(value))
-                {
-                    response = await ApiClient.Client.GetAsync("Client/All");
-                }
-                else
-                {
-                    string url = $"Client/Filter?field={Uri.EscapeDataString(field)}&value={Uri.EscapeDataString(value)}";
-                    response = await ApiClient.Client.GetAsync(url);
-                }
-
-                if (response.IsSuccessStatusCode)
-                {
-                    var clients = await response.Content.ReadFromJsonAsync<List<Client>>();
-                    dgvClients.DataSource = clients ?? new List<Client>();
-                    lblRecordsCount.Text = $"Records: {dgvClients.RowCount}";
-                    AutoResizeFormToDataGridView(dgvClients);
-                    return clients ?? [];
-                }
-                else if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
-                {
-                    dgvClients.DataSource = new List<Client>();
-                    lblRecordsCount.Text = $"Records: {dgvClients.RowCount}";
-                    return [];
-                }
-                else
-                {
-                    throw new HttpRequestException($"API call failed with status: {response.StatusCode}");
-                }
-            }
-            catch (Exception ex)
-            {
-                ShowError(ex.Message);
-                return [];
-            }
-            finally
-            {
-                Cursor = Cursors.Default; // Reset cursor
-            }
+            _ = LoadPagedDataAsync<Client>(dgvClients, lblRecordsCount, "Client");
         }
 
         private void cbFilterBy_SelectedIndexChanged(object sender, EventArgs e)
@@ -146,13 +64,14 @@ namespace D_WinFormsApp
             }
             else
             {
-                _ = LoadClientsAsync("", ""); // Reset to full list when "None" is selected
+                CurrentPage = 1;
+                _ = LoadPagedDataAsync<Client>(dgvClients, lblRecordsCount, "Client");
             }
         }
 
         private void txtFilterValue_KeyPress(object sender, KeyPressEventArgs e)
         {
-            // we allow number only incase Client ID is selected.
+            // we allow number only incase Client ID or Phone is selected.
             if (cbFilterBy.Text == "Client ID" || cbFilterBy.Text == "Phone")
                 e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
         }
@@ -161,6 +80,45 @@ namespace D_WinFormsApp
         {
             txtFilterValue.Text = "";
             txtFilterValue.Focus();
+            CurrentPage = 1;
+            _ = LoadPagedDataAsync<Client>(dgvClients, lblRecordsCount, "Client");
+        }
+
+        private void btnNextPage_Click(object sender, EventArgs e)
+        {
+            if (CurrentPage < TotalPages)
+            {
+                CurrentPage++;
+                _ = LoadPagedDataAsync<Client>(dgvClients, lblRecordsCount, "Client");
+            }
+        }
+
+        private void btnPrevPage_Click(object sender, EventArgs e)
+        {
+            if (CurrentPage > 1)
+            {
+                CurrentPage--;
+                _ = LoadPagedDataAsync<Client>(dgvClients, lblRecordsCount, "Client");
+            }
+        }
+
+        private void btnFirstPage_Click(object sender, EventArgs e)
+        {
+            CurrentPage = 1;
+            _ = LoadPagedDataAsync<Client>(dgvClients, lblRecordsCount, "Client");
+        }
+
+        private void btnLastPage_Click(object sender, EventArgs e)
+        {
+            CurrentPage = TotalPages;
+            _ = LoadPagedDataAsync<Client>(dgvClients, lblRecordsCount, "Client");
+        }
+
+        private void cbRowsPerPage_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            RowsPerPage = (int)cbRowsPerPage.SelectedItem;
+            CurrentPage = 1;
+            _ = LoadPagedDataAsync<Client>(dgvClients, lblRecordsCount, "Client");
         }
 
         private void ShowClientAccounts()
@@ -192,7 +150,8 @@ namespace D_WinFormsApp
             using var form = new ClientForm();
             if (form.ShowDialog() == DialogResult.OK)
             {
-                _ = LoadClientsAsync("", ""); // Fire and forget, Refresh full list
+                CurrentPage = 1;
+                _ = LoadPagedDataAsync<Client>(dgvClients, lblRecordsCount, "Client");
             }
         }
 
@@ -213,7 +172,7 @@ namespace D_WinFormsApp
                 using var form = new ClientForm(FormMode.Update, selectedClient.ClientID);
                 if (form.ShowDialog() == DialogResult.OK)
                 {
-                    _ = LoadClientsAsync("", ""); // Refresh full list
+                    _ = LoadPagedDataAsync<Client>(dgvClients, lblRecordsCount, "Client");
                 }
             }
         }
@@ -238,7 +197,8 @@ namespace D_WinFormsApp
                     var response = await ApiClient.Client.DeleteAsync($"Client/{selectedClient.ClientID}");
                     if (response.IsSuccessStatusCode)
                     {
-                        await LoadClientsAsync("", ""); // Refresh full list
+                        CurrentPage = Math.Min(CurrentPage, TotalPages);
+                        await LoadPagedDataAsync<Client>(dgvClients, lblRecordsCount, "Client");
                     }
                 }
             }
@@ -263,6 +223,5 @@ namespace D_WinFormsApp
         {
             ExportToCsv<Client>(dgvClients, "clients.csv");
         }
-
     }
 }

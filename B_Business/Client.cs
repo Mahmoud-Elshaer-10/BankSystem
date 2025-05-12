@@ -53,9 +53,14 @@ namespace B_Business
             return ClientRepository.GetClientsByFilter(field, value);
         }
 
-        public static List<ClientDTO> GetClientsPaged(int pageNumber, int rowsPerPage)
+        public static List<ClientDTO> GetClientsPaged(int pageNumber, int rowsPerPage, string field = "", string value = "")
         {
-            return ClientRepository.GetClientsPaged(pageNumber, rowsPerPage);
+            return ClientRepository.GetClientsPaged(pageNumber, rowsPerPage, field, value);
+        }
+
+        public static int GetClientsCount(string field = "", string value = "")
+        {
+            return ClientRepository.GetClientsCount(field, value);
         }
 
         public static int GetClientSummary()

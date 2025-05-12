@@ -12,7 +12,7 @@ namespace D_WinFormsApp
 
             SetupFilterToolTips(cbFilterBy, txtFilterValue, btnClearFilter);
             PopulateFilterDropdown<Account>(cbFilterBy);
-            ConfigureFilterDebounce(txtFilterValue, cbFilterBy, dgvAccounts, LoadAccountsAsync, dtpFilter);
+            ConfigureFilterDebounce<Account>(txtFilterValue, cbFilterBy, dgvAccounts, LoadAccountsAsync, dtpFilter);
             EnableSorting<Account>(dgvAccounts);
         }
 

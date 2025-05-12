@@ -17,8 +17,8 @@ namespace D_WinFormsApp
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             dgvClients = new MyDataGridView();
             contextMenuStrip = new ContextMenuStrip(components);
             addClientToolStripMenuItem = new ToolStripMenuItem();
@@ -39,6 +39,8 @@ namespace D_WinFormsApp
             dtpFilter = new DateTimePicker();
             btnNextPage = new MyButton();
             btnPrevPage = new MyButton();
+            btnLastPage = new MyButton();
+            btnFirstPage = new MyButton();
             ((System.ComponentModel.ISupportInitialize)errorProvider).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgvClients).BeginInit();
             contextMenuStrip.SuspendLayout();
@@ -47,25 +49,25 @@ namespace D_WinFormsApp
             // lblTime
             // 
             lblTime.Location = new Point(599, 12);
-            lblTime.Text = "18:23:26";
+            lblTime.Text = "19:38:41";
             // 
             // dgvClients
             // 
             dgvClients.AllowUserToAddRows = false;
             dgvClients.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle1.BackColor = Color.FromArgb(240, 240, 240);
-            dgvClients.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.BackColor = Color.FromArgb(240, 240, 240);
+            dgvClients.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
             dgvClients.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dgvClients.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             dgvClients.BackgroundColor = Color.White;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = Color.LightGray;
-            dataGridViewCellStyle2.Font = new Font("Segoe UI", 12F);
-            dataGridViewCellStyle2.ForeColor = Color.Black;
-            dataGridViewCellStyle2.SelectionBackColor = Color.LightGray;
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
-            dgvClients.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = Color.LightGray;
+            dataGridViewCellStyle4.Font = new Font("Segoe UI", 12F);
+            dataGridViewCellStyle4.ForeColor = Color.Black;
+            dataGridViewCellStyle4.SelectionBackColor = Color.LightGray;
+            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
+            dgvClients.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             dgvClients.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvClients.ContextMenuStrip = contextMenuStrip;
             dgvClients.EditMode = DataGridViewEditMode.EditProgrammatically;
@@ -278,7 +280,7 @@ namespace D_WinFormsApp
             btnNextPage.FlatStyle = FlatStyle.Flat;
             btnNextPage.Image = Properties.Resources.Next;
             btnNextPage.ImageAlign = ContentAlignment.MiddleLeft;
-            btnNextPage.Location = new Point(99, 458);
+            btnNextPage.Location = new Point(180, 458);
             btnNextPage.Name = "btnNextPage";
             btnNextPage.Padding = new Padding(4);
             btnNextPage.Size = new Size(81, 37);
@@ -296,7 +298,7 @@ namespace D_WinFormsApp
             btnPrevPage.FlatStyle = FlatStyle.Flat;
             btnPrevPage.Image = Properties.Resources.previous;
             btnPrevPage.ImageAlign = ContentAlignment.MiddleLeft;
-            btnPrevPage.Location = new Point(12, 458);
+            btnPrevPage.Location = new Point(93, 458);
             btnPrevPage.Name = "btnPrevPage";
             btnPrevPage.Padding = new Padding(4);
             btnPrevPage.Size = new Size(81, 37);
@@ -306,9 +308,45 @@ namespace D_WinFormsApp
             btnPrevPage.UseVisualStyleBackColor = true;
             btnPrevPage.Click += btnPrevPage_Click;
             // 
+            // btnLastPage
+            // 
+            btnLastPage.FlatAppearance.BorderSize = 0;
+            btnLastPage.FlatAppearance.MouseDownBackColor = Color.Transparent;
+            btnLastPage.FlatAppearance.MouseOverBackColor = Color.Transparent;
+            btnLastPage.FlatStyle = FlatStyle.Flat;
+            btnLastPage.Image = Properties.Resources.previous;
+            btnLastPage.ImageAlign = ContentAlignment.MiddleLeft;
+            btnLastPage.Location = new Point(12, 458);
+            btnLastPage.Name = "btnLastPage";
+            btnLastPage.Padding = new Padding(4);
+            btnLastPage.Size = new Size(81, 37);
+            btnLastPage.TabIndex = 17;
+            btnLastPage.TextAlign = ContentAlignment.MiddleRight;
+            toolTip.SetToolTip(btnLastPage, "Add (Alt+A)");
+            btnLastPage.UseVisualStyleBackColor = true;
+            // 
+            // btnFirstPage
+            // 
+            btnFirstPage.FlatAppearance.BorderSize = 0;
+            btnFirstPage.FlatAppearance.MouseDownBackColor = Color.Transparent;
+            btnFirstPage.FlatAppearance.MouseOverBackColor = Color.Transparent;
+            btnFirstPage.FlatStyle = FlatStyle.Flat;
+            btnFirstPage.Image = Properties.Resources.Next;
+            btnFirstPage.ImageAlign = ContentAlignment.MiddleLeft;
+            btnFirstPage.Location = new Point(267, 458);
+            btnFirstPage.Name = "btnFirstPage";
+            btnFirstPage.Padding = new Padding(4);
+            btnFirstPage.Size = new Size(81, 37);
+            btnFirstPage.TabIndex = 18;
+            btnFirstPage.TextAlign = ContentAlignment.MiddleRight;
+            toolTip.SetToolTip(btnFirstPage, "Add (Alt+A)");
+            btnFirstPage.UseVisualStyleBackColor = true;
+            // 
             // ClientListForm
             // 
             ClientSize = new Size(699, 503);
+            Controls.Add(btnFirstPage);
+            Controls.Add(btnLastPage);
             Controls.Add(btnPrevPage);
             Controls.Add(btnNextPage);
             Controls.Add(dtpFilter);
@@ -341,6 +379,8 @@ namespace D_WinFormsApp
             Controls.SetChildIndex(dtpFilter, 0);
             Controls.SetChildIndex(btnNextPage, 0);
             Controls.SetChildIndex(btnPrevPage, 0);
+            Controls.SetChildIndex(btnLastPage, 0);
+            Controls.SetChildIndex(btnFirstPage, 0);
             ((System.ComponentModel.ISupportInitialize)errorProvider).EndInit();
             ((System.ComponentModel.ISupportInitialize)dgvClients).EndInit();
             contextMenuStrip.ResumeLayout(false);
@@ -368,5 +408,7 @@ namespace D_WinFormsApp
         private DateTimePicker dtpFilter;
         private MyButton btnNextPage;
         private MyButton btnPrevPage;
+        private MyButton btnLastPage;
+        private MyButton btnFirstPage;
     }
 }

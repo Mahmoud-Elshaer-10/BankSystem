@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using A_DataAccess.Repositories;
 using B_Business;
+using C_API.Models;
 
 namespace C_API.Controllers
 {
@@ -14,52 +15,66 @@ namespace C_API.Controllers
         public ActionResult<IEnumerable<ClientDTO>> GetAllClients()
         {
             var clients = Client.GetAllClients();
-            if (clients.Count == 0)
-            {
+            if (clients == null || !clients.Any())
                 return NotFound("No Clients Found!");
-            }
             return Ok(clients);
         }
 
         [HttpGet("paged", Name = "GetClientsPaged")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult<IEnumerable<ClientDTO>> GetClientsPaged(int pageNumber = 1, int rowsPerPage = 10)
+        public ActionResult<PagedResult<ClientDTO>> GetClientsPaged(
+            [FromQuery] int pageNumber = 1,
+            [FromQuery] int rowsPerPage = 10,
+            [FromQuery] string field = "",
+            [FromQuery] string value = "")
         {
-            var clients = Client.GetClientsPaged(pageNumber, rowsPerPage);
-            if (clients == null || clients.Count == 0)
-            {
+            if (pageNumber < 1 || rowsPerPage < 1)
+                return BadRequest("Invalid pagination parameters.");
+
+            var clients = Client.GetClientsPaged(pageNumber, rowsPerPage, field, value);
+            if (clients == null || !clients.Any())
                 return NotFound("No Clients Found!");
-            }
-            return Ok(clients);
+
+            var result = new PagedResult<ClientDTO>
+            {
+                Items = clients.ToList(),
+                TotalRecords = Client.GetClientsCount(field, value),
+                TotalPages = (int)Math.Ceiling((double)Client.GetClientsCount(field, value) / rowsPerPage)
+            };
+
+            return Ok(result);
         }
 
         [HttpGet("Filter", Name = "GetClientsByFilter")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult<IEnumerable<ClientDTO>> GetClientsByFilter([FromQuery] string field, [FromQuery] string value)
+        public ActionResult<PagedResult<ClientDTO>> GetClientsByFilter([FromQuery] string field, [FromQuery] string value)
         {
             if (string.IsNullOrEmpty(field) || string.IsNullOrEmpty(value))
-            {
                 return BadRequest("Field and value are required for filtering.");
-            }
 
             var clients = Client.GetClientsByFilter(field, value);
-            if (clients == null || clients.Count == 0)
-            {
+            if (clients == null || !clients.Any())
                 return NotFound($"No clients found for {field} matching '{value}'.");
-            }
-            return Ok(clients);
+
+            var result = new PagedResult<ClientDTO>
+            {
+                Items = clients.ToList(),
+                TotalRecords = Client.GetClientsCount(field, value),
+                TotalPages = 1 // Full results for filter endpoint
+            };
+
+            return Ok(result);
         }
 
         [HttpGet("Summary", Name = "GetClientSummary")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public ActionResult<object> GetClientSummary()
         {
-            var totalClients = Client.GetClientSummary();
-            var summary = new { totalClients };
-            return Ok(summary);
+            return Ok(new { totalClients = Client.GetClientSummary() });
         }
 
         [HttpGet("{id}", Name = "GetClientById")]
@@ -69,19 +84,13 @@ namespace C_API.Controllers
         public ActionResult<ClientDTO> GetClientById(int id)
         {
             if (id < 1)
-            {
                 return BadRequest($"Not accepted ID {id}");
-            }
 
-            Client? Client = Client.Find(id);
-
-            if (Client == null)
-            {
+            Client? client = Client.Find(id);
+            if (client == null)
                 return NotFound($"Client with ID {id} not found.");
-            }
 
-            ClientDTO CDTO = Client.ToDTO();
-            return Ok(CDTO);
+            return Ok(client.ToDTO());
         }
 
         [HttpPost(Name = "AddClient")]
@@ -89,11 +98,9 @@ namespace C_API.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public ActionResult<ClientDTO> AddClient(ClientDTO newClientDTO)
         {
-            //we validate the data here
             if (newClientDTO == null || string.IsNullOrEmpty(newClientDTO.FullName) || string.IsNullOrEmpty(newClientDTO.Email) || string.IsNullOrEmpty(newClientDTO.Phone) || string.IsNullOrEmpty(newClientDTO.Address))
-            {
                 return BadRequest("Invalid client data.");
-            }
+
             Client client = new Client(new ClientDTO(newClientDTO.ClientID, newClientDTO.FullName, newClientDTO.Email, newClientDTO.Phone, newClientDTO.Address, newClientDTO.CreatedAt));
             client.Save();
             newClientDTO.ClientID = client.ClientID;
@@ -108,26 +115,18 @@ namespace C_API.Controllers
         public ActionResult<ClientDTO> UpdateClient(int id, ClientDTO updatedClient)
         {
             if (id < 1 || updatedClient == null || string.IsNullOrEmpty(updatedClient.FullName) || string.IsNullOrEmpty(updatedClient.Email) || string.IsNullOrEmpty(updatedClient.Phone) || string.IsNullOrEmpty(updatedClient.Address))
-            {
                 return BadRequest("Invalid Client data.");
-            }
 
-            Client? Client = Client.Find(id);
-
-            if (Client == null)
-            {
+            Client? client = Client.Find(id);
+            if (client == null)
                 return NotFound($"Client with ID {id} not found.");
-            }
 
-            Client.FullName = updatedClient.FullName;
-            Client.Email = updatedClient.Email;
-            Client.Phone = updatedClient.Phone;
-            Client.Address = updatedClient.Address;
+            client.FullName = updatedClient.FullName;
+            client.Email = updatedClient.Email;
+            client.Phone = updatedClient.Phone;
+            client.Address = updatedClient.Address;
 
-            if (Client.Save())
-                return Ok(Client.ToDTO());
-            else
-                return StatusCode(500, new { message = "Error Updating Client" });
+            return client.Save() ? Ok(client.ToDTO()) : StatusCode(500, new { message = "Error Updating Client" });
         }
 
         [HttpDelete("{id}", Name = "DeleteClient")]
@@ -137,14 +136,9 @@ namespace C_API.Controllers
         public ActionResult DeleteClient(int id)
         {
             if (id < 1)
-            {
                 return BadRequest($"Not accepted ID {id}");
-            }
 
-            if (Client.DeleteClient(id))
-                return Ok($"Client with ID {id} has been deleted.");
-            else
-                return NotFound($"Client with ID {id} not found. no rows deleted!");
+            return Client.DeleteClient(id) ? Ok($"Client with ID {id} has been deleted.") : NotFound($"Client with ID {id} not found. no rows deleted!");
         }
     }
 }
