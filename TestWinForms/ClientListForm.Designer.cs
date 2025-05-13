@@ -41,6 +41,8 @@ namespace D_WinFormsApp
             btnPrevPage = new MyButton();
             btnLastPage = new MyButton();
             btnFirstPage = new MyButton();
+            txtRowsPerPage = new TextBox();
+            cbCurrentPage = new ComboBox();
             ((System.ComponentModel.ISupportInitialize)errorProvider).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgvClients).BeginInit();
             contextMenuStrip.SuspendLayout();
@@ -49,10 +51,7 @@ namespace D_WinFormsApp
             // lblTime
             // 
             lblTime.Location = new Point(599, 12);
-            lblTime.Text = "18:50:49";
-            // 
-            // lblPageInfo
-            // 
+            lblTime.Text = "20:05:26";
             // 
             // dgvClients
             // 
@@ -134,7 +133,6 @@ namespace D_WinFormsApp
             // 
             // btnAdd
             // 
-            btnAdd.Image = TestWinForms.Properties.Resources.AddIcon1;
             btnAdd.ImageAlign = ContentAlignment.MiddleLeft;
             btnAdd.Location = new Point(12, 12);
             btnAdd.Name = "btnAdd";
@@ -215,7 +213,7 @@ namespace D_WinFormsApp
             lblRecordsCount.Location = new Point(459, 70);
             lblRecordsCount.Name = "lblRecordsCount";
             lblRecordsCount.Size = new Size(215, 23);
-            lblRecordsCount.TabIndex = 7;
+            lblRecordsCount.TabIndex = 8;
             lblRecordsCount.Text = "0";
             lblRecordsCount.TextAlign = ContentAlignment.MiddleRight;
             // 
@@ -226,7 +224,7 @@ namespace D_WinFormsApp
             btnClearFilter.Name = "btnClearFilter";
             btnClearFilter.Padding = new Padding(4);
             btnClearFilter.Size = new Size(29, 29);
-            btnClearFilter.TabIndex = 8;
+            btnClearFilter.TabIndex = 9;
             btnClearFilter.TextAlign = ContentAlignment.MiddleRight;
             btnClearFilter.UseVisualStyleBackColor = true;
             btnClearFilter.Visible = false;
@@ -279,7 +277,7 @@ namespace D_WinFormsApp
             btnNextPage.TabIndex = 15;
             btnNextPage.Text = "Next";
             btnNextPage.TextAlign = ContentAlignment.MiddleRight;
-            toolTip.SetToolTip(btnNextPage, "Add (Alt+A)");
+            toolTip.SetToolTip(btnNextPage, "Next Page");
             btnNextPage.UseVisualStyleBackColor = true;
             btnNextPage.Click += btnNextPage_Click;
             // 
@@ -297,7 +295,7 @@ namespace D_WinFormsApp
             btnPrevPage.TabIndex = 16;
             btnPrevPage.Text = "Prev";
             btnPrevPage.TextAlign = ContentAlignment.MiddleRight;
-            toolTip.SetToolTip(btnPrevPage, "Add (Alt+A)");
+            toolTip.SetToolTip(btnPrevPage, "Previous Page");
             btnPrevPage.UseVisualStyleBackColor = true;
             btnPrevPage.Click += btnPrevPage_Click;
             // 
@@ -315,8 +313,9 @@ namespace D_WinFormsApp
             btnLastPage.TabIndex = 17;
             btnLastPage.Text = "Last";
             btnLastPage.TextAlign = ContentAlignment.MiddleRight;
-            toolTip.SetToolTip(btnLastPage, "Add (Alt+A)");
+            toolTip.SetToolTip(btnLastPage, "Last Page");
             btnLastPage.UseVisualStyleBackColor = true;
+            btnLastPage.Click += btnLastPage_Click;
             // 
             // btnFirstPage
             // 
@@ -332,12 +331,36 @@ namespace D_WinFormsApp
             btnFirstPage.TabIndex = 18;
             btnFirstPage.Text = "First";
             btnFirstPage.TextAlign = ContentAlignment.MiddleRight;
-            toolTip.SetToolTip(btnFirstPage, "Add (Alt+A)");
+            toolTip.SetToolTip(btnFirstPage, "First Page");
             btnFirstPage.UseVisualStyleBackColor = true;
+            btnFirstPage.Click += btnFirstPage_Click;
+            // 
+            // txtRowsPerPage
+            // 
+            txtRowsPerPage.Location = new Point(479, 462);
+            txtRowsPerPage.Name = "txtRowsPerPage";
+            txtRowsPerPage.Size = new Size(73, 29);
+            txtRowsPerPage.TabIndex = 19;
+            txtRowsPerPage.Text = "10";
+            toolTip.SetToolTip(txtRowsPerPage, "Rows per page");
+            txtRowsPerPage.TextChanged += txtRowsPerPage_TextChanged;
+            txtRowsPerPage.KeyPress += txtRowsPerPage_KeyPress;
+            // 
+            // cbCurrentPage
+            // 
+            cbCurrentPage.DropDownStyle = ComboBoxStyle.DropDownList;
+            cbCurrentPage.Location = new Point(394, 462);
+            cbCurrentPage.Name = "cbCurrentPage";
+            cbCurrentPage.Size = new Size(62, 29);
+            cbCurrentPage.TabIndex = 20;
+            toolTip.SetToolTip(cbCurrentPage, "Select page");
+            cbCurrentPage.SelectedIndexChanged += cbCurrentPage_SelectedIndexChanged;
             // 
             // ClientListForm
             // 
             ClientSize = new Size(699, 503);
+            Controls.Add(cbCurrentPage);
+            Controls.Add(txtRowsPerPage);
             Controls.Add(btnFirstPage);
             Controls.Add(btnLastPage);
             Controls.Add(btnPrevPage);
@@ -374,6 +397,8 @@ namespace D_WinFormsApp
             Controls.SetChildIndex(btnPrevPage, 0);
             Controls.SetChildIndex(btnLastPage, 0);
             Controls.SetChildIndex(btnFirstPage, 0);
+            Controls.SetChildIndex(txtRowsPerPage, 0);
+            Controls.SetChildIndex(cbCurrentPage, 0);
             ((System.ComponentModel.ISupportInitialize)errorProvider).EndInit();
             ((System.ComponentModel.ISupportInitialize)dgvClients).EndInit();
             contextMenuStrip.ResumeLayout(false);
@@ -403,5 +428,7 @@ namespace D_WinFormsApp
         private MyButton btnPrevPage;
         private MyButton btnLastPage;
         private MyButton btnFirstPage;
+        private TextBox txtRowsPerPage;
+        private ComboBox cbCurrentPage;
     }
 }

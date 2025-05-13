@@ -1,7 +1,7 @@
 
 
 
-
+error provider for txtRowsPerPage is not cleared after typing correct number
 ====================================================================================
 
 is there a way to check for unused stored procedures from winforms (that is through API)
