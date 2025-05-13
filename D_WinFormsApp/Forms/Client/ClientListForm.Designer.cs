@@ -41,6 +41,8 @@ namespace D_WinFormsApp
             btnPrevPage = new MyButton();
             btnLastPage = new MyButton();
             btnFirstPage = new MyButton();
+            txtRowsPerPage = new TextBox();
+            cbCurrentPage = new ComboBox();
             ((System.ComponentModel.ISupportInitialize)errorProvider).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgvClients).BeginInit();
             contextMenuStrip.SuspendLayout();
@@ -50,6 +52,28 @@ namespace D_WinFormsApp
             // 
             lblTime.Location = new Point(599, 12);
             lblTime.Text = "19:38:41";
+
+            // 
+            // txtRowsPerPage
+            // 
+            txtRowsPerPage.Location = new Point(479, 462);
+            txtRowsPerPage.Name = "txtRowsPerPage";
+            txtRowsPerPage.Size = new Size(73, 29);
+            txtRowsPerPage.TabIndex = 19;
+            txtRowsPerPage.Text = "10";
+            toolTip.SetToolTip(txtRowsPerPage, "Rows per page");
+            txtRowsPerPage.TextChanged += txtRowsPerPage_TextChanged;
+            txtRowsPerPage.KeyPress += txtRowsPerPage_KeyPress;
+            // 
+            // cbCurrentPage
+            // 
+            cbCurrentPage.DropDownStyle = ComboBoxStyle.DropDownList;
+            cbCurrentPage.Location = new Point(394, 462);
+            cbCurrentPage.Name = "cbCurrentPage";
+            cbCurrentPage.Size = new Size(62, 29);
+            cbCurrentPage.TabIndex = 20;
+            toolTip.SetToolTip(cbCurrentPage, "Select page");
+            cbCurrentPage.SelectedIndexChanged += cbCurrentPage_SelectedIndexChanged;
             // 
             // dgvClients
             // 
@@ -345,6 +369,8 @@ namespace D_WinFormsApp
             // ClientListForm
             // 
             ClientSize = new Size(699, 503);
+            Controls.Add(txtRowsPerPage);
+            Controls.Add(cbCurrentPage);
             Controls.Add(btnFirstPage);
             Controls.Add(btnLastPage);
             Controls.Add(btnPrevPage);
@@ -381,6 +407,8 @@ namespace D_WinFormsApp
             Controls.SetChildIndex(btnPrevPage, 0);
             Controls.SetChildIndex(btnLastPage, 0);
             Controls.SetChildIndex(btnFirstPage, 0);
+            Controls.SetChildIndex(txtRowsPerPage, 0);
+            Controls.SetChildIndex(cbCurrentPage, 0);
             ((System.ComponentModel.ISupportInitialize)errorProvider).EndInit();
             ((System.ComponentModel.ISupportInitialize)dgvClients).EndInit();
             contextMenuStrip.ResumeLayout(false);
@@ -410,5 +438,7 @@ namespace D_WinFormsApp
         private MyButton btnPrevPage;
         private MyButton btnLastPage;
         private MyButton btnFirstPage;
+        private TextBox txtRowsPerPage;
+        private ComboBox cbCurrentPage;
     }
 }
