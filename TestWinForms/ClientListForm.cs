@@ -49,6 +49,8 @@ namespace D_WinFormsApp
         {
             cbFilterBy.SelectedIndex = 0; // Default to "None"
             txtFilterValue.Text = ""; // Clear filter
+            cbRowsPerPage.SelectedIndex = 0;
+            RowsPerPage = (int)cbRowsPerPage.SelectedItem;
             _ = LoadPagedDataAsync<Client>(dgvClients, lblRecordsCount, "Client");
         }
 
