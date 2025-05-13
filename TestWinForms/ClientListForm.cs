@@ -25,16 +25,7 @@ namespace D_WinFormsApp
             btnFirstPage.Click += btnFirstPage_Click;
             btnLastPage.Click += btnLastPage_Click;
 
-            // Configure rows per page dropdown
-            cbRowsPerPage.Items.AddRange(new object[] { 3, 5, 10 });
-            cbRowsPerPage.SelectedIndex = 0; // Default to 10
-            //cbRowsPerPage.Size = new Size(60, 25);
-            //cbRowsPerPage.Location = new Point(310, ClientSize.Height - 60); // Adjust as needed
-            cbRowsPerPage.SelectedIndexChanged += cbRowsPerPage_SelectedIndexChanged;
-            
-
-            // Configure page info label
-            lblPageInfo.Location = new Point(10, ClientSize.Height - 30);
+           
         }
 
         protected override void UpdatePaginationButtons()
@@ -49,8 +40,7 @@ namespace D_WinFormsApp
         {
             cbFilterBy.SelectedIndex = 0; // Default to "None"
             txtFilterValue.Text = ""; // Clear filter
-            cbRowsPerPage.SelectedIndex = 0;
-            RowsPerPage = (int)cbRowsPerPage.SelectedItem;
+           
             _ = LoadPagedDataAsync<Client>(dgvClients, lblRecordsCount, "Client");
         }
 
@@ -118,7 +108,7 @@ namespace D_WinFormsApp
 
         private void cbRowsPerPage_SelectedIndexChanged(object sender, EventArgs e)
         {
-            RowsPerPage = (int)cbRowsPerPage.SelectedItem;
+           
             CurrentPage = 1;
             _ = LoadPagedDataAsync<Client>(dgvClients, lblRecordsCount, "Client");
         }

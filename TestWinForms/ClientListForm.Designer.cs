@@ -19,7 +19,6 @@ namespace D_WinFormsApp
             components = new System.ComponentModel.Container();
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
-            cbRowsPerPage = new ComboBox();
             dgvClients = new MyDataGridView();
             contextMenuStrip = new ContextMenuStrip(components);
             addClientToolStripMenuItem = new ToolStripMenuItem();
@@ -50,18 +49,10 @@ namespace D_WinFormsApp
             // lblTime
             // 
             lblTime.Location = new Point(599, 12);
-            lblTime.Text = "17:08:47";
+            lblTime.Text = "18:50:49";
             // 
             // lblPageInfo
             // 
-            lblPageInfo.Location = new Point(10, 473);
-            // 
-            // cbRowsPerPage
-            // 
-            cbRowsPerPage.Location = new Point(459, 66);
-            cbRowsPerPage.Name = "cbRowsPerPage";
-            cbRowsPerPage.Size = new Size(121, 29);
-            cbRowsPerPage.TabIndex = 3;
             // 
             // dgvClients
             // 
@@ -363,12 +354,9 @@ namespace D_WinFormsApp
             Controls.Add(btnEdit);
             Controls.Add(btnAdd);
             Controls.Add(dgvClients);
-            Controls.Add(cbRowsPerPage);
             Name = "ClientListForm";
             Text = "Bank System - Client List";
             Load += ClientListForm_Load;
-            Controls.SetChildIndex(cbRowsPerPage, 0);
-            Controls.SetChildIndex(lblPageInfo, 0);
             Controls.SetChildIndex(dgvClients, 0);
             Controls.SetChildIndex(btnAdd, 0);
             Controls.SetChildIndex(btnEdit, 0);
@@ -415,6 +403,5 @@ namespace D_WinFormsApp
         private MyButton btnPrevPage;
         private MyButton btnLastPage;
         private MyButton btnFirstPage;
-        private ComboBox cbRowsPerPage;
     }
 }

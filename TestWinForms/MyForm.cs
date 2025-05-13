@@ -25,7 +25,7 @@ namespace D_WinFormsApp
         protected int CurrentPage { get; set; } = 1;
         protected int RowsPerPage { get; set; } = 10;
         protected int TotalPages { get; set; }
-        protected Label lblPageInfo = new Label(); // Displays "Page X of Y"
+        
 
         public MyForm()
         {
@@ -33,7 +33,7 @@ namespace D_WinFormsApp
 
             SetupKeyHandling();
             InitializeClock();
-            InitializePaginationControls();
+            
 
             errorProvider.BlinkStyle = ErrorBlinkStyle.BlinkIfDifferentError; // Optional: blink on error
         }
@@ -44,15 +44,7 @@ namespace D_WinFormsApp
             _initialFormWidth = Width; // Set initial width after derived form's InitializeComponent
         }
 
-        /// <summary>
-        /// Initializes pagination UI controls (optional, override in derived forms if needed).
-        /// </summary>
-        protected virtual void InitializePaginationControls()
-        {
-            lblPageInfo.AutoSize = true;
-            lblPageInfo.Location = new Point(10, ClientSize.Height - 30); // Bottom-left, adjust as needed
-            Controls.Add(lblPageInfo);
-        }
+      
 
         /// <summary>
         /// Loads paginated data from the API, supporting filtering.
@@ -94,7 +86,6 @@ namespace D_WinFormsApp
                         TotalPages = result.TotalPages;
                         CurrentPage = currentPage;
                         RowsPerPage = rows;
-                        lblPageInfo.Text = $"Page {CurrentPage} of {TotalPages}";
                         AutoResizeFormToDataGridView(grid);
                         UpdatePaginationButtons();
                         return;
@@ -105,7 +96,6 @@ namespace D_WinFormsApp
                     grid.DataSource = new List<T>();
                     recordsCountLabel.Text = $"Records: 0";
                     TotalPages = 0;
-                    lblPageInfo.Text = "Page 0 of 0";
                 }
                 else
                 {
@@ -307,7 +297,6 @@ namespace D_WinFormsApp
             base.OnResize(e);
             // Keep clock pinned 100px from right edge
             lblTime.Location = new Point(this.ClientSize.Width - 100, 12); // Reposition on resize
-            lblPageInfo.Location = new Point(10, ClientSize.Height - 30);
         }
 
         protected void ShowError(string message)
