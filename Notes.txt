@@ -1,10 +1,7 @@
 
 
 
-====================================================================================
 
-create winforms test project to test client only related forms
-  copy related forms and files to the new test project
 ====================================================================================
 
 is there a way to check for unused stored procedures from winforms (that is through API)

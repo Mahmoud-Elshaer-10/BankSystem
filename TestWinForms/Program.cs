@@ -1,6 +1,4 @@
-using D_WinFormsApp;
-
-namespace TestWinForms
+namespace D_WinFormsApp
 {
     internal static class Program
     {
@@ -13,6 +11,9 @@ namespace TestWinForms
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
+
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new ClientListForm());
         }
     }

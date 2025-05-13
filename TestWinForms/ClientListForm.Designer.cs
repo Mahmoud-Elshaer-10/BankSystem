@@ -17,8 +17,9 @@ namespace D_WinFormsApp
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            cbRowsPerPage = new ComboBox();
             dgvClients = new MyDataGridView();
             contextMenuStrip = new ContextMenuStrip(components);
             addClientToolStripMenuItem = new ToolStripMenuItem();
@@ -49,25 +50,36 @@ namespace D_WinFormsApp
             // lblTime
             // 
             lblTime.Location = new Point(599, 12);
-            lblTime.Text = "19:38:41";
+            lblTime.Text = "17:08:47";
+            // 
+            // lblPageInfo
+            // 
+            lblPageInfo.Location = new Point(10, 473);
+            // 
+            // cbRowsPerPage
+            // 
+            cbRowsPerPage.Location = new Point(459, 66);
+            cbRowsPerPage.Name = "cbRowsPerPage";
+            cbRowsPerPage.Size = new Size(121, 29);
+            cbRowsPerPage.TabIndex = 3;
             // 
             // dgvClients
             // 
             dgvClients.AllowUserToAddRows = false;
             dgvClients.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle3.BackColor = Color.FromArgb(240, 240, 240);
-            dgvClients.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.BackColor = Color.FromArgb(240, 240, 240);
+            dgvClients.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             dgvClients.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dgvClients.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             dgvClients.BackgroundColor = Color.White;
-            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = Color.LightGray;
-            dataGridViewCellStyle4.Font = new Font("Segoe UI", 12F);
-            dataGridViewCellStyle4.ForeColor = Color.Black;
-            dataGridViewCellStyle4.SelectionBackColor = Color.LightGray;
-            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
-            dgvClients.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = Color.LightGray;
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 12F);
+            dataGridViewCellStyle2.ForeColor = Color.Black;
+            dataGridViewCellStyle2.SelectionBackColor = Color.LightGray;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
+            dgvClients.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             dgvClients.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvClients.ContextMenuStrip = contextMenuStrip;
             dgvClients.EditMode = DataGridViewEditMode.EditProgrammatically;
@@ -91,7 +103,6 @@ namespace D_WinFormsApp
             // 
             // addClientToolStripMenuItem
             // 
-            addClientToolStripMenuItem.Image = Properties.Resources.AddIcon;
             addClientToolStripMenuItem.Name = "addClientToolStripMenuItem";
             addClientToolStripMenuItem.ShortcutKeys = Keys.Alt | Keys.A;
             addClientToolStripMenuItem.Size = new Size(192, 22);
@@ -100,7 +111,6 @@ namespace D_WinFormsApp
             // 
             // editClientToolStripMenuItem
             // 
-            editClientToolStripMenuItem.Image = Properties.Resources.EditIcon;
             editClientToolStripMenuItem.Name = "editClientToolStripMenuItem";
             editClientToolStripMenuItem.ShortcutKeys = Keys.Alt | Keys.E;
             editClientToolStripMenuItem.Size = new Size(192, 22);
@@ -109,7 +119,6 @@ namespace D_WinFormsApp
             // 
             // deleteClientToolStripMenuItem
             // 
-            deleteClientToolStripMenuItem.Image = Properties.Resources.DeleteIcon;
             deleteClientToolStripMenuItem.Name = "deleteClientToolStripMenuItem";
             deleteClientToolStripMenuItem.ShortcutKeys = Keys.Alt | Keys.D;
             deleteClientToolStripMenuItem.Size = new Size(192, 22);
@@ -118,7 +127,6 @@ namespace D_WinFormsApp
             // 
             // showAccountsToolStripMenuItem
             // 
-            showAccountsToolStripMenuItem.Image = Properties.Resources.ShowIcon;
             showAccountsToolStripMenuItem.Name = "showAccountsToolStripMenuItem";
             showAccountsToolStripMenuItem.ShortcutKeys = Keys.Alt | Keys.S;
             showAccountsToolStripMenuItem.Size = new Size(192, 22);
@@ -127,7 +135,6 @@ namespace D_WinFormsApp
             // 
             // exportToCSVToolStripMenuItem
             // 
-            exportToCSVToolStripMenuItem.Image = Properties.Resources.notes;
             exportToCSVToolStripMenuItem.Name = "exportToCSVToolStripMenuItem";
             exportToCSVToolStripMenuItem.ShortcutKeys = Keys.Alt | Keys.X;
             exportToCSVToolStripMenuItem.Size = new Size(192, 22);
@@ -136,7 +143,7 @@ namespace D_WinFormsApp
             // 
             // btnAdd
             // 
-            btnAdd.Image = Properties.Resources.AddIcon;
+            btnAdd.Image = TestWinForms.Properties.Resources.AddIcon1;
             btnAdd.ImageAlign = ContentAlignment.MiddleLeft;
             btnAdd.Location = new Point(12, 12);
             btnAdd.Name = "btnAdd";
@@ -151,7 +158,6 @@ namespace D_WinFormsApp
             // 
             // btnEdit
             // 
-            btnEdit.Image = Properties.Resources.EditIcon;
             btnEdit.ImageAlign = ContentAlignment.MiddleLeft;
             btnEdit.Location = new Point(102, 12);
             btnEdit.Name = "btnEdit";
@@ -166,7 +172,6 @@ namespace D_WinFormsApp
             // 
             // btnDelete
             // 
-            btnDelete.Image = Properties.Resources.DeleteIcon;
             btnDelete.ImageAlign = ContentAlignment.MiddleLeft;
             btnDelete.Location = new Point(192, 12);
             btnDelete.Name = "btnDelete";
@@ -181,7 +186,6 @@ namespace D_WinFormsApp
             // 
             // btnShowAccounts
             // 
-            btnShowAccounts.Image = Properties.Resources.ShowIcon;
             btnShowAccounts.ImageAlign = ContentAlignment.MiddleLeft;
             btnShowAccounts.Location = new Point(291, 12);
             btnShowAccounts.Name = "btnShowAccounts";
@@ -226,7 +230,6 @@ namespace D_WinFormsApp
             // 
             // btnClearFilter
             // 
-            btnClearFilter.Image = Properties.Resources.clear2;
             btnClearFilter.ImageAlign = ContentAlignment.MiddleLeft;
             btnClearFilter.Location = new Point(407, 65);
             btnClearFilter.Name = "btnClearFilter";
@@ -250,7 +253,6 @@ namespace D_WinFormsApp
             // 
             // btnExport
             // 
-            btnExport.Image = Properties.Resources.notes;
             btnExport.ImageAlign = ContentAlignment.MiddleLeft;
             btnExport.Location = new Point(452, 12);
             btnExport.Name = "btnExport";
@@ -278,13 +280,13 @@ namespace D_WinFormsApp
             btnNextPage.FlatAppearance.MouseDownBackColor = Color.Transparent;
             btnNextPage.FlatAppearance.MouseOverBackColor = Color.Transparent;
             btnNextPage.FlatStyle = FlatStyle.Flat;
-            btnNextPage.Image = Properties.Resources.Next;
             btnNextPage.ImageAlign = ContentAlignment.MiddleLeft;
-            btnNextPage.Location = new Point(180, 458);
+            btnNextPage.Location = new Point(206, 458);
             btnNextPage.Name = "btnNextPage";
             btnNextPage.Padding = new Padding(4);
             btnNextPage.Size = new Size(81, 37);
             btnNextPage.TabIndex = 15;
+            btnNextPage.Text = "Next";
             btnNextPage.TextAlign = ContentAlignment.MiddleRight;
             toolTip.SetToolTip(btnNextPage, "Add (Alt+A)");
             btnNextPage.UseVisualStyleBackColor = true;
@@ -296,13 +298,13 @@ namespace D_WinFormsApp
             btnPrevPage.FlatAppearance.MouseDownBackColor = Color.Transparent;
             btnPrevPage.FlatAppearance.MouseOverBackColor = Color.Transparent;
             btnPrevPage.FlatStyle = FlatStyle.Flat;
-            btnPrevPage.Image = Properties.Resources.previous;
             btnPrevPage.ImageAlign = ContentAlignment.MiddleLeft;
-            btnPrevPage.Location = new Point(93, 458);
+            btnPrevPage.Location = new Point(107, 458);
             btnPrevPage.Name = "btnPrevPage";
             btnPrevPage.Padding = new Padding(4);
             btnPrevPage.Size = new Size(81, 37);
             btnPrevPage.TabIndex = 16;
+            btnPrevPage.Text = "Prev";
             btnPrevPage.TextAlign = ContentAlignment.MiddleRight;
             toolTip.SetToolTip(btnPrevPage, "Add (Alt+A)");
             btnPrevPage.UseVisualStyleBackColor = true;
@@ -314,13 +316,13 @@ namespace D_WinFormsApp
             btnLastPage.FlatAppearance.MouseDownBackColor = Color.Transparent;
             btnLastPage.FlatAppearance.MouseOverBackColor = Color.Transparent;
             btnLastPage.FlatStyle = FlatStyle.Flat;
-            btnLastPage.Image = Properties.Resources.previous;
             btnLastPage.ImageAlign = ContentAlignment.MiddleLeft;
-            btnLastPage.Location = new Point(12, 458);
+            btnLastPage.Location = new Point(307, 458);
             btnLastPage.Name = "btnLastPage";
             btnLastPage.Padding = new Padding(4);
             btnLastPage.Size = new Size(81, 37);
             btnLastPage.TabIndex = 17;
+            btnLastPage.Text = "Last";
             btnLastPage.TextAlign = ContentAlignment.MiddleRight;
             toolTip.SetToolTip(btnLastPage, "Add (Alt+A)");
             btnLastPage.UseVisualStyleBackColor = true;
@@ -331,13 +333,13 @@ namespace D_WinFormsApp
             btnFirstPage.FlatAppearance.MouseDownBackColor = Color.Transparent;
             btnFirstPage.FlatAppearance.MouseOverBackColor = Color.Transparent;
             btnFirstPage.FlatStyle = FlatStyle.Flat;
-            btnFirstPage.Image = Properties.Resources.Next;
             btnFirstPage.ImageAlign = ContentAlignment.MiddleLeft;
-            btnFirstPage.Location = new Point(267, 458);
+            btnFirstPage.Location = new Point(12, 458);
             btnFirstPage.Name = "btnFirstPage";
             btnFirstPage.Padding = new Padding(4);
             btnFirstPage.Size = new Size(81, 37);
             btnFirstPage.TabIndex = 18;
+            btnFirstPage.Text = "First";
             btnFirstPage.TextAlign = ContentAlignment.MiddleRight;
             toolTip.SetToolTip(btnFirstPage, "Add (Alt+A)");
             btnFirstPage.UseVisualStyleBackColor = true;
@@ -361,9 +363,12 @@ namespace D_WinFormsApp
             Controls.Add(btnEdit);
             Controls.Add(btnAdd);
             Controls.Add(dgvClients);
+            Controls.Add(cbRowsPerPage);
             Name = "ClientListForm";
             Text = "Bank System - Client List";
             Load += ClientListForm_Load;
+            Controls.SetChildIndex(cbRowsPerPage, 0);
+            Controls.SetChildIndex(lblPageInfo, 0);
             Controls.SetChildIndex(dgvClients, 0);
             Controls.SetChildIndex(btnAdd, 0);
             Controls.SetChildIndex(btnEdit, 0);
@@ -410,5 +415,6 @@ namespace D_WinFormsApp
         private MyButton btnPrevPage;
         private MyButton btnLastPage;
         private MyButton btnFirstPage;
+        private ComboBox cbRowsPerPage;
     }
 }

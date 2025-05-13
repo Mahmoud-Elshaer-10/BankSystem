@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace D_WinFormsApp.Properties {
+namespace TestWinForms.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace D_WinFormsApp.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("D_WinFormsApp.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("TestWinForms.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -66,6 +66,16 @@ namespace D_WinFormsApp.Properties {
         internal static System.Drawing.Bitmap AddIcon {
             get {
                 object obj = ResourceManager.GetObject("AddIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap AddIcon1 {
+            get {
+                object obj = ResourceManager.GetObject("AddIcon1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
