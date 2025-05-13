@@ -94,11 +94,12 @@ namespace D_WinFormsApp
             if (isLoading) return;
             if (int.TryParse(txtRowsPerPage.Text, out int rows) && rows > 0)
             {
+                errorProvider.SetError(txtRowsPerPage, "");
                 RowsPerPage = rows;
                 CurrentPage = 1;
                 _ = LoadPagedDataAsync<Client>(dgvClients, lblRecordsCount, "Client");
             }
-            else if (string.IsNullOrEmpty(txtRowsPerPage.Text))
+            else
             {
                 errorProvider.SetError(txtRowsPerPage, "Enter a number greater than 0");
             }

@@ -1,7 +1,6 @@
 
 
 
-error provider for txtRowsPerPage is not cleared after typing correct number
 ====================================================================================
 
 is there a way to check for unused stored procedures from winforms (that is through API)
@@ -9,12 +8,6 @@ is there a way to check for unused stored procedures from winforms (that is thro
 
 I noticed a bug in winforms:
 toolTip has a weird behaviour. like when opening ClientAccountsForm then pressing escape key (does not happen if click close button using the mouse), toolTip appears with a client name of the current selected.
-====================================================================================
-
-consider fetching only necessary data on initial load (paginated API calls).
-make it global to be used in filter too.
-You can further enhance by disabling buttons at boundaries or showing total pages if needed.
-is there a way to hide the button (make it transparent) to show just the image
 ====================================================================================
 
    [HttpGet("paged")]
