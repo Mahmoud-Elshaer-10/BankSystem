@@ -43,6 +43,7 @@ namespace D_WinFormsApp
             btnFirstPage = new MyButton();
             txtRowsPerPage = new TextBox();
             cbCurrentPage = new ComboBox();
+            label1 = new Label();
             ((System.ComponentModel.ISupportInitialize)errorProvider).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgvClients).BeginInit();
             contextMenuStrip.SuspendLayout();
@@ -51,29 +52,7 @@ namespace D_WinFormsApp
             // lblTime
             // 
             lblTime.Location = new Point(599, 12);
-            lblTime.Text = "19:38:41";
-
-            // 
-            // txtRowsPerPage
-            // 
-            txtRowsPerPage.Location = new Point(479, 462);
-            txtRowsPerPage.Name = "txtRowsPerPage";
-            txtRowsPerPage.Size = new Size(73, 29);
-            txtRowsPerPage.TabIndex = 19;
-            txtRowsPerPage.Text = "10";
-            toolTip.SetToolTip(txtRowsPerPage, "Rows per page");
-            txtRowsPerPage.TextChanged += txtRowsPerPage_TextChanged;
-            txtRowsPerPage.KeyPress += txtRowsPerPage_KeyPress;
-            // 
-            // cbCurrentPage
-            // 
-            cbCurrentPage.DropDownStyle = ComboBoxStyle.DropDownList;
-            cbCurrentPage.Location = new Point(394, 462);
-            cbCurrentPage.Name = "cbCurrentPage";
-            cbCurrentPage.Size = new Size(62, 29);
-            cbCurrentPage.TabIndex = 20;
-            toolTip.SetToolTip(cbCurrentPage, "Select page");
-            cbCurrentPage.SelectedIndexChanged += cbCurrentPage_SelectedIndexChanged;
+            lblTime.Text = "22:08:30";
             // 
             // dgvClients
             // 
@@ -298,20 +277,21 @@ namespace D_WinFormsApp
             // 
             // btnNextPage
             // 
+            btnNextPage.BackColor = Color.Transparent;
             btnNextPage.FlatAppearance.BorderSize = 0;
             btnNextPage.FlatAppearance.MouseDownBackColor = Color.Transparent;
             btnNextPage.FlatAppearance.MouseOverBackColor = Color.Transparent;
             btnNextPage.FlatStyle = FlatStyle.Flat;
             btnNextPage.Image = Properties.Resources.Next;
             btnNextPage.ImageAlign = ContentAlignment.MiddleLeft;
-            btnNextPage.Location = new Point(180, 458);
+            btnNextPage.Location = new Point(241, 459);
             btnNextPage.Name = "btnNextPage";
             btnNextPage.Padding = new Padding(4);
             btnNextPage.Size = new Size(81, 37);
             btnNextPage.TabIndex = 15;
             btnNextPage.TextAlign = ContentAlignment.MiddleRight;
-            toolTip.SetToolTip(btnNextPage, "Add (Alt+A)");
-            btnNextPage.UseVisualStyleBackColor = true;
+            toolTip.SetToolTip(btnNextPage, "Next Page");
+            btnNextPage.UseVisualStyleBackColor = false;
             btnNextPage.Click += btnNextPage_Click;
             // 
             // btnPrevPage
@@ -322,13 +302,13 @@ namespace D_WinFormsApp
             btnPrevPage.FlatStyle = FlatStyle.Flat;
             btnPrevPage.Image = Properties.Resources.previous;
             btnPrevPage.ImageAlign = ContentAlignment.MiddleLeft;
-            btnPrevPage.Location = new Point(93, 458);
+            btnPrevPage.Location = new Point(72, 459);
             btnPrevPage.Name = "btnPrevPage";
             btnPrevPage.Padding = new Padding(4);
             btnPrevPage.Size = new Size(81, 37);
             btnPrevPage.TabIndex = 16;
             btnPrevPage.TextAlign = ContentAlignment.MiddleRight;
-            toolTip.SetToolTip(btnPrevPage, "Add (Alt+A)");
+            toolTip.SetToolTip(btnPrevPage, "Previous Page");
             btnPrevPage.UseVisualStyleBackColor = true;
             btnPrevPage.Click += btnPrevPage_Click;
             // 
@@ -338,15 +318,15 @@ namespace D_WinFormsApp
             btnLastPage.FlatAppearance.MouseDownBackColor = Color.Transparent;
             btnLastPage.FlatAppearance.MouseOverBackColor = Color.Transparent;
             btnLastPage.FlatStyle = FlatStyle.Flat;
-            btnLastPage.Image = Properties.Resources.previous;
+            btnLastPage.Image = Properties.Resources.First;
             btnLastPage.ImageAlign = ContentAlignment.MiddleLeft;
-            btnLastPage.Location = new Point(12, 458);
+            btnLastPage.Location = new Point(12, 459);
             btnLastPage.Name = "btnLastPage";
             btnLastPage.Padding = new Padding(4);
-            btnLastPage.Size = new Size(81, 37);
+            btnLastPage.Size = new Size(47, 37);
             btnLastPage.TabIndex = 17;
             btnLastPage.TextAlign = ContentAlignment.MiddleRight;
-            toolTip.SetToolTip(btnLastPage, "Add (Alt+A)");
+            toolTip.SetToolTip(btnLastPage, "First Page");
             btnLastPage.UseVisualStyleBackColor = true;
             // 
             // btnFirstPage
@@ -355,22 +335,53 @@ namespace D_WinFormsApp
             btnFirstPage.FlatAppearance.MouseDownBackColor = Color.Transparent;
             btnFirstPage.FlatAppearance.MouseOverBackColor = Color.Transparent;
             btnFirstPage.FlatStyle = FlatStyle.Flat;
-            btnFirstPage.Image = Properties.Resources.Next;
+            btnFirstPage.Image = Properties.Resources.Last;
             btnFirstPage.ImageAlign = ContentAlignment.MiddleLeft;
-            btnFirstPage.Location = new Point(267, 458);
+            btnFirstPage.Location = new Point(335, 459);
             btnFirstPage.Name = "btnFirstPage";
             btnFirstPage.Padding = new Padding(4);
-            btnFirstPage.Size = new Size(81, 37);
+            btnFirstPage.Size = new Size(47, 37);
             btnFirstPage.TabIndex = 18;
             btnFirstPage.TextAlign = ContentAlignment.MiddleRight;
-            toolTip.SetToolTip(btnFirstPage, "Add (Alt+A)");
+            toolTip.SetToolTip(btnFirstPage, "Last Page");
             btnFirstPage.UseVisualStyleBackColor = true;
+            // 
+            // txtRowsPerPage
+            // 
+            txtRowsPerPage.Location = new Point(527, 463);
+            txtRowsPerPage.Name = "txtRowsPerPage";
+            txtRowsPerPage.Size = new Size(73, 29);
+            txtRowsPerPage.TabIndex = 19;
+            txtRowsPerPage.Text = "10";
+            toolTip.SetToolTip(txtRowsPerPage, "Rows per page");
+            txtRowsPerPage.TextChanged += txtRowsPerPage_TextChanged;
+            txtRowsPerPage.KeyPress += txtRowsPerPage_KeyPress;
+            // 
+            // cbCurrentPage
+            // 
+            cbCurrentPage.DropDownStyle = ComboBoxStyle.DropDownList;
+            cbCurrentPage.Location = new Point(166, 463);
+            cbCurrentPage.Name = "cbCurrentPage";
+            cbCurrentPage.Size = new Size(62, 29);
+            cbCurrentPage.TabIndex = 20;
+            toolTip.SetToolTip(cbCurrentPage, "Select page");
+            cbCurrentPage.SelectedIndexChanged += cbCurrentPage_SelectedIndexChanged;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(407, 467);
+            label1.Name = "label1";
+            label1.Size = new Size(114, 21);
+            label1.TabIndex = 21;
+            label1.Text = "Rows Per Page:";
             // 
             // ClientListForm
             // 
             ClientSize = new Size(699, 503);
-            Controls.Add(txtRowsPerPage);
+            Controls.Add(label1);
             Controls.Add(cbCurrentPage);
+            Controls.Add(txtRowsPerPage);
             Controls.Add(btnFirstPage);
             Controls.Add(btnLastPage);
             Controls.Add(btnPrevPage);
@@ -409,6 +420,7 @@ namespace D_WinFormsApp
             Controls.SetChildIndex(btnFirstPage, 0);
             Controls.SetChildIndex(txtRowsPerPage, 0);
             Controls.SetChildIndex(cbCurrentPage, 0);
+            Controls.SetChildIndex(label1, 0);
             ((System.ComponentModel.ISupportInitialize)errorProvider).EndInit();
             ((System.ComponentModel.ISupportInitialize)dgvClients).EndInit();
             contextMenuStrip.ResumeLayout(false);
@@ -440,5 +452,6 @@ namespace D_WinFormsApp
         private MyButton btnFirstPage;
         private TextBox txtRowsPerPage;
         private ComboBox cbCurrentPage;
+        private Label label1;
     }
 }

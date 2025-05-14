@@ -46,7 +46,7 @@ namespace D_WinFormsApp
             // lblTime
             // 
             lblTime.Location = new Point(599, 12);
-            lblTime.Text = "20:01:58";
+            lblTime.Text = "20:44:37";
             // 
             // dgvTransactions
             // 
@@ -75,7 +75,7 @@ namespace D_WinFormsApp
             dgvTransactions.ReadOnly = true;
             dgvTransactions.RowHeadersWidth = 51;
             dgvTransactions.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvTransactions.Size = new Size(673, 336);
+            dgvTransactions.Size = new Size(673, 352);
             dgvTransactions.TabIndex = 0;
             dgvTransactions.TabStop = false;
             // 
@@ -202,7 +202,7 @@ namespace D_WinFormsApp
             btnFirstPage.FlatAppearance.MouseDownBackColor = Color.Transparent;
             btnFirstPage.FlatAppearance.MouseOverBackColor = Color.Transparent;
             btnFirstPage.FlatStyle = FlatStyle.Flat;
-            btnFirstPage.Image = Properties.Resources.Next;
+            //btnFirstPage.Image = Properties.Resources.Next;
             btnFirstPage.ImageAlign = ContentAlignment.MiddleLeft;
             btnFirstPage.Location = new Point(12, 458);
             btnFirstPage.Name = "btnFirstPage";
@@ -221,7 +221,7 @@ namespace D_WinFormsApp
             btnNextPage.FlatAppearance.MouseDownBackColor = Color.Transparent;
             btnNextPage.FlatAppearance.MouseOverBackColor = Color.Transparent;
             btnNextPage.FlatStyle = FlatStyle.Flat;
-            btnNextPage.Image = Properties.Resources.Next;
+            //btnNextPage.Image = Properties.Resources.Next;
             btnNextPage.ImageAlign = ContentAlignment.MiddleLeft;
             btnNextPage.Location = new Point(206, 458);
             btnNextPage.Name = "btnNextPage";

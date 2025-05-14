@@ -281,7 +281,7 @@ namespace D_WinFormsApp
             btnNextPage.FlatAppearance.MouseDownBackColor = Color.Transparent;
             btnNextPage.FlatAppearance.MouseOverBackColor = Color.Transparent;
             btnNextPage.FlatStyle = FlatStyle.Flat;
-            btnNextPage.Image = Properties.Resources.Next;
+            //btnNextPage.Image = Properties.Resources.Next;
             btnNextPage.ImageAlign = ContentAlignment.MiddleLeft;
             btnNextPage.Location = new Point(180, 458);
             btnNextPage.Name = "btnNextPage";
@@ -332,7 +332,7 @@ namespace D_WinFormsApp
             btnFirstPage.FlatAppearance.MouseDownBackColor = Color.Transparent;
             btnFirstPage.FlatAppearance.MouseOverBackColor = Color.Transparent;
             btnFirstPage.FlatStyle = FlatStyle.Flat;
-            btnFirstPage.Image = Properties.Resources.Next;
+            //btnFirstPage.Image = Properties.Resources.Next;
             btnFirstPage.ImageAlign = ContentAlignment.MiddleLeft;
             btnFirstPage.Location = new Point(267, 458);
             btnFirstPage.Name = "btnFirstPage";
