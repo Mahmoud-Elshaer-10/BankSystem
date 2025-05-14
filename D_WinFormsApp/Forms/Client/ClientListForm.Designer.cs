@@ -39,8 +39,8 @@ namespace D_WinFormsApp
             dtpFilter = new DateTimePicker();
             btnNextPage = new MyButton();
             btnPrevPage = new MyButton();
-            btnLastPage = new MyButton();
             btnFirstPage = new MyButton();
+            btnLastPage = new MyButton();
             txtRowsPerPage = new TextBox();
             cbCurrentPage = new ComboBox();
             label1 = new Label();
@@ -52,7 +52,7 @@ namespace D_WinFormsApp
             // lblTime
             // 
             lblTime.Location = new Point(599, 12);
-            lblTime.Text = "22:08:30";
+            lblTime.Text = "22:14:21";
             // 
             // dgvClients
             // 
@@ -312,39 +312,41 @@ namespace D_WinFormsApp
             btnPrevPage.UseVisualStyleBackColor = true;
             btnPrevPage.Click += btnPrevPage_Click;
             // 
-            // btnLastPage
-            // 
-            btnLastPage.FlatAppearance.BorderSize = 0;
-            btnLastPage.FlatAppearance.MouseDownBackColor = Color.Transparent;
-            btnLastPage.FlatAppearance.MouseOverBackColor = Color.Transparent;
-            btnLastPage.FlatStyle = FlatStyle.Flat;
-            btnLastPage.Image = Properties.Resources.First;
-            btnLastPage.ImageAlign = ContentAlignment.MiddleLeft;
-            btnLastPage.Location = new Point(12, 459);
-            btnLastPage.Name = "btnLastPage";
-            btnLastPage.Padding = new Padding(4);
-            btnLastPage.Size = new Size(47, 37);
-            btnLastPage.TabIndex = 17;
-            btnLastPage.TextAlign = ContentAlignment.MiddleRight;
-            toolTip.SetToolTip(btnLastPage, "First Page");
-            btnLastPage.UseVisualStyleBackColor = true;
-            // 
             // btnFirstPage
             // 
             btnFirstPage.FlatAppearance.BorderSize = 0;
             btnFirstPage.FlatAppearance.MouseDownBackColor = Color.Transparent;
             btnFirstPage.FlatAppearance.MouseOverBackColor = Color.Transparent;
             btnFirstPage.FlatStyle = FlatStyle.Flat;
-            btnFirstPage.Image = Properties.Resources.Last;
+            btnFirstPage.Image = Properties.Resources.First;
             btnFirstPage.ImageAlign = ContentAlignment.MiddleLeft;
-            btnFirstPage.Location = new Point(335, 459);
+            btnFirstPage.Location = new Point(12, 459);
             btnFirstPage.Name = "btnFirstPage";
             btnFirstPage.Padding = new Padding(4);
             btnFirstPage.Size = new Size(47, 37);
-            btnFirstPage.TabIndex = 18;
+            btnFirstPage.TabIndex = 17;
             btnFirstPage.TextAlign = ContentAlignment.MiddleRight;
-            toolTip.SetToolTip(btnFirstPage, "Last Page");
+            toolTip.SetToolTip(btnFirstPage, "First Page");
             btnFirstPage.UseVisualStyleBackColor = true;
+            btnFirstPage.Click += btnFirstPage_Click;
+            // 
+            // btnLastPage
+            // 
+            btnLastPage.FlatAppearance.BorderSize = 0;
+            btnLastPage.FlatAppearance.MouseDownBackColor = Color.Transparent;
+            btnLastPage.FlatAppearance.MouseOverBackColor = Color.Transparent;
+            btnLastPage.FlatStyle = FlatStyle.Flat;
+            btnLastPage.Image = Properties.Resources.Last;
+            btnLastPage.ImageAlign = ContentAlignment.MiddleLeft;
+            btnLastPage.Location = new Point(335, 459);
+            btnLastPage.Name = "btnLastPage";
+            btnLastPage.Padding = new Padding(4);
+            btnLastPage.Size = new Size(47, 37);
+            btnLastPage.TabIndex = 18;
+            btnLastPage.TextAlign = ContentAlignment.MiddleRight;
+            toolTip.SetToolTip(btnLastPage, "Last Page");
+            btnLastPage.UseVisualStyleBackColor = true;
+            btnLastPage.Click += btnLastPage_Click;
             // 
             // txtRowsPerPage
             // 
@@ -382,8 +384,8 @@ namespace D_WinFormsApp
             Controls.Add(label1);
             Controls.Add(cbCurrentPage);
             Controls.Add(txtRowsPerPage);
-            Controls.Add(btnFirstPage);
             Controls.Add(btnLastPage);
+            Controls.Add(btnFirstPage);
             Controls.Add(btnPrevPage);
             Controls.Add(btnNextPage);
             Controls.Add(dtpFilter);
@@ -416,8 +418,8 @@ namespace D_WinFormsApp
             Controls.SetChildIndex(dtpFilter, 0);
             Controls.SetChildIndex(btnNextPage, 0);
             Controls.SetChildIndex(btnPrevPage, 0);
-            Controls.SetChildIndex(btnLastPage, 0);
             Controls.SetChildIndex(btnFirstPage, 0);
+            Controls.SetChildIndex(btnLastPage, 0);
             Controls.SetChildIndex(txtRowsPerPage, 0);
             Controls.SetChildIndex(cbCurrentPage, 0);
             Controls.SetChildIndex(label1, 0);
@@ -448,8 +450,8 @@ namespace D_WinFormsApp
         private DateTimePicker dtpFilter;
         private MyButton btnNextPage;
         private MyButton btnPrevPage;
-        private MyButton btnLastPage;
         private MyButton btnFirstPage;
+        private MyButton btnLastPage;
         private TextBox txtRowsPerPage;
         private ComboBox cbCurrentPage;
         private Label label1;
