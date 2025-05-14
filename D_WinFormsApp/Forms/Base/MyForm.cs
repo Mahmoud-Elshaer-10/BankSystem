@@ -81,7 +81,7 @@ namespace D_WinFormsApp
                     var result = await response.Content.ReadFromJsonAsync<PagedResult<T>>();
                     if (result != null)
                     {
-                        grid.DataSource = result.Items ?? new List<T>();
+                        grid.DataSource = result.Items ?? [];
                         recordsCountLabel.Text = $"Records: {grid.RowCount} of {result.TotalRecords}";
                         TotalPages = result.TotalPages;
                         CurrentPage = currentPage;

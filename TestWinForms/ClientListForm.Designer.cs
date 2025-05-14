@@ -51,7 +51,8 @@ namespace D_WinFormsApp
             // lblTime
             // 
             lblTime.Location = new Point(599, 12);
-            lblTime.Text = "20:05:26";
+            lblTime.Size = new Size(74, 19);
+            lblTime.Text = "14:11:47";
             // 
             // dgvClients
             // 
@@ -133,6 +134,7 @@ namespace D_WinFormsApp
             // 
             // btnAdd
             // 
+            //btnAdd.Image = TestWinForms.Properties.Resources.clear2;
             btnAdd.ImageAlign = ContentAlignment.MiddleLeft;
             btnAdd.Location = new Point(12, 12);
             btnAdd.Name = "btnAdd";
@@ -147,6 +149,7 @@ namespace D_WinFormsApp
             // 
             // btnEdit
             // 
+            //btnEdit.Image = TestWinForms.Properties.Resources.EditIcon;
             btnEdit.ImageAlign = ContentAlignment.MiddleLeft;
             btnEdit.Location = new Point(102, 12);
             btnEdit.Name = "btnEdit";
