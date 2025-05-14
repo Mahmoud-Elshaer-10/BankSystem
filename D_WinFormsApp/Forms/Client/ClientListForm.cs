@@ -20,10 +20,10 @@ namespace D_WinFormsApp
 
         protected override void UpdatePaginationButtons()
         {
-            btnPrevPage.Enabled = CurrentPage > 1;
             btnFirstPage.Enabled = CurrentPage > 1;
+            btnPrevPage.Enabled = CurrentPage > 1;
             btnNextPage.Enabled = CurrentPage < TotalPages;
-            btnLastPage.Enabled = CurrentPage < TotalPages && TotalPages > 0;
+            btnLastPage.Enabled = CurrentPage < TotalPages;
             UpdatePageDropdown();
         }
 
