@@ -46,7 +46,7 @@ namespace D_WinFormsApp
             // lblTime
             // 
             lblTime.Location = new Point(599, 12);
-            lblTime.Text = "20:58:22";
+            lblTime.Text = "20:01:58";
             // 
             // dgvTransactions
             // 
@@ -75,7 +75,7 @@ namespace D_WinFormsApp
             dgvTransactions.ReadOnly = true;
             dgvTransactions.RowHeadersWidth = 51;
             dgvTransactions.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvTransactions.Size = new Size(673, 356);
+            dgvTransactions.Size = new Size(673, 336);
             dgvTransactions.TabIndex = 0;
             dgvTransactions.TabStop = false;
             // 
@@ -280,8 +280,8 @@ namespace D_WinFormsApp
             txtRowsPerPage.TabIndex = 19;
             txtRowsPerPage.Text = "10";
             toolTip.SetToolTip(txtRowsPerPage, "Rows per page");
-            txtRowsPerPage.KeyPress += txtRowsPerPage_KeyPress;
             txtRowsPerPage.TextChanged += txtRowsPerPage_TextChanged;
+            txtRowsPerPage.KeyPress += txtRowsPerPage_KeyPress;
             // 
             // cbCurrentPage
             // 
@@ -295,7 +295,7 @@ namespace D_WinFormsApp
             // 
             // TransactionListForm
             // 
-            ClientSize = new Size(699, 472);
+            ClientSize = new Size(699, 507);
             Controls.Add(cbCurrentPage);
             Controls.Add(txtRowsPerPage);
             Controls.Add(btnLastPage);

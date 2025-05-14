@@ -52,97 +52,7 @@ namespace D_WinFormsApp
             // lblTime
             // 
             lblTime.Location = new Point(613, 12);
-            lblTime.Size = new Size(74, 19);
-            lblTime.Text = "15:33:11";
-            // 
-            // txtRowsPerPage
-            // 
-            txtRowsPerPage.Location = new Point(479, 462);
-            txtRowsPerPage.Name = "txtRowsPerPage";
-            txtRowsPerPage.Size = new Size(73, 29);
-            txtRowsPerPage.TabIndex = 19;
-            txtRowsPerPage.Text = "10";
-            toolTip.SetToolTip(txtRowsPerPage, "Rows per page");
-            txtRowsPerPage.TextChanged += txtRowsPerPage_TextChanged;
-            txtRowsPerPage.KeyPress += txtRowsPerPage_KeyPress;
-            // 
-            // cbCurrentPage
-            // 
-            cbCurrentPage.DropDownStyle = ComboBoxStyle.DropDownList;
-            cbCurrentPage.Location = new Point(394, 462);
-            cbCurrentPage.Name = "cbCurrentPage";
-            cbCurrentPage.Size = new Size(62, 29);
-            cbCurrentPage.TabIndex = 20;
-            toolTip.SetToolTip(cbCurrentPage, "Select page");
-            cbCurrentPage.SelectedIndexChanged += cbCurrentPage_SelectedIndexChanged;
-            // 
-            // btnNextPage
-            // 
-            btnNextPage.FlatAppearance.BorderSize = 0;
-            btnNextPage.FlatAppearance.MouseDownBackColor = Color.Transparent;
-            btnNextPage.FlatAppearance.MouseOverBackColor = Color.Transparent;
-            btnNextPage.FlatStyle = FlatStyle.Flat;
-            btnNextPage.Image = Properties.Resources.Next;
-            btnNextPage.ImageAlign = ContentAlignment.MiddleLeft;
-            btnNextPage.Location = new Point(180, 458);
-            btnNextPage.Name = "btnNextPage";
-            btnNextPage.Padding = new Padding(4);
-            btnNextPage.Size = new Size(81, 37);
-            btnNextPage.TabIndex = 15;
-            btnNextPage.TextAlign = ContentAlignment.MiddleRight;
-            btnNextPage.UseVisualStyleBackColor = true;
-            btnNextPage.Click += btnNextPage_Click;
-            // 
-            // btnPrevPage
-            // 
-            btnPrevPage.FlatAppearance.BorderSize = 0;
-            btnPrevPage.FlatAppearance.MouseDownBackColor = Color.Transparent;
-            btnPrevPage.FlatAppearance.MouseOverBackColor = Color.Transparent;
-            btnPrevPage.FlatStyle = FlatStyle.Flat;
-            btnPrevPage.Image = Properties.Resources.previous;
-            btnPrevPage.ImageAlign = ContentAlignment.MiddleLeft;
-            btnPrevPage.Location = new Point(93, 458);
-            btnPrevPage.Name = "btnPrevPage";
-            btnPrevPage.Padding = new Padding(4);
-            btnPrevPage.Size = new Size(81, 37);
-            btnPrevPage.TabIndex = 16;
-            btnPrevPage.TextAlign = ContentAlignment.MiddleRight;
-            btnPrevPage.UseVisualStyleBackColor = true;
-            btnPrevPage.Click += btnPrevPage_Click;
-            // 
-            // btnLastPage
-            // 
-            btnLastPage.FlatAppearance.BorderSize = 0;
-            btnLastPage.FlatAppearance.MouseDownBackColor = Color.Transparent;
-            btnLastPage.FlatAppearance.MouseOverBackColor = Color.Transparent;
-            btnLastPage.FlatStyle = FlatStyle.Flat;
-            btnLastPage.Image = Properties.Resources.previous;
-            btnLastPage.ImageAlign = ContentAlignment.MiddleLeft;
-            btnLastPage.Location = new Point(12, 458);
-            btnLastPage.Name = "btnLastPage";
-            btnLastPage.Padding = new Padding(4);
-            btnLastPage.Size = new Size(81, 37);
-            btnLastPage.TabIndex = 17;
-            btnLastPage.TextAlign = ContentAlignment.MiddleRight;
-            btnLastPage.UseVisualStyleBackColor = true;
-            btnLastPage.Click += btnLastPage_Click;
-            // 
-            // btnFirstPage
-            // 
-            btnFirstPage.FlatAppearance.BorderSize = 0;
-            btnFirstPage.FlatAppearance.MouseDownBackColor = Color.Transparent;
-            btnFirstPage.FlatAppearance.MouseOverBackColor = Color.Transparent;
-            btnFirstPage.FlatStyle = FlatStyle.Flat;
-            btnFirstPage.Image = Properties.Resources.Next;
-            btnFirstPage.ImageAlign = ContentAlignment.MiddleLeft;
-            btnFirstPage.Location = new Point(267, 458);
-            btnFirstPage.Name = "btnFirstPage";
-            btnFirstPage.Padding = new Padding(4);
-            btnFirstPage.Size = new Size(81, 37);
-            btnFirstPage.TabIndex = 18;
-            btnFirstPage.TextAlign = ContentAlignment.MiddleRight;
-            btnFirstPage.UseVisualStyleBackColor = true;
-            btnFirstPage.Click += btnFirstPage_Click;
+            lblTime.Text = "20:02:28";
             // 
             // dgvAccounts
             // 
@@ -150,6 +60,7 @@ namespace D_WinFormsApp
             dgvAccounts.AllowUserToDeleteRows = false;
             dataGridViewCellStyle1.BackColor = Color.FromArgb(240, 240, 240);
             dgvAccounts.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dgvAccounts.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dgvAccounts.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             dgvAccounts.BackgroundColor = Color.White;
             dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
@@ -164,13 +75,13 @@ namespace D_WinFormsApp
             dgvAccounts.ContextMenuStrip = contextMenuStrip;
             dgvAccounts.EditMode = DataGridViewEditMode.EditProgrammatically;
             dgvAccounts.EnableHeadersVisualStyles = false;
-            dgvAccounts.Location = new Point(0, 110);
+            dgvAccounts.Location = new Point(12, 110);
             dgvAccounts.MultiSelect = false;
             dgvAccounts.Name = "dgvAccounts";
             dgvAccounts.ReadOnly = true;
             dgvAccounts.RowHeadersWidth = 51;
             dgvAccounts.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvAccounts.Size = new Size(713, 356);
+            dgvAccounts.Size = new Size(689, 346);
             dgvAccounts.TabIndex = 0;
             dgvAccounts.TabStop = false;
             dgvAccounts.DoubleClick += dgvAccounts_DoubleClick;
@@ -364,12 +275,100 @@ namespace D_WinFormsApp
             dtpFilter.TabIndex = 13;
             dtpFilter.Visible = false;
             // 
+            // btnNextPage
+            // 
+            btnNextPage.FlatAppearance.BorderSize = 0;
+            btnNextPage.FlatAppearance.MouseDownBackColor = Color.Transparent;
+            btnNextPage.FlatAppearance.MouseOverBackColor = Color.Transparent;
+            btnNextPage.FlatStyle = FlatStyle.Flat;
+            btnNextPage.Image = Properties.Resources.Next;
+            btnNextPage.ImageAlign = ContentAlignment.MiddleLeft;
+            btnNextPage.Location = new Point(180, 458);
+            btnNextPage.Name = "btnNextPage";
+            btnNextPage.Padding = new Padding(4);
+            btnNextPage.Size = new Size(81, 37);
+            btnNextPage.TabIndex = 15;
+            btnNextPage.TextAlign = ContentAlignment.MiddleRight;
+            btnNextPage.UseVisualStyleBackColor = true;
+            btnNextPage.Click += btnNextPage_Click;
+            // 
+            // btnPrevPage
+            // 
+            btnPrevPage.FlatAppearance.BorderSize = 0;
+            btnPrevPage.FlatAppearance.MouseDownBackColor = Color.Transparent;
+            btnPrevPage.FlatAppearance.MouseOverBackColor = Color.Transparent;
+            btnPrevPage.FlatStyle = FlatStyle.Flat;
+            btnPrevPage.Image = Properties.Resources.previous;
+            btnPrevPage.ImageAlign = ContentAlignment.MiddleLeft;
+            btnPrevPage.Location = new Point(93, 458);
+            btnPrevPage.Name = "btnPrevPage";
+            btnPrevPage.Padding = new Padding(4);
+            btnPrevPage.Size = new Size(81, 37);
+            btnPrevPage.TabIndex = 16;
+            btnPrevPage.TextAlign = ContentAlignment.MiddleRight;
+            btnPrevPage.UseVisualStyleBackColor = true;
+            btnPrevPage.Click += btnPrevPage_Click;
+            // 
+            // btnLastPage
+            // 
+            btnLastPage.FlatAppearance.BorderSize = 0;
+            btnLastPage.FlatAppearance.MouseDownBackColor = Color.Transparent;
+            btnLastPage.FlatAppearance.MouseOverBackColor = Color.Transparent;
+            btnLastPage.FlatStyle = FlatStyle.Flat;
+            btnLastPage.Image = Properties.Resources.previous;
+            btnLastPage.ImageAlign = ContentAlignment.MiddleLeft;
+            btnLastPage.Location = new Point(12, 458);
+            btnLastPage.Name = "btnLastPage";
+            btnLastPage.Padding = new Padding(4);
+            btnLastPage.Size = new Size(81, 37);
+            btnLastPage.TabIndex = 17;
+            btnLastPage.TextAlign = ContentAlignment.MiddleRight;
+            btnLastPage.UseVisualStyleBackColor = true;
+            btnLastPage.Click += btnLastPage_Click;
+            // 
+            // btnFirstPage
+            // 
+            btnFirstPage.FlatAppearance.BorderSize = 0;
+            btnFirstPage.FlatAppearance.MouseDownBackColor = Color.Transparent;
+            btnFirstPage.FlatAppearance.MouseOverBackColor = Color.Transparent;
+            btnFirstPage.FlatStyle = FlatStyle.Flat;
+            btnFirstPage.Image = Properties.Resources.Next;
+            btnFirstPage.ImageAlign = ContentAlignment.MiddleLeft;
+            btnFirstPage.Location = new Point(267, 458);
+            btnFirstPage.Name = "btnFirstPage";
+            btnFirstPage.Padding = new Padding(4);
+            btnFirstPage.Size = new Size(81, 37);
+            btnFirstPage.TabIndex = 18;
+            btnFirstPage.TextAlign = ContentAlignment.MiddleRight;
+            btnFirstPage.UseVisualStyleBackColor = true;
+            btnFirstPage.Click += btnFirstPage_Click;
+            // 
+            // txtRowsPerPage
+            // 
+            txtRowsPerPage.Location = new Point(479, 462);
+            txtRowsPerPage.Name = "txtRowsPerPage";
+            txtRowsPerPage.Size = new Size(73, 29);
+            txtRowsPerPage.TabIndex = 19;
+            txtRowsPerPage.Text = "10";
+            toolTip.SetToolTip(txtRowsPerPage, "Rows per page");
+            txtRowsPerPage.TextChanged += txtRowsPerPage_TextChanged;
+            txtRowsPerPage.KeyPress += txtRowsPerPage_KeyPress;
+            // 
+            // cbCurrentPage
+            // 
+            cbCurrentPage.DropDownStyle = ComboBoxStyle.DropDownList;
+            cbCurrentPage.Location = new Point(394, 462);
+            cbCurrentPage.Name = "cbCurrentPage";
+            cbCurrentPage.Size = new Size(62, 29);
+            cbCurrentPage.TabIndex = 20;
+            toolTip.SetToolTip(cbCurrentPage, "Select page");
+            cbCurrentPage.SelectedIndexChanged += cbCurrentPage_SelectedIndexChanged;
+            // 
             // AccountListForm
             // 
-            ClientSize = new Size(713, 466);
-            // Add controls to the form
-            Controls.Add(txtRowsPerPage);
+            ClientSize = new Size(713, 505);
             Controls.Add(cbCurrentPage);
+            Controls.Add(txtRowsPerPage);
             Controls.Add(btnFirstPage);
             Controls.Add(btnLastPage);
             Controls.Add(btnPrevPage);
