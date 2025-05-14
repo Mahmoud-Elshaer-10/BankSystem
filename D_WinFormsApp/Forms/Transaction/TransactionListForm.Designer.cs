@@ -1,4 +1,6 @@
-﻿namespace D_WinFormsApp
+﻿using D_WinFormsApp.Controls;
+
+namespace D_WinFormsApp
 {
     partial class TransactionListForm
     {
@@ -18,18 +20,24 @@
             components = new System.ComponentModel.Container();
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
-            dgvTransactions = new D_WinFormsApp.Controls.MyDataGridView();
+            dgvTransactions = new MyDataGridView();
             contextMenuStrip = new ContextMenuStrip(components);
             addTransactionToolStripMenuItem = new ToolStripMenuItem();
             exportToCSVToolStripMenuItem = new ToolStripMenuItem();
-            btnAdd = new D_WinFormsApp.Controls.MyButton();
+            btnAdd = new MyButton();
+            btnExport = new MyButton();
             cbFilterBy = new ComboBox();
             txtFilterValue = new TextBox();
             lblRecordsCount = new Label();
-            btnClearFilter = new D_WinFormsApp.Controls.MyButton();
+            btnClearFilter = new MyButton();
             label2 = new Label();
-            btnExport = new D_WinFormsApp.Controls.MyButton();
             dtpFilter = new DateTimePicker();
+            btnFirstPage = new MyButton();
+            btnNextPage = new MyButton();
+            btnPrevPage = new MyButton();
+            btnLastPage = new MyButton();
+            txtRowsPerPage = new TextBox();
+            cbCurrentPage = new ComboBox();
             ((System.ComponentModel.ISupportInitialize)errorProvider).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgvTransactions).BeginInit();
             contextMenuStrip.SuspendLayout();
@@ -110,6 +118,21 @@
             btnAdd.UseVisualStyleBackColor = true;
             btnAdd.Click += btnAdd_Click;
             // 
+            // btnExport
+            // 
+            btnExport.Image = Properties.Resources.notes;
+            btnExport.ImageAlign = ContentAlignment.MiddleLeft;
+            btnExport.Location = new Point(104, 12);
+            btnExport.Name = "btnExport";
+            btnExport.Padding = new Padding(4);
+            btnExport.Size = new Size(100, 37);
+            btnExport.TabIndex = 5;
+            btnExport.Text = "E&xport";
+            btnExport.TextAlign = ContentAlignment.MiddleRight;
+            toolTip.SetToolTip(btnExport, "Export to CSV (Alt+X)");
+            btnExport.UseVisualStyleBackColor = true;
+            btnExport.Click += btnExport_Click;
+            // 
             // cbFilterBy
             // 
             cbFilterBy.DropDownStyle = ComboBoxStyle.DropDownList;
@@ -136,7 +159,7 @@
             lblRecordsCount.Location = new Point(459, 70);
             lblRecordsCount.Name = "lblRecordsCount";
             lblRecordsCount.Size = new Size(215, 23);
-            lblRecordsCount.TabIndex = 7;
+            lblRecordsCount.TabIndex = 8;
             lblRecordsCount.Text = "0";
             lblRecordsCount.TextAlign = ContentAlignment.MiddleRight;
             // 
@@ -148,7 +171,7 @@
             btnClearFilter.Name = "btnClearFilter";
             btnClearFilter.Padding = new Padding(4);
             btnClearFilter.Size = new Size(29, 29);
-            btnClearFilter.TabIndex = 8;
+            btnClearFilter.TabIndex = 9;
             btnClearFilter.TextAlign = ContentAlignment.MiddleRight;
             btnClearFilter.UseVisualStyleBackColor = true;
             btnClearFilter.Visible = false;
@@ -164,21 +187,6 @@
             label2.TabIndex = 11;
             label2.Text = "Filter By:";
             // 
-            // btnExport
-            // 
-            btnExport.Image = Properties.Resources.notes;
-            btnExport.ImageAlign = ContentAlignment.MiddleLeft;
-            btnExport.Location = new Point(104, 12);
-            btnExport.Name = "btnExport";
-            btnExport.Padding = new Padding(4);
-            btnExport.Size = new Size(100, 37);
-            btnExport.TabIndex = 5;
-            btnExport.Text = "E&xport";
-            btnExport.TextAlign = ContentAlignment.MiddleRight;
-            toolTip.SetToolTip(btnExport, "Export to CSV (Alt+X)");
-            btnExport.UseVisualStyleBackColor = true;
-            btnExport.Click += btnExport_Click;
-            // 
             // dtpFilter
             // 
             dtpFilter.Format = DateTimePickerFormat.Short;
@@ -188,9 +196,112 @@
             dtpFilter.TabIndex = 14;
             dtpFilter.Visible = false;
             // 
+            // btnFirstPage
+            // 
+            btnFirstPage.FlatAppearance.BorderSize = 0;
+            btnFirstPage.FlatAppearance.MouseDownBackColor = Color.Transparent;
+            btnFirstPage.FlatAppearance.MouseOverBackColor = Color.Transparent;
+            btnFirstPage.FlatStyle = FlatStyle.Flat;
+            btnFirstPage.Image = Properties.Resources.Next;
+            btnFirstPage.ImageAlign = ContentAlignment.MiddleLeft;
+            btnFirstPage.Location = new Point(12, 458);
+            btnFirstPage.Name = "btnFirstPage";
+            btnFirstPage.Padding = new Padding(4);
+            btnFirstPage.Size = new Size(81, 37);
+            btnFirstPage.TabIndex = 15;
+            btnFirstPage.Text = "First";
+            btnFirstPage.TextAlign = ContentAlignment.MiddleRight;
+            toolTip.SetToolTip(btnFirstPage, "First Page");
+            btnFirstPage.UseVisualStyleBackColor = true;
+            btnFirstPage.Click += btnFirstPage_Click;
+            // 
+            // btnNextPage
+            // 
+            btnNextPage.FlatAppearance.BorderSize = 0;
+            btnNextPage.FlatAppearance.MouseDownBackColor = Color.Transparent;
+            btnNextPage.FlatAppearance.MouseOverBackColor = Color.Transparent;
+            btnNextPage.FlatStyle = FlatStyle.Flat;
+            btnNextPage.Image = Properties.Resources.Next;
+            btnNextPage.ImageAlign = ContentAlignment.MiddleLeft;
+            btnNextPage.Location = new Point(206, 458);
+            btnNextPage.Name = "btnNextPage";
+            btnNextPage.Padding = new Padding(4);
+            btnNextPage.Size = new Size(81, 37);
+            btnNextPage.TabIndex = 16;
+            btnNextPage.Text = "Next";
+            btnNextPage.TextAlign = ContentAlignment.MiddleRight;
+            toolTip.SetToolTip(btnNextPage, "Next Page");
+            btnNextPage.UseVisualStyleBackColor = true;
+            btnNextPage.Click += btnNextPage_Click;
+            // 
+            // btnPrevPage
+            // 
+            btnPrevPage.FlatAppearance.BorderSize = 0;
+            btnPrevPage.FlatAppearance.MouseDownBackColor = Color.Transparent;
+            btnPrevPage.FlatAppearance.MouseOverBackColor = Color.Transparent;
+            btnPrevPage.FlatStyle = FlatStyle.Flat;
+            btnPrevPage.Image = Properties.Resources.previous;
+            btnPrevPage.ImageAlign = ContentAlignment.MiddleLeft;
+            btnPrevPage.Location = new Point(107, 458);
+            btnPrevPage.Name = "btnPrevPage";
+            btnPrevPage.Padding = new Padding(4);
+            btnPrevPage.Size = new Size(81, 37);
+            btnPrevPage.TabIndex = 17;
+            btnPrevPage.Text = "Prev";
+            btnPrevPage.TextAlign = ContentAlignment.MiddleRight;
+            toolTip.SetToolTip(btnPrevPage, "Previous Page");
+            btnPrevPage.UseVisualStyleBackColor = true;
+            btnPrevPage.Click += btnPrevPage_Click;
+            // 
+            // btnLastPage
+            // 
+            btnLastPage.FlatAppearance.BorderSize = 0;
+            btnLastPage.FlatAppearance.MouseDownBackColor = Color.Transparent;
+            btnLastPage.FlatAppearance.MouseOverBackColor = Color.Transparent;
+            btnLastPage.FlatStyle = FlatStyle.Flat;
+            btnLastPage.Image = Properties.Resources.previous;
+            btnLastPage.ImageAlign = ContentAlignment.MiddleLeft;
+            btnLastPage.Location = new Point(307, 458);
+            btnLastPage.Name = "btnLastPage";
+            btnLastPage.Padding = new Padding(4);
+            btnLastPage.Size = new Size(81, 37);
+            btnLastPage.TabIndex = 18;
+            btnLastPage.Text = "Last";
+            btnLastPage.TextAlign = ContentAlignment.MiddleRight;
+            toolTip.SetToolTip(btnLastPage, "Last Page");
+            btnLastPage.UseVisualStyleBackColor = true;
+            btnLastPage.Click += btnLastPage_Click;
+            // 
+            // txtRowsPerPage
+            // 
+            txtRowsPerPage.Location = new Point(394, 458);
+            txtRowsPerPage.Name = "txtRowsPerPage";
+            txtRowsPerPage.Size = new Size(50, 29);
+            txtRowsPerPage.TabIndex = 19;
+            txtRowsPerPage.Text = "10";
+            toolTip.SetToolTip(txtRowsPerPage, "Rows per page");
+            txtRowsPerPage.KeyPress += txtRowsPerPage_KeyPress;
+            txtRowsPerPage.TextChanged += txtRowsPerPage_TextChanged;
+            // 
+            // cbCurrentPage
+            // 
+            cbCurrentPage.DropDownStyle = ComboBoxStyle.DropDownList;
+            cbCurrentPage.Location = new Point(450, 458);
+            cbCurrentPage.Name = "cbCurrentPage";
+            cbCurrentPage.Size = new Size(60, 29);
+            cbCurrentPage.TabIndex = 20;
+            toolTip.SetToolTip(cbCurrentPage, "Select page");
+            cbCurrentPage.SelectedIndexChanged += cbCurrentPage_SelectedIndexChanged;
+            // 
             // TransactionListForm
             // 
             ClientSize = new Size(699, 472);
+            Controls.Add(cbCurrentPage);
+            Controls.Add(txtRowsPerPage);
+            Controls.Add(btnLastPage);
+            Controls.Add(btnPrevPage);
+            Controls.Add(btnNextPage);
+            Controls.Add(btnFirstPage);
             Controls.Add(dtpFilter);
             Controls.Add(btnExport);
             Controls.Add(label2);
@@ -210,9 +321,15 @@
             Controls.SetChildIndex(lblRecordsCount, 0);
             Controls.SetChildIndex(btnClearFilter, 0);
             Controls.SetChildIndex(label2, 0);
+            Controls.SetChildIndex(lblTime, 0);
             Controls.SetChildIndex(btnExport, 0);
             Controls.SetChildIndex(dtpFilter, 0);
-            Controls.SetChildIndex(lblTime, 0);
+            Controls.SetChildIndex(btnFirstPage, 0);
+            Controls.SetChildIndex(btnNextPage, 0);
+            Controls.SetChildIndex(btnPrevPage, 0);
+            Controls.SetChildIndex(btnLastPage, 0);
+            Controls.SetChildIndex(txtRowsPerPage, 0);
+            Controls.SetChildIndex(cbCurrentPage, 0);
             ((System.ComponentModel.ISupportInitialize)errorProvider).EndInit();
             ((System.ComponentModel.ISupportInitialize)dgvTransactions).EndInit();
             contextMenuStrip.ResumeLayout(false);
@@ -220,17 +337,23 @@
             PerformLayout();
         }
 
-        private Controls.MyDataGridView dgvTransactions;
-        private Controls.MyButton btnAdd;
+        private MyDataGridView dgvTransactions;
+        private MyButton btnAdd;
+        private MyButton btnExport;
         private ContextMenuStrip contextMenuStrip;
         private ToolStripMenuItem addTransactionToolStripMenuItem;
         private ToolStripMenuItem exportToCSVToolStripMenuItem;
         private ComboBox cbFilterBy;
         private TextBox txtFilterValue;
         private Label lblRecordsCount;
-        private Controls.MyButton btnClearFilter;
+        private MyButton btnClearFilter;
         private Label label2;
-        private Controls.MyButton btnExport;
         private DateTimePicker dtpFilter;
+        private MyButton btnFirstPage;
+        private MyButton btnNextPage;
+        private MyButton btnPrevPage;
+        private MyButton btnLastPage;
+        private TextBox txtRowsPerPage;
+        private ComboBox cbCurrentPage;
     }
 }

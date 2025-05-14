@@ -51,8 +51,7 @@ namespace D_WinFormsApp
             // lblTime
             // 
             lblTime.Location = new Point(599, 12);
-            lblTime.Size = new Size(74, 19);
-            lblTime.Text = "14:11:47";
+            lblTime.Text = "15:37:02";
             // 
             // dgvClients
             // 
@@ -134,7 +133,6 @@ namespace D_WinFormsApp
             // 
             // btnAdd
             // 
-            //btnAdd.Image = TestWinForms.Properties.Resources.clear2;
             btnAdd.ImageAlign = ContentAlignment.MiddleLeft;
             btnAdd.Location = new Point(12, 12);
             btnAdd.Name = "btnAdd";
@@ -149,7 +147,6 @@ namespace D_WinFormsApp
             // 
             // btnEdit
             // 
-            //btnEdit.Image = TestWinForms.Properties.Resources.EditIcon;
             btnEdit.ImageAlign = ContentAlignment.MiddleLeft;
             btnEdit.Location = new Point(102, 12);
             btnEdit.Name = "btnEdit";
@@ -272,6 +269,7 @@ namespace D_WinFormsApp
             btnNextPage.FlatAppearance.MouseDownBackColor = Color.Transparent;
             btnNextPage.FlatAppearance.MouseOverBackColor = Color.Transparent;
             btnNextPage.FlatStyle = FlatStyle.Flat;
+            btnNextPage.Image = TestWinForms.Properties.Resources.Next;
             btnNextPage.ImageAlign = ContentAlignment.MiddleLeft;
             btnNextPage.Location = new Point(206, 458);
             btnNextPage.Name = "btnNextPage";

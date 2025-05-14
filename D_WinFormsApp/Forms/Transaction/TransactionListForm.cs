@@ -1,4 +1,5 @@
-﻿using D_WinFormsApp.Helpers;
+﻿using D_WinFormsApp.Controls;
+using D_WinFormsApp.Helpers;
 using D_WinFormsApp.Models;
 using System.Net.Http.Json;
 
@@ -7,6 +8,7 @@ namespace D_WinFormsApp
     public partial class TransactionListForm : MyForm
     {
         private readonly int _accountId;
+        private bool isLoading = false; // Prevents event loop during initialization
 
         public TransactionListForm(int accountId)
         {
@@ -15,60 +17,52 @@ namespace D_WinFormsApp
 
             SetupFilterToolTips(cbFilterBy, txtFilterValue, btnClearFilter);
             PopulateFilterDropdown<Transaction>(cbFilterBy);
-            ConfigureFilterDebounce<Transaction>(txtFilterValue, cbFilterBy, dgvTransactions, LoadTransactionsAsync, dtpFilter);
+            ConfigureFilterDebounce<Transaction>(txtFilterValue, cbFilterBy, dgvTransactions, lblRecordsCount, $"Transaction/paged/{_accountId}", dtpFilter);
             EnableSorting<Transaction>(dgvTransactions);
+        }
+
+        protected override void UpdatePaginationButtons()
+        {
+            btnPrevPage.Enabled = CurrentPage > 1;
+            btnFirstPage.Enabled = CurrentPage > 1;
+            btnNextPage.Enabled = CurrentPage < TotalPages;
+            btnLastPage.Enabled = CurrentPage < TotalPages && TotalPages > 0;
+            UpdatePageDropdown();
+        }
+
+        private void UpdatePageDropdown()
+        {
+            isLoading = true; // Suppress SelectedIndexChanged
+            cbCurrentPage.Items.Clear();
+            for (int i = 1; i <= TotalPages; i++)
+                cbCurrentPage.Items.Add(i);
+            if (TotalPages > 0)
+                cbCurrentPage.SelectedIndex = CurrentPage - 1;
+            else
+                cbCurrentPage.Text = "";
+            isLoading = false;
         }
 
         private void TransactionListForm_Load(object sender, EventArgs e)
         {
-            cbFilterBy.SelectedIndex = 0; // Default to "None"
-            txtFilterValue.Text = ""; // Clear filter
-        }
-
-        private async Task<List<Transaction>> LoadTransactionsAsync(string field, string value)
-        {
             try
             {
-                Cursor = Cursors.WaitCursor;
-                string url = $"Transaction/ByAccount/{_accountId}";
-                if (!string.IsNullOrEmpty(field) && !string.IsNullOrEmpty(value))
-                {
-                    url += $"?field={Uri.EscapeDataString(field)}&value={Uri.EscapeDataString(value)}";
-                }
-
-                var response = await ApiClient.Client.GetAsync(url);
-                if (response.IsSuccessStatusCode)
-                {
-                    var transactions = await response.Content.ReadFromJsonAsync<List<Transaction>>();
-                    dgvTransactions.DataSource = transactions ?? new List<Transaction>();
-                    lblRecordsCount.Text = $"Records: {dgvTransactions.RowCount}";
-                    AutoResizeFormToDataGridView(dgvTransactions);
-                    return transactions ?? [];
-                }
-                else if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
-                {
-                    dgvTransactions.DataSource = new List<Transaction>();
-                    lblRecordsCount.Text = $"Records: {dgvTransactions.RowCount}";
-                    return [];
-                }
-                else
-                {
-                    throw new HttpRequestException($"API call failed with status: {response.StatusCode}");
-                }
+                isLoading = true;
+                cbFilterBy.SelectedIndex = 0; // Default to "None"
+                txtFilterValue.Text = "";
+                txtRowsPerPage.Text = RowsPerPage.ToString();
+                isLoading = false;
+                _ = LoadPagedDataAsync<Transaction>(dgvTransactions, lblRecordsCount, $"Transaction/paged/{_accountId}");
             }
             catch (Exception ex)
             {
-                ShowError(ex.Message);
-                return [];
-            }
-            finally
-            {
-                Cursor = Cursors.Default;
+                ShowError($"Load error: {ex.Message}");
             }
         }
 
         private void cbFilterBy_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (isLoading) return;
             txtFilterValue.Visible = (cbFilterBy.Text != "None") && (cbFilterBy.Text != "Transaction Date");
             btnClearFilter.Visible = txtFilterValue.Visible;
             dtpFilter.Visible = cbFilterBy.Text == "Transaction Date";
@@ -79,7 +73,8 @@ namespace D_WinFormsApp
             }
             else
             {
-                _ = LoadTransactionsAsync("", "");
+                CurrentPage = 1;
+                _ = LoadPagedDataAsync<Transaction>(dgvTransactions, lblRecordsCount, $"Transaction/paged/{_accountId}");
             }
         }
 
@@ -89,10 +84,73 @@ namespace D_WinFormsApp
                 e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
         }
 
+        private void txtRowsPerPage_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
+        }
+
+        private void txtRowsPerPage_TextChanged(object sender, EventArgs e)
+        {
+            if (isLoading) return;
+            if (int.TryParse(txtRowsPerPage.Text, out int rows) && rows > 0)
+            {
+                errorProvider.SetError(txtRowsPerPage, "");
+                RowsPerPage = rows;
+                CurrentPage = 1;
+                _ = LoadPagedDataAsync<Transaction>(dgvTransactions, lblRecordsCount, $"Transaction/paged/{_accountId}");
+            }
+            else
+            {
+                errorProvider.SetError(txtRowsPerPage, "Enter a number greater than 0");
+            }
+        }
+
+        private void cbCurrentPage_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (isLoading) return;
+            if (cbCurrentPage.SelectedIndex >= 0)
+            {
+                CurrentPage = cbCurrentPage.SelectedIndex + 1;
+                _ = LoadPagedDataAsync<Transaction>(dgvTransactions, lblRecordsCount, $"Transaction/paged/{_accountId}");
+            }
+        }
+
         private void btnClearFilter_Click(object sender, EventArgs e)
         {
             txtFilterValue.Text = "";
             txtFilterValue.Focus();
+            CurrentPage = 1;
+            _ = LoadPagedDataAsync<Transaction>(dgvTransactions, lblRecordsCount, $"Transaction/paged/{_accountId}");
+        }
+
+        private void btnNextPage_Click(object sender, EventArgs e)
+        {
+            if (CurrentPage < TotalPages)
+            {
+                CurrentPage++;
+                _ = LoadPagedDataAsync<Transaction>(dgvTransactions, lblRecordsCount, $"Transaction/paged/{_accountId}");
+            }
+        }
+
+        private void btnPrevPage_Click(object sender, EventArgs e)
+        {
+            if (CurrentPage > 1)
+            {
+                CurrentPage--;
+                _ = LoadPagedDataAsync<Transaction>(dgvTransactions, lblRecordsCount, $"Transaction/paged/{_accountId}");
+            }
+        }
+
+        private void btnFirstPage_Click(object sender, EventArgs e)
+        {
+            CurrentPage = 1;
+            _ = LoadPagedDataAsync<Transaction>(dgvTransactions, lblRecordsCount, $"Transaction/paged/{_accountId}");
+        }
+
+        private void btnLastPage_Click(object sender, EventArgs e)
+        {
+            CurrentPage = TotalPages;
+            _ = LoadPagedDataAsync<Transaction>(dgvTransactions, lblRecordsCount, $"Transaction/paged/{_accountId}");
         }
 
         private void AddTransaction()
@@ -100,7 +158,8 @@ namespace D_WinFormsApp
             using var form = new TransactionForm(_accountId);
             if (form.ShowDialog() == DialogResult.OK)
             {
-                _ = LoadTransactionsAsync("", "");
+                CurrentPage = 1;
+                _ = LoadPagedDataAsync<Transaction>(dgvTransactions, lblRecordsCount, $"Transaction/paged/{_accountId}");
             }
         }
 

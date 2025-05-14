@@ -6,76 +6,62 @@ namespace D_WinFormsApp
 {
     public partial class AccountListForm : MyForm
     {
+        private bool isLoading = false;
+
         public AccountListForm()
         {
             InitializeComponent();
-
             SetupFilterToolTips(cbFilterBy, txtFilterValue, btnClearFilter);
             PopulateFilterDropdown<Account>(cbFilterBy);
-            ConfigureFilterDebounce<Account>(txtFilterValue, cbFilterBy, dgvAccounts, LoadAccountsAsync, dtpFilter);
+            ConfigureFilterDebounce<Account>(txtFilterValue, cbFilterBy, dgvAccounts, lblRecordsCount, "Account", dtpFilter);
             EnableSorting<Account>(dgvAccounts);
+        }
+
+        protected override void UpdatePaginationButtons()
+        {
+            btnPrevPage.Enabled = CurrentPage > 1;
+            btnFirstPage.Enabled = CurrentPage > 1;
+            btnNextPage.Enabled = CurrentPage < TotalPages;
+            btnLastPage.Enabled = CurrentPage < TotalPages && TotalPages > 0;
+            UpdatePageDropdown();
+        }
+
+        private void UpdatePageDropdown()
+        {
+            isLoading = true;
+            cbCurrentPage.Items.Clear();
+            for (int i = 1; i <= TotalPages; i++)
+                cbCurrentPage.Items.Add(i);
+            if (TotalPages > 0)
+                cbCurrentPage.SelectedIndex = CurrentPage - 1;
+            else
+                cbCurrentPage.Text = "";
+            isLoading = false;
         }
 
         private void AccountListForm_Load(object sender, EventArgs e)
         {
-            cbFilterBy.SelectedIndex = 0;
-            txtFilterValue.Text = "";
-        }
-
-        /// <summary>
-        /// Loads accounts from the API and updates the grid.
-        /// </summary>
-        private async Task<List<Account>> LoadAccountsAsync(string field, string value)
-        {
             try
             {
-                Cursor = Cursors.WaitCursor; // Add loading indicator
-                HttpResponseMessage response;
-                if (string.IsNullOrEmpty(field) || string.IsNullOrEmpty(value))
-                {
-                    response = await ApiClient.Client.GetAsync("Account/All");
-                }
-                else
-                {
-                    string url = $"Account/Filter?field={Uri.EscapeDataString(field)}&value={Uri.EscapeDataString(value)}";
-                    response = await ApiClient.Client.GetAsync(url);
-                }
-
-                if (response.IsSuccessStatusCode)
-                {
-                    var accounts = await response.Content.ReadFromJsonAsync<List<Account>>();
-                    dgvAccounts.DataSource = accounts ?? [];
-                    lblRecordsCount.Text = $"Records: {dgvAccounts.RowCount}";
-                    AutoResizeFormToDataGridView(dgvAccounts);
-                    return accounts ?? [];
-                }
-                else if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
-                {
-                    dgvAccounts.DataSource = new List<Account>();
-                    lblRecordsCount.Text = $"Records: {dgvAccounts.RowCount}";
-                    return [];
-                }
-                else
-                {
-                    throw new HttpRequestException($"API call failed with status: {response.StatusCode}");
-                }
+                isLoading = true;
+                cbFilterBy.SelectedIndex = 0;
+                txtFilterValue.Text = "";
+                txtRowsPerPage.Text = RowsPerPage.ToString();
+                isLoading = false;
+                _ = LoadPagedDataAsync<Account>(dgvAccounts, lblRecordsCount, "Account");
             }
             catch (Exception ex)
             {
-                ShowError(ex.Message);
-                return [];
-            }
-            finally
-            {
-                Cursor = Cursors.Default; // Reset cursor
+                ShowError($"Load error: {ex.Message}");
             }
         }
 
         private void cbFilterBy_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (isLoading) return;
             txtFilterValue.Visible = (cbFilterBy.Text != "None") && (cbFilterBy.Text != "Created At");
-            dtpFilter.Visible = cbFilterBy.Text == "Created At";
             btnClearFilter.Visible = txtFilterValue.Visible;
+            dtpFilter.Visible = cbFilterBy.Text == "Created At";
             if (txtFilterValue.Visible)
             {
                 txtFilterValue.Text = "";
@@ -83,7 +69,8 @@ namespace D_WinFormsApp
             }
             else
             {
-                _ = LoadAccountsAsync("", "");
+                CurrentPage = 1;
+                _ = LoadPagedDataAsync<Account>(dgvAccounts, lblRecordsCount, "Account");
             }
         }
 
@@ -95,11 +82,73 @@ namespace D_WinFormsApp
                 e.Handled = !char.IsDigit(e.KeyChar) && e.KeyChar != '.' && !char.IsControl(e.KeyChar);
         }
 
+        private void txtRowsPerPage_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
+        }
+
+        private void txtRowsPerPage_TextChanged(object sender, EventArgs e)
+        {
+            if (isLoading) return;
+            if (int.TryParse(txtRowsPerPage.Text, out int rows) && rows > 0)
+            {
+                errorProvider.SetError(txtRowsPerPage, "");
+                RowsPerPage = rows;
+                CurrentPage = 1;
+                _ = LoadPagedDataAsync<Account>(dgvAccounts, lblRecordsCount, "Account");
+            }
+            else
+            {
+                errorProvider.SetError(txtRowsPerPage, "Enter a number greater than 0");
+            }
+        }
+
+        private void cbCurrentPage_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (isLoading) return;
+            if (cbCurrentPage.SelectedIndex >= 0)
+            {
+                CurrentPage = cbCurrentPage.SelectedIndex + 1;
+                _ = LoadPagedDataAsync<Account>(dgvAccounts, lblRecordsCount, "Account");
+            }
+        }
+
         private void btnClearFilter_Click(object sender, EventArgs e)
         {
             txtFilterValue.Text = "";
             txtFilterValue.Focus();
-            dgvAccounts.DataSource = null;
+            CurrentPage = 1;
+            _ = LoadPagedDataAsync<Account>(dgvAccounts, lblRecordsCount, "Account");
+        }
+
+        private void btnNextPage_Click(object sender, EventArgs e)
+        {
+            if (CurrentPage < TotalPages)
+            {
+                CurrentPage++;
+                _ = LoadPagedDataAsync<Account>(dgvAccounts, lblRecordsCount, "Account");
+            }
+        }
+
+        private void btnPrevPage_Click(object sender, EventArgs e)
+        {
+            if (CurrentPage > 1)
+            {
+                CurrentPage--;
+                _ = LoadPagedDataAsync<Account>(dgvAccounts, lblRecordsCount, "Account");
+            }
+        }
+
+        private void btnFirstPage_Click(object sender, EventArgs e)
+        {
+            CurrentPage = 1;
+            _ = LoadPagedDataAsync<Account>(dgvAccounts, lblRecordsCount, "Account");
+        }
+
+        private void btnLastPage_Click(object sender, EventArgs e)
+        {
+            CurrentPage = TotalPages;
+            _ = LoadPagedDataAsync<Account>(dgvAccounts, lblRecordsCount, "Account");
         }
 
         private void AddAccount()
@@ -107,7 +156,8 @@ namespace D_WinFormsApp
             using var form = new AccountForm();
             if (form.ShowDialog() == DialogResult.OK)
             {
-                _ = LoadAccountsAsync("", "");
+                CurrentPage = 1;
+                _ = LoadPagedDataAsync<Account>(dgvAccounts, lblRecordsCount, "Account");
             }
         }
 
@@ -128,7 +178,7 @@ namespace D_WinFormsApp
                 using var form = new AccountForm(FormMode.Update, selectedAccount.AccountID);
                 if (form.ShowDialog() == DialogResult.OK)
                 {
-                    _ = LoadAccountsAsync("", "");
+                    _ = LoadPagedDataAsync<Account>(dgvAccounts, lblRecordsCount, "Account");
                 }
             }
         }
@@ -153,7 +203,7 @@ namespace D_WinFormsApp
                     var response = await ApiClient.Client.DeleteAsync($"Account/{selectedAccount.AccountID}");
                     if (response.IsSuccessStatusCode)
                     {
-                        await LoadAccountsAsync("", "");
+                        await LoadPagedDataAsync<Account>(dgvAccounts, lblRecordsCount, "Account");
                     }
                 }
             }
@@ -204,7 +254,5 @@ namespace D_WinFormsApp
         {
             ExportToCsv<Account>(dgvAccounts, "accounts.csv");
         }
-
-       
     }
 }
