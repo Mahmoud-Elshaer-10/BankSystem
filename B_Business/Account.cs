@@ -54,6 +54,16 @@ namespace B_Business
             return AccountRepository.GetAccountsByClient(clientId);
         }
 
+        public static List<AccountDTO> GetAccountsPaged(int pageNumber, int rowsPerPage, string field = "", string value = "")
+        {
+            return AccountRepository.GetAccountsPaged(pageNumber, rowsPerPage, field, value);
+        }
+
+        public static int GetAccountsCount(string field = "", string value = "")
+        {
+            return AccountRepository.GetAccountsCount(field, value);
+        }
+
         public static AccountSummaryDTO GetAccountSummary()
         {
             return AccountRepository.GetAccountSummary();
