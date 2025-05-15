@@ -28,6 +28,29 @@ namespace A_DataAccess.Repositories
                 new SqlParameter("@Value", value ?? ""));
         }
 
+        public static List<AccountDTO> GetAccountsPaged(int pageNumber, int rowsPerPage, string field = "", string value = "")
+        {
+            return BaseRepository.ExecuteReader(
+                "GetAccountsPaged",
+                reader => new AccountDTO(
+                    reader.GetInt32(reader.GetOrdinal("AccountID")),
+                    reader.GetInt32(reader.GetOrdinal("ClientID")),
+                    reader.GetDecimal(reader.GetOrdinal("Balance")),
+                    reader.GetDateTime(reader.GetOrdinal("CreatedAt"))),
+                new SqlParameter("@PageNumber", pageNumber),
+                new SqlParameter("@RowsPerPage", rowsPerPage),
+                new SqlParameter("@Field", field),
+                new SqlParameter("@Value", value));
+        }
+
+        public static int GetAccountsCount(string field = "", string value = "")
+        {
+            return BaseRepository.ExecuteScalar(
+                "GetAccountsCount",
+                new SqlParameter("@Field", field),
+                new SqlParameter("@Value", value));
+        }
+
         public static AccountDTO? GetAccountByID(int accountID)
         {
             return BaseRepository.ExecuteSingle(
