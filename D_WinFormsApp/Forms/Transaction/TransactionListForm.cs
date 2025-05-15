@@ -17,7 +17,7 @@ namespace D_WinFormsApp
 
             SetupFilterToolTips(cbFilterBy, txtFilterValue, btnClearFilter);
             PopulateFilterDropdown<Transaction>(cbFilterBy);
-            ConfigureFilterDebounce<Transaction>(txtFilterValue, cbFilterBy, dgvTransactions, lblRecordsCount, $"Transaction/paged/{_accountId}", dtpFilter);
+            ConfigureFilterDebounce<Transaction>(txtFilterValue, cbFilterBy, dgvTransactions, lblRecordsCount, $"Transaction", dtpFilter);
             EnableSorting<Transaction>(dgvTransactions);
         }
 
@@ -52,7 +52,7 @@ namespace D_WinFormsApp
                 txtFilterValue.Text = "";
                 txtRowsPerPage.Text = RowsPerPage.ToString();
                 isLoading = false;
-                _ = LoadPagedDataAsync<Transaction>(dgvTransactions, lblRecordsCount, $"Transaction/paged/{_accountId}");
+                _ = LoadPagedDataAsync<Transaction>(dgvTransactions, lblRecordsCount, $"Transaction", "FromAccountID", $"{ _accountId}");
             }
             catch (Exception ex)
             {
