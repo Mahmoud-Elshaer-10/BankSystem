@@ -1,5 +1,5 @@
 
-
+update dashboard to include new info (transactions)
 ====================================================================================
 
 I noticed a bug in winforms:
