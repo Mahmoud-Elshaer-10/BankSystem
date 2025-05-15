@@ -9,26 +9,15 @@ namespace C_API.Controllers
     [Route("api/[controller]")]
     public class ClientController : ControllerBase
     {
-        [HttpGet("All", Name = "GetAllClients")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult<IEnumerable<ClientDTO>> GetAllClients()
-        {
-            var clients = Client.GetAllClients();
-            if (clients == null || !clients.Any())
-                return NotFound("No Clients Found!");
-            return Ok(clients);
-        }
-
         [HttpGet("paged", Name = "GetClientsPaged")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult<PagedResult<ClientDTO>> GetClientsPaged(
-            [FromQuery] int pageNumber = 1,
-            [FromQuery] int rowsPerPage = 10,
-            [FromQuery] string field = "",
-            [FromQuery] string value = "")
+           [FromQuery] int pageNumber = 1,
+           [FromQuery] int rowsPerPage = 10,
+           [FromQuery] string field = "",
+           [FromQuery] string value = "")
         {
             if (pageNumber < 1 || rowsPerPage < 1)
                 return BadRequest("Invalid pagination parameters.");
@@ -45,6 +34,17 @@ namespace C_API.Controllers
             };
 
             return Ok(result);
+        }
+
+        [HttpGet("All", Name = "GetAllClients")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public ActionResult<IEnumerable<ClientDTO>> GetAllClients()
+        {
+            var clients = Client.GetAllClients();
+            if (clients == null || !clients.Any())
+                return NotFound("No Clients Found!");
+            return Ok(clients);
         }
 
         [HttpGet("Filter", Name = "GetClientsByFilter")]

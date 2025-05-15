@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using A_DataAccess.Repositories;
 using B_Business;
+using C_API.Models;
 
 namespace C_API.Controllers
 {
@@ -8,6 +9,34 @@ namespace C_API.Controllers
     [Route("api/[controller]")]
     public class TransactionController : ControllerBase
     {
+        [HttpGet("paged", Name = "GetTransactionsPaged")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public ActionResult<PagedResult<TransactionDTO>> GetTransactionsPaged(
+              [FromQuery] int pageNumber = 1,
+              [FromQuery] int rowsPerPage = 10,
+              [FromQuery] string field = "",
+              [FromQuery] string value = "")
+        {
+            if (pageNumber < 1 || rowsPerPage < 1)
+                return BadRequest("Invalid pagination parameters");
+
+            var transactions = Transaction.GetTransactionsPaged(pageNumber, rowsPerPage, field, value);
+
+            if (transactions == null || !transactions.Any())
+                return NotFound("No transactions found");
+
+            var result = new PagedResult<TransactionDTO>
+            {
+                Items = transactions.ToList(),
+                TotalRecords = Transaction.GetTransactionsCount(field, value),
+                TotalPages = (int)Math.Ceiling((double)Transaction.GetTransactionsCount(field, value) / rowsPerPage)
+            };
+
+            return Ok(result);
+        }
+
         [HttpGet("ByAccount/{fromAccountId}", Name = "GetTransactionsByAccount")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

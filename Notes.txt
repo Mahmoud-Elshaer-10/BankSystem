@@ -1,22 +1,9 @@
 
-recordsCountLabel in MyForm shows incorrect total records at first
-====================================================================================
 
-is there a way to check for unused stored procedures from winforms (that is through API)
 ====================================================================================
 
 I noticed a bug in winforms:
 toolTip has a weird behaviour. like when opening ClientAccountsForm then pressing escape key (does not happen if click close button using the mouse), toolTip appears with a client name of the current selected.
-====================================================================================
-
-   [HttpGet("paged")]
-   public IActionResult GetClientsPaged(int pageNumber = 1, int rowsPerPage = 10)
-   {
-       var clients = Client.GetClientsPaged(pageNumber, rowsPerPage);
-       return Ok(clients);
-   }
-  is the above code better than using ActionResult<IEnumerable<ClientDTO>> and what are the differences.
-  what is the best practice?
 ====================================================================================
 
 Write unit tests for ClientRepository.cs or API endpoints to show TDD skills.

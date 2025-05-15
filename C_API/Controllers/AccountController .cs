@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using A_DataAccess.Repositories;
 using B_Business;
+using C_API.Models;
 
 namespace C_API.Controllers
 {
@@ -8,6 +9,33 @@ namespace C_API.Controllers
     [Route("api/[controller]")]
     public class AccountController : ControllerBase
     {
+        [HttpGet("paged", Name = "GetAccountsPaged")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public ActionResult<PagedResult<AccountDTO>> GetAccountsPaged(
+            [FromQuery] int pageNumber = 1,
+            [FromQuery] int rowsPerPage = 10,
+            [FromQuery] string field = "",
+            [FromQuery] string value = "")
+        {
+            if (pageNumber < 1 || rowsPerPage < 1)
+                return BadRequest("Invalid pagination parameters.");
+
+            var accounts = Account.GetAccountsPaged(pageNumber, rowsPerPage, field, value);
+            if (accounts == null || !accounts.Any())
+                return NotFound("No Accounts Found!");
+
+            var result = new PagedResult<AccountDTO>
+            {
+                Items = accounts.ToList(),
+                TotalRecords = Account.GetAccountsCount(field, value),
+                TotalPages = (int)Math.Ceiling((double)Account.GetAccountsCount(field, value) / rowsPerPage)
+            };
+
+            return Ok(result);
+        }
+
         [HttpGet("All", Name = "GetAllAccounts")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
