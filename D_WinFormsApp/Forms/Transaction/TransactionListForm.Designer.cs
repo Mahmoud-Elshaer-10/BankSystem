@@ -18,8 +18,8 @@ namespace D_WinFormsApp
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             dgvTransactions = new MyDataGridView();
             contextMenuStrip = new ContextMenuStrip(components);
             addTransactionToolStripMenuItem = new ToolStripMenuItem();
@@ -32,12 +32,13 @@ namespace D_WinFormsApp
             btnClearFilter = new MyButton();
             label2 = new Label();
             dtpFilter = new DateTimePicker();
-            btnFirstPage = new MyButton();
-            btnNextPage = new MyButton();
-            btnPrevPage = new MyButton();
-            btnLastPage = new MyButton();
-            txtRowsPerPage = new TextBox();
+            label1 = new Label();
             cbCurrentPage = new ComboBox();
+            txtRowsPerPage = new TextBox();
+            btnLastPage = new MyButton();
+            btnFirstPage = new MyButton();
+            btnPrevPage = new MyButton();
+            btnNextPage = new MyButton();
             ((System.ComponentModel.ISupportInitialize)errorProvider).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgvTransactions).BeginInit();
             contextMenuStrip.SuspendLayout();
@@ -46,25 +47,25 @@ namespace D_WinFormsApp
             // lblTime
             // 
             lblTime.Location = new Point(599, 12);
-            lblTime.Text = "20:44:37";
+            lblTime.Text = "16:36:15";
             // 
             // dgvTransactions
             // 
             dgvTransactions.AllowUserToAddRows = false;
             dgvTransactions.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle1.BackColor = Color.FromArgb(240, 240, 240);
-            dgvTransactions.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.BackColor = Color.FromArgb(240, 240, 240);
+            dgvTransactions.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
             dgvTransactions.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dgvTransactions.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             dgvTransactions.BackgroundColor = Color.White;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = Color.LightGray;
-            dataGridViewCellStyle2.Font = new Font("Segoe UI", 12F);
-            dataGridViewCellStyle2.ForeColor = Color.Black;
-            dataGridViewCellStyle2.SelectionBackColor = Color.LightGray;
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
-            dgvTransactions.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = Color.LightGray;
+            dataGridViewCellStyle4.Font = new Font("Segoe UI", 12F);
+            dataGridViewCellStyle4.ForeColor = Color.Black;
+            dataGridViewCellStyle4.SelectionBackColor = Color.LightGray;
+            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
+            dgvTransactions.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             dgvTransactions.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvTransactions.ContextMenuStrip = contextMenuStrip;
             dgvTransactions.EditMode = DataGridViewEditMode.EditProgrammatically;
@@ -196,43 +197,71 @@ namespace D_WinFormsApp
             dtpFilter.TabIndex = 14;
             dtpFilter.Visible = false;
             // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(407, 466);
+            label1.Name = "label1";
+            label1.Size = new Size(114, 21);
+            label1.TabIndex = 28;
+            label1.Text = "Rows Per Page:";
+            // 
+            // cbCurrentPage
+            // 
+            cbCurrentPage.DropDownStyle = ComboBoxStyle.DropDownList;
+            cbCurrentPage.Location = new Point(166, 462);
+            cbCurrentPage.Name = "cbCurrentPage";
+            cbCurrentPage.Size = new Size(62, 29);
+            cbCurrentPage.TabIndex = 27;
+            toolTip.SetToolTip(cbCurrentPage, "Select page");
+            cbCurrentPage.SelectedIndexChanged += cbCurrentPage_SelectedIndexChanged;
+            // 
+            // txtRowsPerPage
+            // 
+            txtRowsPerPage.Location = new Point(527, 462);
+            txtRowsPerPage.Name = "txtRowsPerPage";
+            txtRowsPerPage.Size = new Size(73, 29);
+            txtRowsPerPage.TabIndex = 26;
+            txtRowsPerPage.Text = "10";
+            toolTip.SetToolTip(txtRowsPerPage, "Rows per page");
+            txtRowsPerPage.TextChanged += txtRowsPerPage_TextChanged;
+            txtRowsPerPage.KeyPress += txtRowsPerPage_KeyPress;
+            // 
+            // btnLastPage
+            // 
+            btnLastPage.FlatAppearance.BorderSize = 0;
+            btnLastPage.FlatAppearance.MouseDownBackColor = Color.Transparent;
+            btnLastPage.FlatAppearance.MouseOverBackColor = Color.Transparent;
+            btnLastPage.FlatStyle = FlatStyle.Flat;
+            btnLastPage.Image = Properties.Resources.Last;
+            btnLastPage.ImageAlign = ContentAlignment.MiddleLeft;
+            btnLastPage.Location = new Point(335, 458);
+            btnLastPage.Name = "btnLastPage";
+            btnLastPage.Padding = new Padding(4);
+            btnLastPage.Size = new Size(47, 37);
+            btnLastPage.TabIndex = 25;
+            btnLastPage.TextAlign = ContentAlignment.MiddleRight;
+            toolTip.SetToolTip(btnLastPage, "Last Page");
+            btnLastPage.UseVisualStyleBackColor = true;
+            btnLastPage.Click += btnLastPage_Click;
+            // 
             // btnFirstPage
             // 
             btnFirstPage.FlatAppearance.BorderSize = 0;
             btnFirstPage.FlatAppearance.MouseDownBackColor = Color.Transparent;
             btnFirstPage.FlatAppearance.MouseOverBackColor = Color.Transparent;
             btnFirstPage.FlatStyle = FlatStyle.Flat;
-            //btnFirstPage.Image = Properties.Resources.Next;
+            btnFirstPage.Image = Properties.Resources.First;
             btnFirstPage.ImageAlign = ContentAlignment.MiddleLeft;
             btnFirstPage.Location = new Point(12, 458);
             btnFirstPage.Name = "btnFirstPage";
             btnFirstPage.Padding = new Padding(4);
-            btnFirstPage.Size = new Size(81, 37);
-            btnFirstPage.TabIndex = 15;
-            btnFirstPage.Text = "First";
+            btnFirstPage.Size = new Size(47, 37);
+            btnFirstPage.TabIndex = 24;
             btnFirstPage.TextAlign = ContentAlignment.MiddleRight;
             toolTip.SetToolTip(btnFirstPage, "First Page");
             btnFirstPage.UseVisualStyleBackColor = true;
             btnFirstPage.Click += btnFirstPage_Click;
-            // 
-            // btnNextPage
-            // 
-            btnNextPage.FlatAppearance.BorderSize = 0;
-            btnNextPage.FlatAppearance.MouseDownBackColor = Color.Transparent;
-            btnNextPage.FlatAppearance.MouseOverBackColor = Color.Transparent;
-            btnNextPage.FlatStyle = FlatStyle.Flat;
-            //btnNextPage.Image = Properties.Resources.Next;
-            btnNextPage.ImageAlign = ContentAlignment.MiddleLeft;
-            btnNextPage.Location = new Point(206, 458);
-            btnNextPage.Name = "btnNextPage";
-            btnNextPage.Padding = new Padding(4);
-            btnNextPage.Size = new Size(81, 37);
-            btnNextPage.TabIndex = 16;
-            btnNextPage.Text = "Next";
-            btnNextPage.TextAlign = ContentAlignment.MiddleRight;
-            toolTip.SetToolTip(btnNextPage, "Next Page");
-            btnNextPage.UseVisualStyleBackColor = true;
-            btnNextPage.Click += btnNextPage_Click;
             // 
             // btnPrevPage
             // 
@@ -242,66 +271,45 @@ namespace D_WinFormsApp
             btnPrevPage.FlatStyle = FlatStyle.Flat;
             btnPrevPage.Image = Properties.Resources.previous;
             btnPrevPage.ImageAlign = ContentAlignment.MiddleLeft;
-            btnPrevPage.Location = new Point(107, 458);
+            btnPrevPage.Location = new Point(72, 458);
             btnPrevPage.Name = "btnPrevPage";
             btnPrevPage.Padding = new Padding(4);
             btnPrevPage.Size = new Size(81, 37);
-            btnPrevPage.TabIndex = 17;
-            btnPrevPage.Text = "Prev";
+            btnPrevPage.TabIndex = 23;
             btnPrevPage.TextAlign = ContentAlignment.MiddleRight;
             toolTip.SetToolTip(btnPrevPage, "Previous Page");
             btnPrevPage.UseVisualStyleBackColor = true;
             btnPrevPage.Click += btnPrevPage_Click;
             // 
-            // btnLastPage
+            // btnNextPage
             // 
-            btnLastPage.FlatAppearance.BorderSize = 0;
-            btnLastPage.FlatAppearance.MouseDownBackColor = Color.Transparent;
-            btnLastPage.FlatAppearance.MouseOverBackColor = Color.Transparent;
-            btnLastPage.FlatStyle = FlatStyle.Flat;
-            btnLastPage.Image = Properties.Resources.previous;
-            btnLastPage.ImageAlign = ContentAlignment.MiddleLeft;
-            btnLastPage.Location = new Point(307, 458);
-            btnLastPage.Name = "btnLastPage";
-            btnLastPage.Padding = new Padding(4);
-            btnLastPage.Size = new Size(81, 37);
-            btnLastPage.TabIndex = 18;
-            btnLastPage.Text = "Last";
-            btnLastPage.TextAlign = ContentAlignment.MiddleRight;
-            toolTip.SetToolTip(btnLastPage, "Last Page");
-            btnLastPage.UseVisualStyleBackColor = true;
-            btnLastPage.Click += btnLastPage_Click;
-            // 
-            // txtRowsPerPage
-            // 
-            txtRowsPerPage.Location = new Point(394, 458);
-            txtRowsPerPage.Name = "txtRowsPerPage";
-            txtRowsPerPage.Size = new Size(50, 29);
-            txtRowsPerPage.TabIndex = 19;
-            txtRowsPerPage.Text = "10";
-            toolTip.SetToolTip(txtRowsPerPage, "Rows per page");
-            txtRowsPerPage.TextChanged += txtRowsPerPage_TextChanged;
-            txtRowsPerPage.KeyPress += txtRowsPerPage_KeyPress;
-            // 
-            // cbCurrentPage
-            // 
-            cbCurrentPage.DropDownStyle = ComboBoxStyle.DropDownList;
-            cbCurrentPage.Location = new Point(450, 458);
-            cbCurrentPage.Name = "cbCurrentPage";
-            cbCurrentPage.Size = new Size(60, 29);
-            cbCurrentPage.TabIndex = 20;
-            toolTip.SetToolTip(cbCurrentPage, "Select page");
-            cbCurrentPage.SelectedIndexChanged += cbCurrentPage_SelectedIndexChanged;
+            btnNextPage.BackColor = Color.Transparent;
+            btnNextPage.FlatAppearance.BorderSize = 0;
+            btnNextPage.FlatAppearance.MouseDownBackColor = Color.Transparent;
+            btnNextPage.FlatAppearance.MouseOverBackColor = Color.Transparent;
+            btnNextPage.FlatStyle = FlatStyle.Flat;
+            btnNextPage.Image = Properties.Resources.Next;
+            btnNextPage.ImageAlign = ContentAlignment.MiddleLeft;
+            btnNextPage.Location = new Point(241, 458);
+            btnNextPage.Name = "btnNextPage";
+            btnNextPage.Padding = new Padding(4);
+            btnNextPage.Size = new Size(81, 37);
+            btnNextPage.TabIndex = 22;
+            btnNextPage.TextAlign = ContentAlignment.MiddleRight;
+            toolTip.SetToolTip(btnNextPage, "Next Page");
+            btnNextPage.UseVisualStyleBackColor = false;
+            btnNextPage.Click += btnNextPage_Click;
             // 
             // TransactionListForm
             // 
             ClientSize = new Size(699, 507);
+            Controls.Add(label1);
             Controls.Add(cbCurrentPage);
             Controls.Add(txtRowsPerPage);
             Controls.Add(btnLastPage);
+            Controls.Add(btnFirstPage);
             Controls.Add(btnPrevPage);
             Controls.Add(btnNextPage);
-            Controls.Add(btnFirstPage);
             Controls.Add(dtpFilter);
             Controls.Add(btnExport);
             Controls.Add(label2);
@@ -324,12 +332,13 @@ namespace D_WinFormsApp
             Controls.SetChildIndex(lblTime, 0);
             Controls.SetChildIndex(btnExport, 0);
             Controls.SetChildIndex(dtpFilter, 0);
-            Controls.SetChildIndex(btnFirstPage, 0);
             Controls.SetChildIndex(btnNextPage, 0);
             Controls.SetChildIndex(btnPrevPage, 0);
+            Controls.SetChildIndex(btnFirstPage, 0);
             Controls.SetChildIndex(btnLastPage, 0);
             Controls.SetChildIndex(txtRowsPerPage, 0);
             Controls.SetChildIndex(cbCurrentPage, 0);
+            Controls.SetChildIndex(label1, 0);
             ((System.ComponentModel.ISupportInitialize)errorProvider).EndInit();
             ((System.ComponentModel.ISupportInitialize)dgvTransactions).EndInit();
             contextMenuStrip.ResumeLayout(false);
@@ -349,11 +358,12 @@ namespace D_WinFormsApp
         private MyButton btnClearFilter;
         private Label label2;
         private DateTimePicker dtpFilter;
-        private MyButton btnFirstPage;
-        private MyButton btnNextPage;
-        private MyButton btnPrevPage;
-        private MyButton btnLastPage;
-        private TextBox txtRowsPerPage;
+        private Label label1;
         private ComboBox cbCurrentPage;
+        private TextBox txtRowsPerPage;
+        private MyButton btnLastPage;
+        private MyButton btnFirstPage;
+        private MyButton btnPrevPage;
+        private MyButton btnNextPage;
     }
 }

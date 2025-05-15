@@ -53,8 +53,7 @@ namespace D_WinFormsApp
             // lblTime
             // 
             lblTime.Location = new Point(613, 12);
-            lblTime.Size = new Size(75, 19);
-            lblTime.Text = "23:25:52";
+            lblTime.Text = "16:26:17";
             // 
             // dgvAccounts
             // 
@@ -294,6 +293,7 @@ namespace D_WinFormsApp
             cbCurrentPage.Size = new Size(62, 29);
             cbCurrentPage.TabIndex = 27;
             toolTip.SetToolTip(cbCurrentPage, "Select page");
+            cbCurrentPage.SelectedIndexChanged += cbCurrentPage_SelectedIndexChanged;
             // 
             // txtRowsPerPage
             // 
@@ -303,6 +303,8 @@ namespace D_WinFormsApp
             txtRowsPerPage.TabIndex = 26;
             txtRowsPerPage.Text = "10";
             toolTip.SetToolTip(txtRowsPerPage, "Rows per page");
+            txtRowsPerPage.TextChanged += txtRowsPerPage_TextChanged;
+            txtRowsPerPage.KeyPress += txtRowsPerPage_KeyPress;
             // 
             // btnLastPage
             // 
@@ -320,6 +322,7 @@ namespace D_WinFormsApp
             btnLastPage.TextAlign = ContentAlignment.MiddleRight;
             toolTip.SetToolTip(btnLastPage, "Last Page");
             btnLastPage.UseVisualStyleBackColor = true;
+            btnLastPage.Click += btnLastPage_Click;
             // 
             // btnFirstPage
             // 
@@ -337,6 +340,7 @@ namespace D_WinFormsApp
             btnFirstPage.TextAlign = ContentAlignment.MiddleRight;
             toolTip.SetToolTip(btnFirstPage, "First Page");
             btnFirstPage.UseVisualStyleBackColor = true;
+            btnFirstPage.Click += btnFirstPage_Click;
             // 
             // btnPrevPage
             // 
@@ -354,6 +358,7 @@ namespace D_WinFormsApp
             btnPrevPage.TextAlign = ContentAlignment.MiddleRight;
             toolTip.SetToolTip(btnPrevPage, "Previous Page");
             btnPrevPage.UseVisualStyleBackColor = true;
+            btnPrevPage.Click += btnPrevPage_Click;
             // 
             // btnNextPage
             // 
@@ -372,6 +377,7 @@ namespace D_WinFormsApp
             btnNextPage.TextAlign = ContentAlignment.MiddleRight;
             toolTip.SetToolTip(btnNextPage, "Next Page");
             btnNextPage.UseVisualStyleBackColor = false;
+            btnNextPage.Click += btnNextPage_Click;
             // 
             // AccountListForm
             // 
