@@ -1,6 +1,5 @@
 
-
-
+recordsCountLabel in MyForm shows incorrect total records at first
 ====================================================================================
 
 is there a way to check for unused stored procedures from winforms (that is through API)

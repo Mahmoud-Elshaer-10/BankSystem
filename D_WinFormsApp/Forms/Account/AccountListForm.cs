@@ -254,5 +254,10 @@ namespace D_WinFormsApp
         {
             ExportToCsv<Account>(dgvAccounts, "accounts.csv");
         }
+
+        private void btnNextPage_Click_1(object sender, EventArgs e)
+        {
+
+        }
     }
 }
