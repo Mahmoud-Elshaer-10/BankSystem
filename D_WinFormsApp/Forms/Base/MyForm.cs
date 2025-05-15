@@ -21,10 +21,12 @@ namespace D_WinFormsApp
         private int _initialFormWidth; // Stores initial form width to prevent shrinking
         private int _lastGridWidth = 0; // Stores last known grid width
 
-        // Pagination fields
+        // Pagination
         protected int CurrentPage { get; set; } = 1;
         protected int RowsPerPage { get; set; } = 10;
         protected int TotalPages { get; set; }
+        protected string CurrentFilterField { get; set; } = "";
+        protected string CurrentFilterValue { get; set; } = "";
 
 
         public MyForm()
@@ -66,6 +68,10 @@ namespace D_WinFormsApp
                 int currentPage = pageNumber > 0 ? pageNumber : CurrentPage;
                 int rows = rowsPerPage > 0 ? rowsPerPage : RowsPerPage;
 
+                // Use stored filter if none provided
+                field = string.IsNullOrEmpty(field) ? CurrentFilterField : field;
+                value = string.IsNullOrEmpty(value) ? CurrentFilterValue : value;
+
                 // Build API URL
                 var queryParams = new List<string> { $"pageNumber={currentPage}", $"rowsPerPage={rows}" };
                 if (!string.IsNullOrEmpty(field) && !string.IsNullOrEmpty(value))
@@ -86,6 +92,8 @@ namespace D_WinFormsApp
                         TotalPages = result.TotalPages;
                         CurrentPage = currentPage;
                         RowsPerPage = rows;
+                        CurrentFilterField = field; // Store filter
+                        CurrentFilterValue = value;
                         AutoResizeFormToDataGridView(grid);
                         UpdatePaginationButtons();
                         return;
@@ -96,6 +104,8 @@ namespace D_WinFormsApp
                     grid.DataSource = new List<T>();
                     recordsCountLabel.Text = $"Records: 0";
                     TotalPages = 0;
+                    CurrentFilterField = field;
+                    CurrentFilterValue = value;
                 }
                 else
                 {
@@ -165,6 +175,8 @@ namespace D_WinFormsApp
         {
             filterValue.TextChanged += (s, e) =>
             {
+                CurrentFilterField = "";
+                CurrentFilterValue = "";
                 debounceTimer.Stop(); // Cancel prior timer
                 debounceTimer.Start(); // Delay filter 300ms until typing stops
             };

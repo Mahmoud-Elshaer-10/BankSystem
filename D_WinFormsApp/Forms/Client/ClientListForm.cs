@@ -63,15 +63,10 @@ namespace D_WinFormsApp
             txtFilterValue.Visible = (cbFilterBy.Text != "None") && (cbFilterBy.Text != "Created At");
             btnClearFilter.Visible = txtFilterValue.Visible;
             dtpFilter.Visible = cbFilterBy.Text == "Created At";
+            txtFilterValue.Text = "";
             if (txtFilterValue.Visible)
             {
-                txtFilterValue.Text = "";
                 txtFilterValue.Focus();
-            }
-            else
-            {
-                CurrentPage = 1;
-                _ = LoadPagedDataAsync<Client>(dgvClients, lblRecordsCount, "Client");
             }
         }
 
