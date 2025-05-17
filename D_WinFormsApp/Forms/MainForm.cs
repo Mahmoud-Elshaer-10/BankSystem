@@ -32,5 +32,11 @@
             using var form = new DashboardForm();
             form.ShowDialog();
         }
+
+        private void btnTransactions_Click(object sender, EventArgs e)
+        {
+            using var form = new TransactionListForm();
+            form.ShowDialog();
+        }
     }
 }

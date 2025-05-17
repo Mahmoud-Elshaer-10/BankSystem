@@ -20,13 +20,14 @@ namespace D_WinFormsApp
             btnClients = new MyButton();
             btnAccounts = new MyButton();
             btnDashboard = new MyButton();
+            btnTransactions = new MyButton();
             ((System.ComponentModel.ISupportInitialize)errorProvider).BeginInit();
             SuspendLayout();
             // 
             // lblTime
             // 
             lblTime.Location = new Point(150, 12);
-            lblTime.Text = "15:03:38";
+            lblTime.Text = "18:31:20";
             // 
             // btnClients
             // 
@@ -47,7 +48,7 @@ namespace D_WinFormsApp
             // 
             btnAccounts.Image = Properties.Resources.wallet;
             btnAccounts.ImageAlign = ContentAlignment.MiddleLeft;
-            btnAccounts.Location = new Point(32, 97);
+            btnAccounts.Location = new Point(32, 99);
             btnAccounts.Name = "btnAccounts";
             btnAccounts.Padding = new Padding(4);
             btnAccounts.Size = new Size(186, 44);
@@ -62,7 +63,7 @@ namespace D_WinFormsApp
             // 
             btnDashboard.Image = Properties.Resources.graph;
             btnDashboard.ImageAlign = ContentAlignment.MiddleLeft;
-            btnDashboard.Location = new Point(32, 155);
+            btnDashboard.Location = new Point(32, 219);
             btnDashboard.Name = "btnDashboard";
             btnDashboard.Padding = new Padding(4);
             btnDashboard.Size = new Size(186, 44);
@@ -73,11 +74,27 @@ namespace D_WinFormsApp
             btnDashboard.UseVisualStyleBackColor = true;
             btnDashboard.Click += btnDashboard_Click;
             // 
+            // btnTransactions
+            // 
+            btnTransactions.Image = Properties.Resources.Transactions1;
+            btnTransactions.ImageAlign = ContentAlignment.MiddleLeft;
+            btnTransactions.Location = new Point(32, 159);
+            btnTransactions.Name = "btnTransactions";
+            btnTransactions.Padding = new Padding(4);
+            btnTransactions.Size = new Size(186, 44);
+            btnTransactions.TabIndex = 4;
+            btnTransactions.Text = "&Transactions";
+            btnTransactions.TextAlign = ContentAlignment.MiddleRight;
+            toolTip.SetToolTip(btnTransactions, "Show Transactions (Alt+T)");
+            btnTransactions.UseVisualStyleBackColor = true;
+            btnTransactions.Click += btnTransactions_Click;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(9F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(250, 240);
+            ClientSize = new Size(250, 338);
+            Controls.Add(btnTransactions);
             Controls.Add(btnDashboard);
             Controls.Add(btnAccounts);
             Controls.Add(btnClients);
@@ -89,6 +106,7 @@ namespace D_WinFormsApp
             Controls.SetChildIndex(btnAccounts, 0);
             Controls.SetChildIndex(btnDashboard, 0);
             Controls.SetChildIndex(lblTime, 0);
+            Controls.SetChildIndex(btnTransactions, 0);
             ((System.ComponentModel.ISupportInitialize)errorProvider).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -97,5 +115,6 @@ namespace D_WinFormsApp
         private MyButton btnClients;
         private MyButton btnAccounts;
         private MyButton btnDashboard;
+        private MyButton btnTransactions;
     }
 }

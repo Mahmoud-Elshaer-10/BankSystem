@@ -18,8 +18,8 @@ namespace D_WinFormsApp
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             dgvTransactions = new MyDataGridView();
             contextMenuStrip = new ContextMenuStrip(components);
             addTransactionToolStripMenuItem = new ToolStripMenuItem();
@@ -39,33 +39,35 @@ namespace D_WinFormsApp
             btnFirstPage = new MyButton();
             btnPrevPage = new MyButton();
             btnNextPage = new MyButton();
+            panelFilter = new Panel();
             ((System.ComponentModel.ISupportInitialize)errorProvider).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgvTransactions).BeginInit();
             contextMenuStrip.SuspendLayout();
+            panelFilter.SuspendLayout();
             SuspendLayout();
             // 
             // lblTime
             // 
             lblTime.Location = new Point(599, 12);
-            lblTime.Text = "16:36:15";
+            lblTime.Text = "18:19:33";
             // 
             // dgvTransactions
             // 
             dgvTransactions.AllowUserToAddRows = false;
             dgvTransactions.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle3.BackColor = Color.FromArgb(240, 240, 240);
-            dgvTransactions.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.BackColor = Color.FromArgb(240, 240, 240);
+            dgvTransactions.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             dgvTransactions.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dgvTransactions.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             dgvTransactions.BackgroundColor = Color.White;
-            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = Color.LightGray;
-            dataGridViewCellStyle4.Font = new Font("Segoe UI", 12F);
-            dataGridViewCellStyle4.ForeColor = Color.Black;
-            dataGridViewCellStyle4.SelectionBackColor = Color.LightGray;
-            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
-            dgvTransactions.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = Color.LightGray;
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 12F);
+            dataGridViewCellStyle2.ForeColor = Color.Black;
+            dataGridViewCellStyle2.SelectionBackColor = Color.LightGray;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
+            dgvTransactions.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             dgvTransactions.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvTransactions.ContextMenuStrip = contextMenuStrip;
             dgvTransactions.EditMode = DataGridViewEditMode.EditProgrammatically;
@@ -138,7 +140,7 @@ namespace D_WinFormsApp
             // 
             cbFilterBy.DropDownStyle = ComboBoxStyle.DropDownList;
             cbFilterBy.Items.AddRange(new object[] { "None", "Transaction ID", "From Account ID", "Transaction Type", "Amount", "To Account ID", "Transaction Date" });
-            cbFilterBy.Location = new Point(93, 65);
+            cbFilterBy.Location = new Point(87, 2);
             cbFilterBy.Name = "cbFilterBy";
             cbFilterBy.Size = new Size(150, 29);
             cbFilterBy.TabIndex = 6;
@@ -146,7 +148,7 @@ namespace D_WinFormsApp
             // 
             // txtFilterValue
             // 
-            txtFilterValue.Location = new Point(278, 65);
+            txtFilterValue.Location = new Point(272, 2);
             txtFilterValue.Name = "txtFilterValue";
             txtFilterValue.Size = new Size(170, 29);
             txtFilterValue.TabIndex = 7;
@@ -157,9 +159,9 @@ namespace D_WinFormsApp
             // 
             lblRecordsCount.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             lblRecordsCount.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            lblRecordsCount.Location = new Point(459, 70);
+            lblRecordsCount.Location = new Point(527, 70);
             lblRecordsCount.Name = "lblRecordsCount";
-            lblRecordsCount.Size = new Size(215, 23);
+            lblRecordsCount.Size = new Size(147, 23);
             lblRecordsCount.TabIndex = 8;
             lblRecordsCount.Text = "0";
             lblRecordsCount.TextAlign = ContentAlignment.MiddleRight;
@@ -168,7 +170,7 @@ namespace D_WinFormsApp
             // 
             btnClearFilter.Image = Properties.Resources.clear2;
             btnClearFilter.ImageAlign = ContentAlignment.MiddleLeft;
-            btnClearFilter.Location = new Point(454, 65);
+            btnClearFilter.Location = new Point(448, 2);
             btnClearFilter.Name = "btnClearFilter";
             btnClearFilter.Padding = new Padding(4);
             btnClearFilter.Size = new Size(29, 29);
@@ -182,7 +184,7 @@ namespace D_WinFormsApp
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            label2.Location = new Point(12, 68);
+            label2.Location = new Point(3, 6);
             label2.Name = "label2";
             label2.Size = new Size(76, 21);
             label2.TabIndex = 11;
@@ -191,7 +193,7 @@ namespace D_WinFormsApp
             // dtpFilter
             // 
             dtpFilter.Format = DateTimePickerFormat.Short;
-            dtpFilter.Location = new Point(278, 65);
+            dtpFilter.Location = new Point(272, 2);
             dtpFilter.Name = "dtpFilter";
             dtpFilter.Size = new Size(128, 29);
             dtpFilter.TabIndex = 14;
@@ -300,9 +302,23 @@ namespace D_WinFormsApp
             btnNextPage.UseVisualStyleBackColor = false;
             btnNextPage.Click += btnNextPage_Click;
             // 
+            // panelFilter
+            // 
+            panelFilter.BackColor = Color.Transparent;
+            panelFilter.Controls.Add(label2);
+            panelFilter.Controls.Add(cbFilterBy);
+            panelFilter.Controls.Add(dtpFilter);
+            panelFilter.Controls.Add(txtFilterValue);
+            panelFilter.Controls.Add(btnClearFilter);
+            panelFilter.Location = new Point(12, 57);
+            panelFilter.Name = "panelFilter";
+            panelFilter.Size = new Size(488, 36);
+            panelFilter.TabIndex = 30;
+            // 
             // TransactionListForm
             // 
             ClientSize = new Size(699, 507);
+            Controls.Add(panelFilter);
             Controls.Add(label1);
             Controls.Add(cbCurrentPage);
             Controls.Add(txtRowsPerPage);
@@ -310,13 +326,8 @@ namespace D_WinFormsApp
             Controls.Add(btnFirstPage);
             Controls.Add(btnPrevPage);
             Controls.Add(btnNextPage);
-            Controls.Add(dtpFilter);
             Controls.Add(btnExport);
-            Controls.Add(label2);
-            Controls.Add(btnClearFilter);
             Controls.Add(lblRecordsCount);
-            Controls.Add(txtFilterValue);
-            Controls.Add(cbFilterBy);
             Controls.Add(btnAdd);
             Controls.Add(dgvTransactions);
             Name = "TransactionListForm";
@@ -324,14 +335,9 @@ namespace D_WinFormsApp
             Load += TransactionListForm_Load;
             Controls.SetChildIndex(dgvTransactions, 0);
             Controls.SetChildIndex(btnAdd, 0);
-            Controls.SetChildIndex(cbFilterBy, 0);
-            Controls.SetChildIndex(txtFilterValue, 0);
             Controls.SetChildIndex(lblRecordsCount, 0);
-            Controls.SetChildIndex(btnClearFilter, 0);
-            Controls.SetChildIndex(label2, 0);
             Controls.SetChildIndex(lblTime, 0);
             Controls.SetChildIndex(btnExport, 0);
-            Controls.SetChildIndex(dtpFilter, 0);
             Controls.SetChildIndex(btnNextPage, 0);
             Controls.SetChildIndex(btnPrevPage, 0);
             Controls.SetChildIndex(btnFirstPage, 0);
@@ -339,9 +345,12 @@ namespace D_WinFormsApp
             Controls.SetChildIndex(txtRowsPerPage, 0);
             Controls.SetChildIndex(cbCurrentPage, 0);
             Controls.SetChildIndex(label1, 0);
+            Controls.SetChildIndex(panelFilter, 0);
             ((System.ComponentModel.ISupportInitialize)errorProvider).EndInit();
             ((System.ComponentModel.ISupportInitialize)dgvTransactions).EndInit();
             contextMenuStrip.ResumeLayout(false);
+            panelFilter.ResumeLayout(false);
+            panelFilter.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -365,5 +374,6 @@ namespace D_WinFormsApp
         private MyButton btnFirstPage;
         private MyButton btnPrevPage;
         private MyButton btnNextPage;
+        private Panel panelFilter;
     }
 }

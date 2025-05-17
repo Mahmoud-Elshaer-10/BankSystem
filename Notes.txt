@@ -1,4 +1,8 @@
 
+
+disable filter when TransactionListForm is opened with FromAccountID (from ClientListForm for now)
+====================================================================================
+
 update dashboard to include new info (transactions)
 ====================================================================================
 

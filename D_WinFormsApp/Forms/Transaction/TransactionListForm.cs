@@ -1,16 +1,13 @@
-﻿using D_WinFormsApp.Controls;
-using D_WinFormsApp.Helpers;
-using D_WinFormsApp.Models;
-using System.Net.Http.Json;
+﻿using D_WinFormsApp.Models;
 
 namespace D_WinFormsApp
 {
     public partial class TransactionListForm : MyForm
     {
-        private readonly int _accountId;
+        private int _accountId;
         private bool isLoading = false; // Prevents event loop during initialization
 
-        public TransactionListForm(int accountId)
+        public TransactionListForm(int accountId = 0)
         {
             _accountId = accountId;
             InitializeComponent();
@@ -52,7 +49,21 @@ namespace D_WinFormsApp
                 txtFilterValue.Text = "";
                 txtRowsPerPage.Text = RowsPerPage.ToString();
                 isLoading = false;
-                _ = LoadPagedDataAsync<Transaction>(dgvTransactions, lblRecordsCount, $"Transaction", "FromAccountID", $"{ _accountId}");
+
+                if (_accountId > 0)
+                {
+                    //cbFilterBy.SelectedIndex = cbFilterBy.FindString("From Account ID");
+                    //cbFilterBy.Text = "From Account ID";
+                    cbFilterBy.SelectedItem = "From Account ID";
+                    txtFilterValue.Text = _accountId.ToString();
+                    panelFilter.Enabled = false;
+                }
+                else
+                {
+                    _ = LoadPagedDataAsync<Transaction>(dgvTransactions, lblRecordsCount, $"Transaction");
+                }
+
+                
             }
             catch (Exception ex)
             {
@@ -92,7 +103,7 @@ namespace D_WinFormsApp
                 errorProvider.SetError(txtRowsPerPage, "");
                 RowsPerPage = rows;
                 CurrentPage = 1;
-                _ = LoadPagedDataAsync<Transaction>(dgvTransactions, lblRecordsCount, $"Transaction/paged/{_accountId}");
+                _ = LoadPagedDataAsync<Transaction>(dgvTransactions, lblRecordsCount, $"Transaction");
             }
             else
             {
@@ -106,7 +117,7 @@ namespace D_WinFormsApp
             if (cbCurrentPage.SelectedIndex >= 0)
             {
                 CurrentPage = cbCurrentPage.SelectedIndex + 1;
-                _ = LoadPagedDataAsync<Transaction>(dgvTransactions, lblRecordsCount, $"Transaction/paged/{_accountId}");
+                _ = LoadPagedDataAsync<Transaction>(dgvTransactions, lblRecordsCount, $"Transaction");
             }
         }
 
@@ -115,7 +126,7 @@ namespace D_WinFormsApp
             txtFilterValue.Text = "";
             txtFilterValue.Focus();
             CurrentPage = 1;
-            _ = LoadPagedDataAsync<Transaction>(dgvTransactions, lblRecordsCount, $"Transaction/paged/{_accountId}");
+            _ = LoadPagedDataAsync<Transaction>(dgvTransactions, lblRecordsCount, $"Transaction");
         }
 
         private void btnNextPage_Click(object sender, EventArgs e)
@@ -123,7 +134,7 @@ namespace D_WinFormsApp
             if (CurrentPage < TotalPages)
             {
                 CurrentPage++;
-                _ = LoadPagedDataAsync<Transaction>(dgvTransactions, lblRecordsCount, $"Transaction/paged/{_accountId}");
+                _ = LoadPagedDataAsync<Transaction>(dgvTransactions, lblRecordsCount, $"Transaction");
             }
         }
 
@@ -132,20 +143,20 @@ namespace D_WinFormsApp
             if (CurrentPage > 1)
             {
                 CurrentPage--;
-                _ = LoadPagedDataAsync<Transaction>(dgvTransactions, lblRecordsCount, $"Transaction/paged/{_accountId}");
+                _ = LoadPagedDataAsync<Transaction>(dgvTransactions, lblRecordsCount, $"Transaction");
             }
         }
 
         private void btnFirstPage_Click(object sender, EventArgs e)
         {
             CurrentPage = 1;
-            _ = LoadPagedDataAsync<Transaction>(dgvTransactions, lblRecordsCount, $"Transaction/paged/{_accountId}");
+            _ = LoadPagedDataAsync<Transaction>(dgvTransactions, lblRecordsCount, $"Transaction");
         }
 
         private void btnLastPage_Click(object sender, EventArgs e)
         {
             CurrentPage = TotalPages;
-            _ = LoadPagedDataAsync<Transaction>(dgvTransactions, lblRecordsCount, $"Transaction/paged/{_accountId}");
+            _ = LoadPagedDataAsync<Transaction>(dgvTransactions, lblRecordsCount, $"Transaction");
         }
 
         private void AddTransaction()
@@ -154,7 +165,7 @@ namespace D_WinFormsApp
             if (form.ShowDialog() == DialogResult.OK)
             {
                 CurrentPage = 1;
-                _ = LoadPagedDataAsync<Transaction>(dgvTransactions, lblRecordsCount, $"Transaction/paged/{_accountId}");
+                _ = LoadPagedDataAsync<Transaction>(dgvTransactions, lblRecordsCount, $"Transaction");
             }
         }
 
