@@ -249,5 +249,24 @@ namespace D_WinFormsApp
         {
             ExportToCsv<Account>(dgvAccounts, "accounts.csv");
         }
+
+        private void ShowTransactions()
+        {
+            if (ValidateSelection(dgvAccounts, out object selected) && selected is Account selectedAccount)
+            {
+                using var form = new TransactionListForm(selectedAccount.AccountID);
+                form.ShowDialog();
+            }
+        }
+
+        private void showTransactionsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ShowTransactions();
+        }
+
+        private void btnShowTransactions_Click(object sender, EventArgs e)
+        {
+            ShowTransactions();
+        }
     }
 }

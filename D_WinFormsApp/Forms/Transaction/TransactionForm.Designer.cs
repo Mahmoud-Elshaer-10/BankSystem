@@ -15,7 +15,6 @@
 
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
             lblFromAccountID = new Label();
             txtFromAccountID = new TextBox();
             lblTransactionType = new Label();
@@ -24,28 +23,29 @@
             txtAmount = new TextBox();
             lblToAccountID = new Label();
             txtToAccountID = new TextBox();
-            btnSave = new Controls.MyButton();
-            btnCancel = new Controls.MyButton();
+            btnSave = new D_WinFormsApp.Controls.MyButton();
+            btnCancel = new D_WinFormsApp.Controls.MyButton();
             ((System.ComponentModel.ISupportInitialize)errorProvider).BeginInit();
             SuspendLayout();
             // 
             // lblTime
             // 
-            lblTime.Location = new Point(303, 12);
-            lblTime.Text = "16:29:14";
+            lblTime.Location = new Point(337, 12);
+            lblTime.Size = new Size(75, 19);
+            lblTime.Text = "19:04:16";
             // 
             // lblFromAccountID
             // 
             lblFromAccountID.AutoSize = true;
             lblFromAccountID.Location = new Point(14, 51);
             lblFromAccountID.Name = "lblFromAccountID";
-            lblFromAccountID.Size = new Size(84, 21);
+            lblFromAccountID.Size = new Size(110, 21);
             lblFromAccountID.TabIndex = 0;
             lblFromAccountID.Text = "From Account:";
             // 
             // txtFromAccountID
             // 
-            txtFromAccountID.Location = new Point(104, 48);
+            txtFromAccountID.Location = new Point(134, 48);
             txtFromAccountID.Name = "txtFromAccountID";
             txtFromAccountID.Size = new Size(271, 29);
             txtFromAccountID.TabIndex = 1;
@@ -56,14 +56,14 @@
             lblTransactionType.AutoSize = true;
             lblTransactionType.Location = new Point(14, 89);
             lblTransactionType.Name = "lblTransactionType";
-            lblTransactionType.Size = new Size(51, 21);
+            lblTransactionType.Size = new Size(45, 21);
             lblTransactionType.TabIndex = 2;
             lblTransactionType.Text = "Type:";
             // 
             // cbTransactionType
             // 
             cbTransactionType.DropDownStyle = ComboBoxStyle.DropDownList;
-            cbTransactionType.Location = new Point(104, 86);
+            cbTransactionType.Location = new Point(134, 86);
             cbTransactionType.Name = "cbTransactionType";
             cbTransactionType.Size = new Size(271, 29);
             cbTransactionType.TabIndex = 2;
@@ -75,46 +75,46 @@
             lblAmount.AutoSize = true;
             lblAmount.Location = new Point(14, 127);
             lblAmount.Name = "lblAmount";
-            lblAmount.Size = new Size(57, 21);
+            lblAmount.Size = new Size(69, 21);
             lblAmount.TabIndex = 4;
             lblAmount.Text = "Amount:";
             // 
             // txtAmount
             // 
-            txtAmount.Location = new Point(104, 124);
+            txtAmount.Location = new Point(134, 124);
             txtAmount.Name = "txtAmount";
             txtAmount.Size = new Size(271, 29);
             txtAmount.TabIndex = 3;
+            toolTip.SetToolTip(txtAmount, "Enter transaction amount");
             txtAmount.KeyPress += txtAmount_KeyPress;
             txtAmount.Leave += txtAmount_Leave;
-            toolTip.SetToolTip(txtAmount, "Enter transaction amount");
             // 
             // lblToAccountID
             // 
             lblToAccountID.AutoSize = true;
             lblToAccountID.Location = new Point(14, 165);
             lblToAccountID.Name = "lblToAccountID";
-            lblToAccountID.Size = new Size(69, 21);
+            lblToAccountID.Size = new Size(88, 21);
             lblToAccountID.TabIndex = 6;
             lblToAccountID.Text = "To Account:";
             lblToAccountID.Visible = false;
             // 
             // txtToAccountID
             // 
-            txtToAccountID.Location = new Point(104, 162);
+            txtToAccountID.Location = new Point(134, 162);
             txtToAccountID.Name = "txtToAccountID";
             txtToAccountID.Size = new Size(271, 29);
             txtToAccountID.TabIndex = 4;
+            toolTip.SetToolTip(txtToAccountID, "Destination account ID for transfers");
             txtToAccountID.Visible = false;
             txtToAccountID.KeyPress += txtToAccountID_KeyPress;
             txtToAccountID.Leave += txtToAccountID_Leave;
-            toolTip.SetToolTip(txtToAccountID, "Destination account ID for transfers");
             // 
             // btnSave
             // 
             btnSave.Image = Properties.Resources.save;
             btnSave.ImageAlign = ContentAlignment.MiddleLeft;
-            btnSave.Location = new Point(181, 209);
+            btnSave.Location = new Point(134, 206);
             btnSave.Name = "btnSave";
             btnSave.Padding = new Padding(4);
             btnSave.Size = new Size(94, 39);
@@ -128,7 +128,7 @@
             // 
             btnCancel.Image = Properties.Resources.cancel;
             btnCancel.ImageAlign = ContentAlignment.MiddleLeft;
-            btnCancel.Location = new Point(281, 209);
+            btnCancel.Location = new Point(234, 206);
             btnCancel.Name = "btnCancel";
             btnCancel.Padding = new Padding(2);
             btnCancel.Size = new Size(94, 39);
@@ -136,7 +136,6 @@
             btnCancel.Text = "&Cancel";
             btnCancel.TextAlign = ContentAlignment.MiddleRight;
             btnCancel.UseVisualStyleBackColor = true;
-            //btnCancel.Click += btnCancel_Click;
             // 
             // TransactionForm
             // 
@@ -144,7 +143,7 @@
             AutoScaleDimensions = new SizeF(9F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
             CancelButton = btnCancel;
-            ClientSize = new Size(403, 257);
+            ClientSize = new Size(437, 257);
             Controls.Add(btnCancel);
             Controls.Add(btnSave);
             Controls.Add(txtToAccountID);
@@ -156,8 +155,6 @@
             Controls.Add(txtFromAccountID);
             Controls.Add(lblFromAccountID);
             FormBorderStyle = FormBorderStyle.FixedSingle;
-            MaximizeBox = false;
-            MinimizeBox = false;
             Name = "TransactionForm";
             StartPosition = FormStartPosition.CenterParent;
             Text = "Bank System - Add Transaction";

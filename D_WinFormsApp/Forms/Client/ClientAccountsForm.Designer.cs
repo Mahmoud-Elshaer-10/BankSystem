@@ -30,7 +30,7 @@
             // lblTime
             // 
             lblTime.Location = new Point(440, 12);
-            lblTime.Text = "18:55:24";
+            lblTime.Text = "19:16:06";
             // 
             // dgvAccounts
             // 
@@ -69,14 +69,14 @@
             // 
             contextMenuStrip.Items.AddRange(new ToolStripItem[] { showTransactionsToolStripMenuItem });
             contextMenuStrip.Name = "contextMenuStrip";
-            contextMenuStrip.Size = new Size(209, 26);
+            contextMenuStrip.Size = new Size(210, 48);
             // 
             // showTransactionsToolStripMenuItem
             // 
             showTransactionsToolStripMenuItem.Image = Properties.Resources.ShowIcon;
             showTransactionsToolStripMenuItem.Name = "showTransactionsToolStripMenuItem";
-            showTransactionsToolStripMenuItem.ShortcutKeys = Keys.Alt | Keys.S;
-            showTransactionsToolStripMenuItem.Size = new Size(208, 22);
+            showTransactionsToolStripMenuItem.ShortcutKeys = Keys.Alt | Keys.T;
+            showTransactionsToolStripMenuItem.Size = new Size(209, 22);
             showTransactionsToolStripMenuItem.Text = "Show Transactions";
             showTransactionsToolStripMenuItem.Click += showTransactionsToolStripMenuItem_Click;
             // 
@@ -89,7 +89,7 @@
             btnShowTransactions.Padding = new Padding(4);
             btnShowTransactions.Size = new Size(186, 37);
             btnShowTransactions.TabIndex = 1;
-            btnShowTransactions.Text = "&Show Transactions";
+            btnShowTransactions.Text = "Show &Transactions";
             btnShowTransactions.TextAlign = ContentAlignment.MiddleRight;
             toolTip.SetToolTip(btnShowTransactions, "Show Transactions (Alt+S)");
             btnShowTransactions.UseVisualStyleBackColor = true;

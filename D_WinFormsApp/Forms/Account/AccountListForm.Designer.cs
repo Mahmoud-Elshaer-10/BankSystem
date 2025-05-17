@@ -26,6 +26,7 @@ namespace D_WinFormsApp
             editAccountToolStripMenuItem = new ToolStripMenuItem();
             deleteAccountToolStripMenuItem = new ToolStripMenuItem();
             showClientToolStripMenuItem = new ToolStripMenuItem();
+            showTransactionsToolStripMenuItem = new ToolStripMenuItem();
             exportToCSVToolStripMenuItem = new ToolStripMenuItem();
             btnAdd = new MyButton();
             btnEdit = new MyButton();
@@ -45,6 +46,7 @@ namespace D_WinFormsApp
             btnFirstPage = new MyButton();
             btnPrevPage = new MyButton();
             btnNextPage = new MyButton();
+            btnShowTransactions = new MyButton();
             ((System.ComponentModel.ISupportInitialize)errorProvider).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgvAccounts).BeginInit();
             contextMenuStrip.SuspendLayout();
@@ -53,7 +55,7 @@ namespace D_WinFormsApp
             // lblTime
             // 
             lblTime.Location = new Point(613, 12);
-            lblTime.Text = "16:26:17";
+            lblTime.Text = "19:16:18";
             // 
             // dgvAccounts
             // 
@@ -76,29 +78,29 @@ namespace D_WinFormsApp
             dgvAccounts.ContextMenuStrip = contextMenuStrip;
             dgvAccounts.EditMode = DataGridViewEditMode.EditProgrammatically;
             dgvAccounts.EnableHeadersVisualStyles = false;
-            dgvAccounts.Location = new Point(12, 110);
+            dgvAccounts.Location = new Point(12, 160);
             dgvAccounts.MultiSelect = false;
             dgvAccounts.Name = "dgvAccounts";
             dgvAccounts.ReadOnly = true;
             dgvAccounts.RowHeadersWidth = 51;
             dgvAccounts.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvAccounts.Size = new Size(689, 346);
+            dgvAccounts.Size = new Size(689, 347);
             dgvAccounts.TabIndex = 0;
             dgvAccounts.TabStop = false;
             dgvAccounts.DoubleClick += dgvAccounts_DoubleClick;
             // 
             // contextMenuStrip
             // 
-            contextMenuStrip.Items.AddRange(new ToolStripItem[] { addAccountToolStripMenuItem, editAccountToolStripMenuItem, deleteAccountToolStripMenuItem, showClientToolStripMenuItem, exportToCSVToolStripMenuItem });
+            contextMenuStrip.Items.AddRange(new ToolStripItem[] { addAccountToolStripMenuItem, editAccountToolStripMenuItem, deleteAccountToolStripMenuItem, showClientToolStripMenuItem, showTransactionsToolStripMenuItem, exportToCSVToolStripMenuItem });
             contextMenuStrip.Name = "contextMenuStrip";
-            contextMenuStrip.Size = new Size(194, 114);
+            contextMenuStrip.Size = new Size(210, 158);
             // 
             // addAccountToolStripMenuItem
             // 
             addAccountToolStripMenuItem.Image = Properties.Resources.AddIcon;
             addAccountToolStripMenuItem.Name = "addAccountToolStripMenuItem";
             addAccountToolStripMenuItem.ShortcutKeys = Keys.Alt | Keys.A;
-            addAccountToolStripMenuItem.Size = new Size(193, 22);
+            addAccountToolStripMenuItem.Size = new Size(209, 22);
             addAccountToolStripMenuItem.Text = "Add Account";
             addAccountToolStripMenuItem.Click += addAccountToolStripMenuItem_Click;
             // 
@@ -107,7 +109,7 @@ namespace D_WinFormsApp
             editAccountToolStripMenuItem.Image = Properties.Resources.EditIcon;
             editAccountToolStripMenuItem.Name = "editAccountToolStripMenuItem";
             editAccountToolStripMenuItem.ShortcutKeys = Keys.Alt | Keys.E;
-            editAccountToolStripMenuItem.Size = new Size(193, 22);
+            editAccountToolStripMenuItem.Size = new Size(209, 22);
             editAccountToolStripMenuItem.Text = "Edit Account";
             editAccountToolStripMenuItem.Click += editAccountToolStripMenuItem_Click;
             // 
@@ -116,7 +118,7 @@ namespace D_WinFormsApp
             deleteAccountToolStripMenuItem.Image = Properties.Resources.DeleteIcon;
             deleteAccountToolStripMenuItem.Name = "deleteAccountToolStripMenuItem";
             deleteAccountToolStripMenuItem.ShortcutKeys = Keys.Alt | Keys.D;
-            deleteAccountToolStripMenuItem.Size = new Size(193, 22);
+            deleteAccountToolStripMenuItem.Size = new Size(209, 22);
             deleteAccountToolStripMenuItem.Text = "Delete Account";
             deleteAccountToolStripMenuItem.Click += deleteAccountToolStripMenuItem_Click;
             // 
@@ -125,16 +127,25 @@ namespace D_WinFormsApp
             showClientToolStripMenuItem.Image = Properties.Resources.ShowIcon;
             showClientToolStripMenuItem.Name = "showClientToolStripMenuItem";
             showClientToolStripMenuItem.ShortcutKeys = Keys.Alt | Keys.S;
-            showClientToolStripMenuItem.Size = new Size(193, 22);
+            showClientToolStripMenuItem.Size = new Size(209, 22);
             showClientToolStripMenuItem.Text = "Show Client";
             showClientToolStripMenuItem.Click += showClientToolStripMenuItem_Click;
+            // 
+            // showTransactionsToolStripMenuItem
+            // 
+            showTransactionsToolStripMenuItem.Image = Properties.Resources.ShowIcon;
+            showTransactionsToolStripMenuItem.Name = "showTransactionsToolStripMenuItem";
+            showTransactionsToolStripMenuItem.ShortcutKeys = Keys.Alt | Keys.T;
+            showTransactionsToolStripMenuItem.Size = new Size(209, 22);
+            showTransactionsToolStripMenuItem.Text = "Show Transactions";
+            showTransactionsToolStripMenuItem.Click += showTransactionsToolStripMenuItem_Click;
             // 
             // exportToCSVToolStripMenuItem
             // 
             exportToCSVToolStripMenuItem.Image = Properties.Resources.notes;
             exportToCSVToolStripMenuItem.Name = "exportToCSVToolStripMenuItem";
             exportToCSVToolStripMenuItem.ShortcutKeys = Keys.Alt | Keys.X;
-            exportToCSVToolStripMenuItem.Size = new Size(193, 22);
+            exportToCSVToolStripMenuItem.Size = new Size(209, 22);
             exportToCSVToolStripMenuItem.Text = "Export to CSV";
             exportToCSVToolStripMenuItem.Click += exportToCSVToolStripMenuItem_Click;
             // 
@@ -202,7 +213,7 @@ namespace D_WinFormsApp
             // 
             cbFilterBy.DropDownStyle = ComboBoxStyle.DropDownList;
             cbFilterBy.Items.AddRange(new object[] { "None", "Account ID", "Client ID", "Balance" });
-            cbFilterBy.Location = new Point(93, 63);
+            cbFilterBy.Location = new Point(93, 113);
             cbFilterBy.Name = "cbFilterBy";
             cbFilterBy.Size = new Size(120, 29);
             cbFilterBy.TabIndex = 6;
@@ -210,7 +221,7 @@ namespace D_WinFormsApp
             // 
             // txtFilterValue
             // 
-            txtFilterValue.Location = new Point(226, 63);
+            txtFilterValue.Location = new Point(226, 113);
             txtFilterValue.Name = "txtFilterValue";
             txtFilterValue.Size = new Size(170, 29);
             txtFilterValue.TabIndex = 7;
@@ -221,7 +232,7 @@ namespace D_WinFormsApp
             // 
             lblRecordsCount.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             lblRecordsCount.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            lblRecordsCount.Location = new Point(527, 65);
+            lblRecordsCount.Location = new Point(527, 115);
             lblRecordsCount.Name = "lblRecordsCount";
             lblRecordsCount.Size = new Size(161, 23);
             lblRecordsCount.TabIndex = 7;
@@ -232,7 +243,7 @@ namespace D_WinFormsApp
             // 
             btnClearFilter.Image = Properties.Resources.clear2;
             btnClearFilter.ImageAlign = ContentAlignment.MiddleLeft;
-            btnClearFilter.Location = new Point(402, 63);
+            btnClearFilter.Location = new Point(402, 113);
             btnClearFilter.Name = "btnClearFilter";
             btnClearFilter.Padding = new Padding(4);
             btnClearFilter.Size = new Size(29, 29);
@@ -246,7 +257,7 @@ namespace D_WinFormsApp
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            label2.Location = new Point(12, 66);
+            label2.Location = new Point(12, 116);
             label2.Name = "label2";
             label2.Size = new Size(76, 21);
             label2.TabIndex = 12;
@@ -270,7 +281,7 @@ namespace D_WinFormsApp
             // dtpFilter
             // 
             dtpFilter.Format = DateTimePickerFormat.Short;
-            dtpFilter.Location = new Point(226, 63);
+            dtpFilter.Location = new Point(226, 113);
             dtpFilter.Name = "dtpFilter";
             dtpFilter.Size = new Size(128, 29);
             dtpFilter.TabIndex = 13;
@@ -279,7 +290,7 @@ namespace D_WinFormsApp
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(409, 471);
+            label1.Location = new Point(409, 521);
             label1.Name = "label1";
             label1.Size = new Size(114, 21);
             label1.TabIndex = 28;
@@ -288,7 +299,7 @@ namespace D_WinFormsApp
             // cbCurrentPage
             // 
             cbCurrentPage.DropDownStyle = ComboBoxStyle.DropDownList;
-            cbCurrentPage.Location = new Point(168, 467);
+            cbCurrentPage.Location = new Point(168, 517);
             cbCurrentPage.Name = "cbCurrentPage";
             cbCurrentPage.Size = new Size(62, 29);
             cbCurrentPage.TabIndex = 27;
@@ -297,7 +308,7 @@ namespace D_WinFormsApp
             // 
             // txtRowsPerPage
             // 
-            txtRowsPerPage.Location = new Point(529, 467);
+            txtRowsPerPage.Location = new Point(529, 517);
             txtRowsPerPage.Name = "txtRowsPerPage";
             txtRowsPerPage.Size = new Size(73, 29);
             txtRowsPerPage.TabIndex = 26;
@@ -314,7 +325,7 @@ namespace D_WinFormsApp
             btnLastPage.FlatStyle = FlatStyle.Flat;
             btnLastPage.Image = Properties.Resources.Last;
             btnLastPage.ImageAlign = ContentAlignment.MiddleLeft;
-            btnLastPage.Location = new Point(337, 463);
+            btnLastPage.Location = new Point(337, 513);
             btnLastPage.Name = "btnLastPage";
             btnLastPage.Padding = new Padding(4);
             btnLastPage.Size = new Size(47, 37);
@@ -332,7 +343,7 @@ namespace D_WinFormsApp
             btnFirstPage.FlatStyle = FlatStyle.Flat;
             btnFirstPage.Image = Properties.Resources.First;
             btnFirstPage.ImageAlign = ContentAlignment.MiddleLeft;
-            btnFirstPage.Location = new Point(14, 463);
+            btnFirstPage.Location = new Point(14, 513);
             btnFirstPage.Name = "btnFirstPage";
             btnFirstPage.Padding = new Padding(4);
             btnFirstPage.Size = new Size(47, 37);
@@ -350,7 +361,7 @@ namespace D_WinFormsApp
             btnPrevPage.FlatStyle = FlatStyle.Flat;
             btnPrevPage.Image = Properties.Resources.previous;
             btnPrevPage.ImageAlign = ContentAlignment.MiddleLeft;
-            btnPrevPage.Location = new Point(74, 463);
+            btnPrevPage.Location = new Point(74, 513);
             btnPrevPage.Name = "btnPrevPage";
             btnPrevPage.Padding = new Padding(4);
             btnPrevPage.Size = new Size(81, 37);
@@ -369,7 +380,7 @@ namespace D_WinFormsApp
             btnNextPage.FlatStyle = FlatStyle.Flat;
             btnNextPage.Image = Properties.Resources.Next;
             btnNextPage.ImageAlign = ContentAlignment.MiddleLeft;
-            btnNextPage.Location = new Point(243, 463);
+            btnNextPage.Location = new Point(243, 513);
             btnNextPage.Name = "btnNextPage";
             btnNextPage.Padding = new Padding(4);
             btnNextPage.Size = new Size(81, 37);
@@ -379,9 +390,25 @@ namespace D_WinFormsApp
             btnNextPage.UseVisualStyleBackColor = false;
             btnNextPage.Click += btnNextPage_Click;
             // 
+            // btnShowTransactions
+            // 
+            btnShowTransactions.Image = Properties.Resources.ShowIcon;
+            btnShowTransactions.ImageAlign = ContentAlignment.MiddleLeft;
+            btnShowTransactions.Location = new Point(12, 55);
+            btnShowTransactions.Name = "btnShowTransactions";
+            btnShowTransactions.Padding = new Padding(4);
+            btnShowTransactions.Size = new Size(186, 37);
+            btnShowTransactions.TabIndex = 29;
+            btnShowTransactions.Text = "Show &Transactions";
+            btnShowTransactions.TextAlign = ContentAlignment.MiddleRight;
+            toolTip.SetToolTip(btnShowTransactions, "Show Transactions (Alt+S)");
+            btnShowTransactions.UseVisualStyleBackColor = true;
+            btnShowTransactions.Click += btnShowTransactions_Click;
+            // 
             // AccountListForm
             // 
-            ClientSize = new Size(713, 505);
+            ClientSize = new Size(713, 563);
+            Controls.Add(btnShowTransactions);
             Controls.Add(label1);
             Controls.Add(cbCurrentPage);
             Controls.Add(txtRowsPerPage);
@@ -424,6 +451,7 @@ namespace D_WinFormsApp
             Controls.SetChildIndex(txtRowsPerPage, 0);
             Controls.SetChildIndex(cbCurrentPage, 0);
             Controls.SetChildIndex(label1, 0);
+            Controls.SetChildIndex(btnShowTransactions, 0);
             ((System.ComponentModel.ISupportInitialize)errorProvider).EndInit();
             ((System.ComponentModel.ISupportInitialize)dgvAccounts).EndInit();
             contextMenuStrip.ResumeLayout(false);
@@ -456,5 +484,7 @@ namespace D_WinFormsApp
         private MyButton btnFirstPage;
         private MyButton btnPrevPage;
         private MyButton btnNextPage;
+        private MyButton btnShowTransactions;
+        private ToolStripMenuItem showTransactionsToolStripMenuItem;
     }
 }
