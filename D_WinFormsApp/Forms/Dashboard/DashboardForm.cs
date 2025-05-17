@@ -23,6 +23,7 @@ namespace D_WinFormsApp
                 int totalAccounts = 0;
                 decimal averageBalance = 0;
                 decimal totalBalance = 0;
+                int totalTransactions = 0;
 
                 // Fetch client summary
                 var clientResponse = await ApiClient.Client.GetAsync("Client/Summary");
@@ -54,11 +55,23 @@ namespace D_WinFormsApp
                     }
                 }
 
+                // Fetch transaction summary
+                var transactionResponse = await ApiClient.Client.GetAsync("Transaction/Summary");
+                if (transactionResponse.IsSuccessStatusCode)
+                {
+                    var transactionSummary = await transactionResponse.Content.ReadFromJsonAsync<JsonElement>();
+                    if (transactionSummary.TryGetProperty("totalTransactions", out var totalTransactionsProp))
+                    {
+                        totalTransactions = totalTransactionsProp.GetInt32();
+                    }
+                }
+
                 // Update UI
-                    lblTotalClients.Text = $"Total Clients: {totalClients}";
-                    lblTotalAccounts.Text = $"Total Accounts: {totalAccounts}";
-                    lblAverageBalance.Text = $"Average Balance: {averageBalance:C2}";
-                    lblTotalBalance.Text = $"Total Balance: {totalBalance:C2}";
+                lblTotalClients.Text = $"Total Clients: {totalClients}";
+                lblTotalAccounts.Text = $"Total Accounts: {totalAccounts}";
+                lblAverageBalance.Text = $"Average Balance: {averageBalance:C2}";
+                lblTotalBalance.Text = $"Total Balance: {totalBalance:C2}";
+                lblTotalTransactions.Text = $"Total Transactions: {totalTransactions}";
             }
             catch (Exception ex)
             {

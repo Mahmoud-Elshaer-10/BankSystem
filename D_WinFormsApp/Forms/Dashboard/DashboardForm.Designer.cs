@@ -25,13 +25,14 @@ namespace D_WinFormsApp
             lblTotalAccounts = new Label();
             lblAverageBalance = new Label();
             lblTotalBalance = new Label();
+            lblTotalTransactions = new Label();
             ((System.ComponentModel.ISupportInitialize)errorProvider).BeginInit();
             SuspendLayout();
             // 
             // lblTime
             // 
             lblTime.Location = new Point(200, 12);
-            lblTime.Text = "15:32:05";
+            lblTime.Text = "19:41:00";
             // 
             // lblTotalClients
             // 
@@ -47,7 +48,7 @@ namespace D_WinFormsApp
             // 
             lblTotalAccounts.AutoSize = true;
             lblTotalAccounts.Font = new Font("Arial", 12F);
-            lblTotalAccounts.Location = new Point(20, 82);
+            lblTotalAccounts.Location = new Point(20, 81);
             lblTotalAccounts.Name = "lblTotalAccounts";
             lblTotalAccounts.Size = new Size(127, 18);
             lblTotalAccounts.TabIndex = 1;
@@ -57,7 +58,7 @@ namespace D_WinFormsApp
             // 
             lblAverageBalance.AutoSize = true;
             lblAverageBalance.Font = new Font("Arial", 12F);
-            lblAverageBalance.Location = new Point(20, 122);
+            lblAverageBalance.Location = new Point(20, 120);
             lblAverageBalance.Name = "lblAverageBalance";
             lblAverageBalance.Size = new Size(148, 18);
             lblAverageBalance.TabIndex = 2;
@@ -67,17 +68,28 @@ namespace D_WinFormsApp
             // 
             lblTotalBalance.AutoSize = true;
             lblTotalBalance.Font = new Font("Arial", 12F);
-            lblTotalBalance.Location = new Point(20, 162);
+            lblTotalBalance.Location = new Point(20, 159);
             lblTotalBalance.Name = "lblTotalBalance";
             lblTotalBalance.Size = new Size(121, 18);
             lblTotalBalance.TabIndex = 3;
             lblTotalBalance.Text = "Total Balance: ...";
             // 
+            // lblTotalTransactions
+            // 
+            lblTotalTransactions.AutoSize = true;
+            lblTotalTransactions.Font = new Font("Arial", 12F);
+            lblTotalTransactions.Location = new Point(20, 198);
+            lblTotalTransactions.Name = "lblTotalTransactions";
+            lblTotalTransactions.Size = new Size(121, 18);
+            lblTotalTransactions.TabIndex = 4;
+            lblTotalTransactions.Text = "Total Balance: ...";
+            // 
             // DashboardForm
             // 
             AutoScaleDimensions = new SizeF(9F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(300, 200);
+            ClientSize = new Size(300, 275);
+            Controls.Add(lblTotalTransactions);
             Controls.Add(lblTotalBalance);
             Controls.Add(lblAverageBalance);
             Controls.Add(lblTotalAccounts);
@@ -89,9 +101,11 @@ namespace D_WinFormsApp
             Controls.SetChildIndex(lblAverageBalance, 0);
             Controls.SetChildIndex(lblTotalBalance, 0);
             Controls.SetChildIndex(lblTime, 0);
+            Controls.SetChildIndex(lblTotalTransactions, 0);
             ((System.ComponentModel.ISupportInitialize)errorProvider).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
+        private Label lblTotalTransactions;
     }
 }

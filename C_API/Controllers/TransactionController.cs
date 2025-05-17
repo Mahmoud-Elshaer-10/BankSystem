@@ -57,6 +57,13 @@ namespace C_API.Controllers
             return Ok(transactions);
         }
 
+        [HttpGet("Summary", Name = "GetTransactionSummary")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public ActionResult<object> GetTransactionSummary()
+        {
+            return Ok(new { totalTransactions = TransactionRepository.GetTransactionSummary() });
+        }
+
         [HttpPost(Name = "AddTransaction")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
