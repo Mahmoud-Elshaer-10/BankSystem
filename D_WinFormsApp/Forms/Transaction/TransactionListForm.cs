@@ -56,10 +56,11 @@ namespace D_WinFormsApp
                     //cbFilterBy.Text = "From Account ID";
                     cbFilterBy.SelectedItem = "From Account ID";
                     txtFilterValue.Text = _accountId.ToString();
-                    panelFilter.Enabled = false;
+                    pnlFilter.Enabled = false;
                 }
                 else
                 {
+                    btnAdd.Enabled = false;
                     _ = LoadPagedDataAsync<Transaction>(dgvTransactions, lblRecordsCount, $"Transaction");
                 }
 

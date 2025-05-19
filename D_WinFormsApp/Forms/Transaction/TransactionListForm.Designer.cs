@@ -18,8 +18,8 @@ namespace D_WinFormsApp
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             dgvTransactions = new MyDataGridView();
             contextMenuStrip = new ContextMenuStrip(components);
             addTransactionToolStripMenuItem = new ToolStripMenuItem();
@@ -39,35 +39,35 @@ namespace D_WinFormsApp
             btnFirstPage = new MyButton();
             btnPrevPage = new MyButton();
             btnNextPage = new MyButton();
-            panelFilter = new Panel();
+            pnlFilter = new Panel();
             ((System.ComponentModel.ISupportInitialize)errorProvider).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgvTransactions).BeginInit();
             contextMenuStrip.SuspendLayout();
-            panelFilter.SuspendLayout();
+            pnlFilter.SuspendLayout();
             SuspendLayout();
             // 
             // lblTime
             // 
             lblTime.Location = new Point(599, 12);
-            lblTime.Text = "18:19:33";
+            lblTime.Text = "19:39:50";
             // 
             // dgvTransactions
             // 
             dgvTransactions.AllowUserToAddRows = false;
             dgvTransactions.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle1.BackColor = Color.FromArgb(240, 240, 240);
-            dgvTransactions.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.BackColor = Color.FromArgb(240, 240, 240);
+            dgvTransactions.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
             dgvTransactions.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dgvTransactions.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             dgvTransactions.BackgroundColor = Color.White;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = Color.LightGray;
-            dataGridViewCellStyle2.Font = new Font("Segoe UI", 12F);
-            dataGridViewCellStyle2.ForeColor = Color.Black;
-            dataGridViewCellStyle2.SelectionBackColor = Color.LightGray;
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
-            dgvTransactions.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = Color.LightGray;
+            dataGridViewCellStyle4.Font = new Font("Segoe UI", 12F);
+            dataGridViewCellStyle4.ForeColor = Color.Black;
+            dataGridViewCellStyle4.SelectionBackColor = Color.LightGray;
+            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
+            dgvTransactions.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             dgvTransactions.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvTransactions.ContextMenuStrip = contextMenuStrip;
             dgvTransactions.EditMode = DataGridViewEditMode.EditProgrammatically;
@@ -302,23 +302,23 @@ namespace D_WinFormsApp
             btnNextPage.UseVisualStyleBackColor = false;
             btnNextPage.Click += btnNextPage_Click;
             // 
-            // panelFilter
+            // pnlFilter
             // 
-            panelFilter.BackColor = Color.Transparent;
-            panelFilter.Controls.Add(label2);
-            panelFilter.Controls.Add(cbFilterBy);
-            panelFilter.Controls.Add(dtpFilter);
-            panelFilter.Controls.Add(txtFilterValue);
-            panelFilter.Controls.Add(btnClearFilter);
-            panelFilter.Location = new Point(12, 57);
-            panelFilter.Name = "panelFilter";
-            panelFilter.Size = new Size(488, 36);
-            panelFilter.TabIndex = 30;
+            pnlFilter.BackColor = Color.Transparent;
+            pnlFilter.Controls.Add(label2);
+            pnlFilter.Controls.Add(cbFilterBy);
+            pnlFilter.Controls.Add(dtpFilter);
+            pnlFilter.Controls.Add(txtFilterValue);
+            pnlFilter.Controls.Add(btnClearFilter);
+            pnlFilter.Location = new Point(12, 57);
+            pnlFilter.Name = "pnlFilter";
+            pnlFilter.Size = new Size(488, 36);
+            pnlFilter.TabIndex = 30;
             // 
             // TransactionListForm
             // 
             ClientSize = new Size(699, 507);
-            Controls.Add(panelFilter);
+            Controls.Add(pnlFilter);
             Controls.Add(label1);
             Controls.Add(cbCurrentPage);
             Controls.Add(txtRowsPerPage);
@@ -345,12 +345,12 @@ namespace D_WinFormsApp
             Controls.SetChildIndex(txtRowsPerPage, 0);
             Controls.SetChildIndex(cbCurrentPage, 0);
             Controls.SetChildIndex(label1, 0);
-            Controls.SetChildIndex(panelFilter, 0);
+            Controls.SetChildIndex(pnlFilter, 0);
             ((System.ComponentModel.ISupportInitialize)errorProvider).EndInit();
             ((System.ComponentModel.ISupportInitialize)dgvTransactions).EndInit();
             contextMenuStrip.ResumeLayout(false);
-            panelFilter.ResumeLayout(false);
-            panelFilter.PerformLayout();
+            pnlFilter.ResumeLayout(false);
+            pnlFilter.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -374,6 +374,6 @@ namespace D_WinFormsApp
         private MyButton btnFirstPage;
         private MyButton btnPrevPage;
         private MyButton btnNextPage;
-        private Panel panelFilter;
+        private Panel pnlFilter;
     }
 }
