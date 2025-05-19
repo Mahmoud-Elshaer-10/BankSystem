@@ -26,11 +26,12 @@ namespace C_API.Controllers
             if (accounts == null || !accounts.Any())
                 return NotFound("No Accounts Found!");
 
+            int totalRecords = Account.GetAccountsCount(field, value);
             var result = new PagedResult<AccountDTO>
             {
                 Items = accounts.ToList(),
-                TotalRecords = Account.GetAccountsCount(field, value),
-                TotalPages = (int)Math.Ceiling((double)Account.GetAccountsCount(field, value) / rowsPerPage)
+                TotalRecords = totalRecords,
+                TotalPages = (int)Math.Ceiling((double)totalRecords / rowsPerPage)
             };
 
             return Ok(result);

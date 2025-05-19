@@ -26,11 +26,12 @@ namespace C_API.Controllers
             if (clients == null || !clients.Any())
                 return NotFound("No Clients Found!");
 
+            int totalRecords = Client.GetClientsCount(field, value);
             var result = new PagedResult<ClientDTO>
             {
                 Items = clients.ToList(),
-                TotalRecords = Client.GetClientsCount(field, value),
-                TotalPages = (int)Math.Ceiling((double)Client.GetClientsCount(field, value) / rowsPerPage)
+                TotalRecords = totalRecords,
+                TotalPages = (int)Math.Ceiling((double)totalRecords / rowsPerPage)
             };
 
             return Ok(result);
