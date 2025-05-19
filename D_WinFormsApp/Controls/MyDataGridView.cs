@@ -33,6 +33,7 @@ namespace D_WinFormsApp.Controls
             AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(240, 240, 240); // Color.LightGray still somehow darker than this
             Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right; // Allow resize in all sides
+            ShowCellToolTips = false;
         }
 
         /// <summary>
