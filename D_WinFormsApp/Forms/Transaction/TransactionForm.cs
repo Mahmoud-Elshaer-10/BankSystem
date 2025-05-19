@@ -1,7 +1,6 @@
 ﻿using D_WinFormsApp.Helpers;
 using D_WinFormsApp.Models;
 using System.Net.Http.Json;
-using System.Text.RegularExpressions;
 
 namespace D_WinFormsApp
 {
@@ -84,7 +83,7 @@ namespace D_WinFormsApp
                 isValid = false;
             }
 
-            isValid &= ValidateField(cbTransactionType, cbTransactionType.SelectedItem?.ToString(), "Transaction Type is required");
+            isValid &= ValidateField(cbTransactionType, cbTransactionType.SelectedItem?.ToString() ?? "", "Transaction Type is required");
 
             isValid &= ValidateField(txtAmount, txtAmount.Text, "Amount is required");
             if (isValid && (!decimal.TryParse(txtAmount.Text, out decimal amount) || amount <= 0))
