@@ -36,6 +36,7 @@
             toolTip = new ToolTip(components);
             debounceTimer = new System.Windows.Forms.Timer(components);
             errorProvider = new ErrorProvider(components);
+            saveFileDialog = new SaveFileDialog();
             ((System.ComponentModel.ISupportInitialize)errorProvider).BeginInit();
             SuspendLayout();
             // 
@@ -71,6 +72,10 @@
             // 
             errorProvider.ContainerControl = this;
             // 
+            // saveFileDialog
+            // 
+            saveFileDialog.Filter = "CSV Files (*.csv)|*.csv";
+            // 
             // MyForm
             // 
             AutoScaleMode = AutoScaleMode.None;
@@ -99,6 +104,7 @@
 
         private System.Windows.Forms.Timer clockTimer;
         private System.Windows.Forms.Timer debounceTimer;
+        private SaveFileDialog saveFileDialog;
         protected Button btnInvisible;
         protected Label lblTime;
         protected ToolTip toolTip;

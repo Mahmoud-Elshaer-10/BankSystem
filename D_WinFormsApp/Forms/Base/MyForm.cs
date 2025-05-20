@@ -273,7 +273,7 @@ namespace D_WinFormsApp
         }
 
         /// <summary>
-        /// Initializes a live clock in the top-right corner.
+        /// Initializes a live clock.
         /// </summary>
         private void InitializeClock()
         {
@@ -315,12 +315,9 @@ namespace D_WinFormsApp
                 return;
             }
 
-            using SaveFileDialog sfd = new()
-            {
-                Filter = "CSV Files (*.csv)|*.csv",
-                FileName = defaultFileName
-            };
-            if (sfd.ShowDialog() != DialogResult.OK)
+            saveFileDialog.FileName = defaultFileName;
+
+            if (saveFileDialog.ShowDialog() != DialogResult.OK)
                 return;
 
             try
@@ -341,7 +338,7 @@ namespace D_WinFormsApp
                     sb.AppendLine(string.Join(",", fields));
                 }
 
-                File.WriteAllText(sfd.FileName, sb.ToString());
+                File.WriteAllText(saveFileDialog.FileName, sb.ToString());
                 ShowMessage("Export successful!");
             }
             catch (Exception ex)
