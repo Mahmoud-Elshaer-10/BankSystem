@@ -25,15 +25,12 @@ namespace D_WinFormsApp
             InitializeComponent();
         }
 
-        protected override void OnLoad(EventArgs e)
+        private void MyForm_Load(object sender, EventArgs e)
         {
-            base.OnLoad(e);
             InitializeClock();
             _initialFormWidth = Width; // Set initial width after derived form's InitializeComponent
             MinimumSize = Size; // Prevent shrinking below initial size
         }
-
-
 
         /// <summary>
         /// Loads paginated data from the API, supporting filtering.

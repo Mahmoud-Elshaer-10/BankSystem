@@ -88,6 +88,7 @@
             Text = "MyForm";
             TopMost = true;
             Deactivate += MyForm_Deactivate;
+            Load += MyForm_Load;
             KeyDown += MyForm_KeyDown;
             ((System.ComponentModel.ISupportInitialize)errorProvider).EndInit();
             ResumeLayout(false);
@@ -96,11 +97,11 @@
 
         #endregion
 
-        protected Button btnInvisible;
         private System.Windows.Forms.Timer clockTimer;
+        private System.Windows.Forms.Timer debounceTimer;
+        protected Button btnInvisible;
         protected Label lblTime;
         protected ToolTip toolTip;
-        private System.Windows.Forms.Timer debounceTimer;
         protected ErrorProvider errorProvider;
     }
 }
