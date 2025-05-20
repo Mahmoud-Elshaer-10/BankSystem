@@ -79,6 +79,7 @@
             Controls.Add(btnInvisible);
             Font = new Font("Segoe UI", 12F);
             Icon = (Icon)resources.GetObject("$this.Icon");
+            KeyPreview = true;
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "MyForm";
@@ -86,6 +87,7 @@
             StartPosition = FormStartPosition.CenterScreen;
             Text = "MyForm";
             TopMost = true;
+            KeyDown += MyForm_KeyDown;
             ((System.ComponentModel.ISupportInitialize)errorProvider).EndInit();
             ResumeLayout(false);
             PerformLayout();

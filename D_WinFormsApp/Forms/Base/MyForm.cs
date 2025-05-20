@@ -20,7 +20,6 @@ namespace D_WinFormsApp
         protected string CurrentFilterField { get; set; } = "";
         protected string CurrentFilterValue { get; set; } = "";
 
-
         public MyForm()
         {
             InitializeComponent();
@@ -267,20 +266,19 @@ namespace D_WinFormsApp
         /// </summary>
         private void SetupKeyHandling()
         {
-            KeyPreview = true;
-            KeyDown += (s, e) =>
-            {
-                if (e.KeyCode == Keys.Escape)
-                {
-                    Close();
-                }
-            };
-
             // To supress toolTip bug that shows when pressing escape key to close the form
             Deactivate += (s, e) =>
             {
                 btnInvisible.Focus();
             };
+        }
+
+        private void MyForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                Close();
+            }
         }
 
         /// <summary>
