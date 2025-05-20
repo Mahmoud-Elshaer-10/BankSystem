@@ -10,7 +10,6 @@ namespace D_WinFormsApp
 {
     public partial class MyForm : Form
     {
-        protected ErrorProvider errorProvider = new ErrorProvider();
         private int _initialFormWidth; // Stores initial form width to prevent shrinking
         private int _lastGridWidth = 0; // Stores last known grid width
 
@@ -26,7 +25,6 @@ namespace D_WinFormsApp
         {
             InitializeComponent();
             SetupKeyHandling();
-            errorProvider.BlinkStyle = ErrorBlinkStyle.BlinkIfDifferentError; // Optional: blink on error
         }
 
         protected override void OnLoad(EventArgs e)

@@ -35,6 +35,8 @@
             clockTimer = new System.Windows.Forms.Timer(components);
             toolTip = new ToolTip(components);
             debounceTimer = new System.Windows.Forms.Timer(components);
+            errorProvider = new ErrorProvider(components);
+            ((System.ComponentModel.ISupportInitialize)errorProvider).BeginInit();
             SuspendLayout();
             // 
             // btnInvisible
@@ -65,6 +67,10 @@
             // 
             debounceTimer.Interval = 300;
             // 
+            // errorProvider
+            // 
+            errorProvider.ContainerControl = this;
+            // 
             // MyForm
             // 
             AutoScaleMode = AutoScaleMode.None;
@@ -80,6 +86,7 @@
             StartPosition = FormStartPosition.CenterScreen;
             Text = "MyForm";
             TopMost = true;
+            ((System.ComponentModel.ISupportInitialize)errorProvider).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -91,5 +98,6 @@
         protected Label lblTime;
         protected ToolTip toolTip;
         private System.Windows.Forms.Timer debounceTimer;
+        protected ErrorProvider errorProvider;
     }
 }
