@@ -87,6 +87,7 @@
             StartPosition = FormStartPosition.CenterScreen;
             Text = "MyForm";
             TopMost = true;
+            Deactivate += MyForm_Deactivate;
             KeyDown += MyForm_KeyDown;
             ((System.ComponentModel.ISupportInitialize)errorProvider).EndInit();
             ResumeLayout(false);

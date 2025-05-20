@@ -23,7 +23,6 @@ namespace D_WinFormsApp
         public MyForm()
         {
             InitializeComponent();
-            SetupKeyHandling();
         }
 
         protected override void OnLoad(EventArgs e)
@@ -261,24 +260,19 @@ namespace D_WinFormsApp
             return formatted;
         }
 
-        /// <summary>
-        /// Configures Escape key to close the form.
-        /// </summary>
-        private void SetupKeyHandling()
-        {
-            // To supress toolTip bug that shows when pressing escape key to close the form
-            Deactivate += (s, e) =>
-            {
-                btnInvisible.Focus();
-            };
-        }
-
         private void MyForm_KeyDown(object sender, KeyEventArgs e)
         {
+            // Configures Escape key to close the form.
             if (e.KeyCode == Keys.Escape)
             {
                 Close();
             }
+        }
+
+        private void MyForm_Deactivate(object sender, EventArgs e)
+        {
+            // To supress toolTip bug that shows when pressing escape key to close the form
+            btnInvisible.Focus();
         }
 
         /// <summary>
