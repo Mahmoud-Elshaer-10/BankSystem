@@ -286,6 +286,17 @@ namespace D_WinFormsApp
                     Close();
                 }
             };
+
+            // To supress toolTip bug that shows when pressing escape key to close the form
+            Deactivate += (s, e) =>
+            {
+                toolTip.RemoveAll();
+                //toolTip.Active = false;
+            };
+            //Activated += (s, e) =>
+            //{
+            //    toolTip.Active = true;
+            //};
         }
 
         /// <summary>
