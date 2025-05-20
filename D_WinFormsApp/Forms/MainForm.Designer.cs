@@ -26,14 +26,15 @@ namespace D_WinFormsApp
             // 
             // lblTime
             // 
-            lblTime.Location = new Point(150, 12);
-            lblTime.Text = "14:09:32";
+            lblTime.Location = new Point(184, 12);
+            lblTime.Size = new Size(75, 19);
+            lblTime.Text = "15:26:49";
             // 
             // btnClients
             // 
             btnClients.Image = Properties.Resources.user__1_;
             btnClients.ImageAlign = ContentAlignment.MiddleLeft;
-            btnClients.Location = new Point(32, 39);
+            btnClients.Location = new Point(49, 46);
             btnClients.Name = "btnClients";
             btnClients.Padding = new Padding(4);
             btnClients.Size = new Size(186, 44);
@@ -48,7 +49,7 @@ namespace D_WinFormsApp
             // 
             btnAccounts.Image = Properties.Resources.wallet;
             btnAccounts.ImageAlign = ContentAlignment.MiddleLeft;
-            btnAccounts.Location = new Point(32, 99);
+            btnAccounts.Location = new Point(49, 105);
             btnAccounts.Name = "btnAccounts";
             btnAccounts.Padding = new Padding(4);
             btnAccounts.Size = new Size(186, 44);
@@ -63,11 +64,11 @@ namespace D_WinFormsApp
             // 
             btnDashboard.Image = Properties.Resources.graph;
             btnDashboard.ImageAlign = ContentAlignment.MiddleLeft;
-            btnDashboard.Location = new Point(32, 219);
+            btnDashboard.Location = new Point(49, 223);
             btnDashboard.Name = "btnDashboard";
             btnDashboard.Padding = new Padding(4);
             btnDashboard.Size = new Size(186, 44);
-            btnDashboard.TabIndex = 3;
+            btnDashboard.TabIndex = 4;
             btnDashboard.Text = "&Dashboard";
             btnDashboard.TextAlign = ContentAlignment.MiddleRight;
             toolTip.SetToolTip(btnDashboard, "Show Dashboard (Alt+D)");
@@ -78,11 +79,11 @@ namespace D_WinFormsApp
             // 
             btnTransactions.Image = Properties.Resources.Transactions1;
             btnTransactions.ImageAlign = ContentAlignment.MiddleLeft;
-            btnTransactions.Location = new Point(32, 159);
+            btnTransactions.Location = new Point(49, 164);
             btnTransactions.Name = "btnTransactions";
             btnTransactions.Padding = new Padding(4);
             btnTransactions.Size = new Size(186, 44);
-            btnTransactions.TabIndex = 4;
+            btnTransactions.TabIndex = 3;
             btnTransactions.Text = "&Transactions";
             btnTransactions.TextAlign = ContentAlignment.MiddleRight;
             toolTip.SetToolTip(btnTransactions, "Show Transactions (Alt+T)");
@@ -93,12 +94,13 @@ namespace D_WinFormsApp
             // 
             AutoScaleDimensions = new SizeF(9F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(250, 306);
+            ClientSize = new Size(284, 306);
             Controls.Add(btnTransactions);
             Controls.Add(btnDashboard);
             Controls.Add(btnAccounts);
             Controls.Add(btnClients);
             MinimizeBox = true;
+            MinimumSize = new Size(300, 300);
             Name = "MainForm";
             ShowInTaskbar = true;
             Text = "Bank System";

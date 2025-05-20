@@ -13,7 +13,6 @@ namespace D_WinFormsApp
         /// <summary>
         /// Label displaying the current time, updated every second.
         /// </summary>
-        protected Label lblTime = new Label();
         private System.Windows.Forms.Timer clockTimer = new System.Windows.Forms.Timer { Interval = 1000 };
         protected ToolTip toolTip = new ToolTip();
         protected System.Windows.Forms.Timer debounceTimer = new System.Windows.Forms.Timer { Interval = 300 };
@@ -32,16 +31,14 @@ namespace D_WinFormsApp
         public MyForm()
         {
             InitializeComponent();
-
             SetupKeyHandling();
-            InitializeClock();
-
             errorProvider.BlinkStyle = ErrorBlinkStyle.BlinkIfDifferentError; // Optional: blink on error
         }
 
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
+            InitializeClock();
             _initialFormWidth = Width; // Set initial width after derived form's InitializeComponent
             MinimumSize = Size; // Prevent shrinking below initial size
         }
@@ -299,11 +296,7 @@ namespace D_WinFormsApp
         /// </summary>
         private void InitializeClock()
         {
-            lblTime.AutoSize = true;
-            lblTime.Font = new Font("Arial", 12, FontStyle.Bold);
-            lblTime.Location = new Point(this.ClientSize.Width - 100, 12); // Top-right, adjust as needed
             lblTime.Text = DateTime.Now.ToString("HH:mm:ss");
-            Controls.Add(lblTime);
 
             // Update clock every second
             clockTimer.Tick += (s, e) => lblTime.Text = DateTime.Now.ToString("HH:mm:ss");
