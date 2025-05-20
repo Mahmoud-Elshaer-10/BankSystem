@@ -18,8 +18,8 @@ namespace D_WinFormsApp
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             dgvTransactions = new MyDataGridView();
             contextMenuStrip = new ContextMenuStrip(components);
             addTransactionToolStripMenuItem = new ToolStripMenuItem();
@@ -49,25 +49,25 @@ namespace D_WinFormsApp
             // lblTime
             // 
             lblTime.Location = new Point(599, 12);
-            lblTime.Text = "19:39:50";
+            lblTime.Text = "14:29:01";
             // 
             // dgvTransactions
             // 
             dgvTransactions.AllowUserToAddRows = false;
             dgvTransactions.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle3.BackColor = Color.FromArgb(240, 240, 240);
-            dgvTransactions.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.BackColor = Color.FromArgb(240, 240, 240);
+            dgvTransactions.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             dgvTransactions.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dgvTransactions.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             dgvTransactions.BackgroundColor = Color.White;
-            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = Color.LightGray;
-            dataGridViewCellStyle4.Font = new Font("Segoe UI", 12F);
-            dataGridViewCellStyle4.ForeColor = Color.Black;
-            dataGridViewCellStyle4.SelectionBackColor = Color.LightGray;
-            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
-            dgvTransactions.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = Color.LightGray;
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 12F);
+            dataGridViewCellStyle2.ForeColor = Color.Black;
+            dataGridViewCellStyle2.SelectionBackColor = Color.LightGray;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
+            dgvTransactions.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             dgvTransactions.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvTransactions.ContextMenuStrip = contextMenuStrip;
             dgvTransactions.EditMode = DataGridViewEditMode.EditProgrammatically;
@@ -78,6 +78,7 @@ namespace D_WinFormsApp
             dgvTransactions.ReadOnly = true;
             dgvTransactions.RowHeadersWidth = 51;
             dgvTransactions.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvTransactions.ShowCellToolTips = false;
             dgvTransactions.Size = new Size(673, 352);
             dgvTransactions.TabIndex = 0;
             dgvTransactions.TabStop = false;
@@ -201,6 +202,7 @@ namespace D_WinFormsApp
             // 
             // label1
             // 
+            label1.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             label1.AutoSize = true;
             label1.Location = new Point(407, 466);
             label1.Name = "label1";
@@ -210,6 +212,7 @@ namespace D_WinFormsApp
             // 
             // cbCurrentPage
             // 
+            cbCurrentPage.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             cbCurrentPage.DropDownStyle = ComboBoxStyle.DropDownList;
             cbCurrentPage.Location = new Point(166, 462);
             cbCurrentPage.Name = "cbCurrentPage";
@@ -220,6 +223,7 @@ namespace D_WinFormsApp
             // 
             // txtRowsPerPage
             // 
+            txtRowsPerPage.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             txtRowsPerPage.Location = new Point(527, 462);
             txtRowsPerPage.Name = "txtRowsPerPage";
             txtRowsPerPage.Size = new Size(73, 29);
@@ -231,6 +235,7 @@ namespace D_WinFormsApp
             // 
             // btnLastPage
             // 
+            btnLastPage.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             btnLastPage.FlatAppearance.BorderSize = 0;
             btnLastPage.FlatAppearance.MouseDownBackColor = Color.Transparent;
             btnLastPage.FlatAppearance.MouseOverBackColor = Color.Transparent;
@@ -249,6 +254,7 @@ namespace D_WinFormsApp
             // 
             // btnFirstPage
             // 
+            btnFirstPage.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             btnFirstPage.FlatAppearance.BorderSize = 0;
             btnFirstPage.FlatAppearance.MouseDownBackColor = Color.Transparent;
             btnFirstPage.FlatAppearance.MouseOverBackColor = Color.Transparent;
@@ -267,6 +273,7 @@ namespace D_WinFormsApp
             // 
             // btnPrevPage
             // 
+            btnPrevPage.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             btnPrevPage.FlatAppearance.BorderSize = 0;
             btnPrevPage.FlatAppearance.MouseDownBackColor = Color.Transparent;
             btnPrevPage.FlatAppearance.MouseOverBackColor = Color.Transparent;
@@ -285,6 +292,7 @@ namespace D_WinFormsApp
             // 
             // btnNextPage
             // 
+            btnNextPage.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             btnNextPage.BackColor = Color.Transparent;
             btnNextPage.FlatAppearance.BorderSize = 0;
             btnNextPage.FlatAppearance.MouseDownBackColor = Color.Transparent;
@@ -333,6 +341,7 @@ namespace D_WinFormsApp
             Name = "TransactionListForm";
             Text = "Bank System - Transaction List";
             Load += TransactionListForm_Load;
+            Controls.SetChildIndex(btnInvisible, 0);
             Controls.SetChildIndex(dgvTransactions, 0);
             Controls.SetChildIndex(btnAdd, 0);
             Controls.SetChildIndex(lblRecordsCount, 0);

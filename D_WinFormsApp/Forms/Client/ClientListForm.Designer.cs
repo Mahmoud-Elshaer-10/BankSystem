@@ -17,8 +17,8 @@ namespace D_WinFormsApp
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             dgvClients = new MyDataGridView();
             contextMenuStrip = new ContextMenuStrip(components);
             addClientToolStripMenuItem = new ToolStripMenuItem();
@@ -52,25 +52,25 @@ namespace D_WinFormsApp
             // lblTime
             // 
             lblTime.Location = new Point(599, 12);
-            lblTime.Text = "22:14:21";
+            lblTime.Text = "14:26:30";
             // 
             // dgvClients
             // 
             dgvClients.AllowUserToAddRows = false;
             dgvClients.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle3.BackColor = Color.FromArgb(240, 240, 240);
-            dgvClients.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.BackColor = Color.FromArgb(240, 240, 240);
+            dgvClients.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             dgvClients.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dgvClients.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             dgvClients.BackgroundColor = Color.White;
-            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = Color.LightGray;
-            dataGridViewCellStyle4.Font = new Font("Segoe UI", 12F);
-            dataGridViewCellStyle4.ForeColor = Color.Black;
-            dataGridViewCellStyle4.SelectionBackColor = Color.LightGray;
-            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
-            dgvClients.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = Color.LightGray;
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 12F);
+            dataGridViewCellStyle2.ForeColor = Color.Black;
+            dataGridViewCellStyle2.SelectionBackColor = Color.LightGray;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
+            dgvClients.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             dgvClients.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvClients.ContextMenuStrip = contextMenuStrip;
             dgvClients.EditMode = DataGridViewEditMode.EditProgrammatically;
@@ -81,6 +81,7 @@ namespace D_WinFormsApp
             dgvClients.ReadOnly = true;
             dgvClients.RowHeadersWidth = 51;
             dgvClients.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvClients.ShowCellToolTips = false;
             dgvClients.Size = new Size(673, 352);
             dgvClients.TabIndex = 0;
             dgvClients.TabStop = false;
@@ -277,6 +278,7 @@ namespace D_WinFormsApp
             // 
             // btnNextPage
             // 
+            btnNextPage.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             btnNextPage.BackColor = Color.Transparent;
             btnNextPage.FlatAppearance.BorderSize = 0;
             btnNextPage.FlatAppearance.MouseDownBackColor = Color.Transparent;
@@ -296,6 +298,7 @@ namespace D_WinFormsApp
             // 
             // btnPrevPage
             // 
+            btnPrevPage.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             btnPrevPage.FlatAppearance.BorderSize = 0;
             btnPrevPage.FlatAppearance.MouseDownBackColor = Color.Transparent;
             btnPrevPage.FlatAppearance.MouseOverBackColor = Color.Transparent;
@@ -314,6 +317,7 @@ namespace D_WinFormsApp
             // 
             // btnFirstPage
             // 
+            btnFirstPage.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             btnFirstPage.FlatAppearance.BorderSize = 0;
             btnFirstPage.FlatAppearance.MouseDownBackColor = Color.Transparent;
             btnFirstPage.FlatAppearance.MouseOverBackColor = Color.Transparent;
@@ -332,6 +336,7 @@ namespace D_WinFormsApp
             // 
             // btnLastPage
             // 
+            btnLastPage.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             btnLastPage.FlatAppearance.BorderSize = 0;
             btnLastPage.FlatAppearance.MouseDownBackColor = Color.Transparent;
             btnLastPage.FlatAppearance.MouseOverBackColor = Color.Transparent;
@@ -350,6 +355,7 @@ namespace D_WinFormsApp
             // 
             // txtRowsPerPage
             // 
+            txtRowsPerPage.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             txtRowsPerPage.Location = new Point(527, 463);
             txtRowsPerPage.Name = "txtRowsPerPage";
             txtRowsPerPage.Size = new Size(73, 29);
@@ -361,6 +367,7 @@ namespace D_WinFormsApp
             // 
             // cbCurrentPage
             // 
+            cbCurrentPage.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             cbCurrentPage.DropDownStyle = ComboBoxStyle.DropDownList;
             cbCurrentPage.Location = new Point(166, 463);
             cbCurrentPage.Name = "cbCurrentPage";
@@ -371,6 +378,7 @@ namespace D_WinFormsApp
             // 
             // label1
             // 
+            label1.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             label1.AutoSize = true;
             label1.Location = new Point(407, 467);
             label1.Name = "label1";
@@ -403,6 +411,7 @@ namespace D_WinFormsApp
             Name = "ClientListForm";
             Text = "Bank System - Client List";
             Load += ClientListForm_Load;
+            Controls.SetChildIndex(btnInvisible, 0);
             Controls.SetChildIndex(dgvClients, 0);
             Controls.SetChildIndex(btnAdd, 0);
             Controls.SetChildIndex(btnEdit, 0);

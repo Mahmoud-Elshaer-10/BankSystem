@@ -27,7 +27,7 @@ namespace D_WinFormsApp
             // lblTime
             // 
             lblTime.Location = new Point(150, 12);
-            lblTime.Text = "18:31:20";
+            lblTime.Text = "14:09:32";
             // 
             // btnClients
             // 
@@ -93,7 +93,7 @@ namespace D_WinFormsApp
             // 
             AutoScaleDimensions = new SizeF(9F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(250, 338);
+            ClientSize = new Size(250, 306);
             Controls.Add(btnTransactions);
             Controls.Add(btnDashboard);
             Controls.Add(btnAccounts);
@@ -102,6 +102,7 @@ namespace D_WinFormsApp
             Name = "MainForm";
             ShowInTaskbar = true;
             Text = "Bank System";
+            Controls.SetChildIndex(btnInvisible, 0);
             Controls.SetChildIndex(btnClients, 0);
             Controls.SetChildIndex(btnAccounts, 0);
             Controls.SetChildIndex(btnDashboard, 0);

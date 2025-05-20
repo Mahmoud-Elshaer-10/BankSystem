@@ -55,7 +55,7 @@ namespace D_WinFormsApp
             // lblTime
             // 
             lblTime.Location = new Point(613, 12);
-            lblTime.Text = "19:16:18";
+            lblTime.Text = "14:28:17";
             // 
             // dgvAccounts
             // 
@@ -84,6 +84,7 @@ namespace D_WinFormsApp
             dgvAccounts.ReadOnly = true;
             dgvAccounts.RowHeadersWidth = 51;
             dgvAccounts.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvAccounts.ShowCellToolTips = false;
             dgvAccounts.Size = new Size(689, 347);
             dgvAccounts.TabIndex = 0;
             dgvAccounts.TabStop = false;
@@ -93,7 +94,7 @@ namespace D_WinFormsApp
             // 
             contextMenuStrip.Items.AddRange(new ToolStripItem[] { addAccountToolStripMenuItem, editAccountToolStripMenuItem, deleteAccountToolStripMenuItem, showClientToolStripMenuItem, showTransactionsToolStripMenuItem, exportToCSVToolStripMenuItem });
             contextMenuStrip.Name = "contextMenuStrip";
-            contextMenuStrip.Size = new Size(210, 158);
+            contextMenuStrip.Size = new Size(210, 136);
             // 
             // addAccountToolStripMenuItem
             // 
@@ -289,6 +290,7 @@ namespace D_WinFormsApp
             // 
             // label1
             // 
+            label1.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             label1.AutoSize = true;
             label1.Location = new Point(409, 521);
             label1.Name = "label1";
@@ -298,6 +300,7 @@ namespace D_WinFormsApp
             // 
             // cbCurrentPage
             // 
+            cbCurrentPage.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             cbCurrentPage.DropDownStyle = ComboBoxStyle.DropDownList;
             cbCurrentPage.Location = new Point(168, 517);
             cbCurrentPage.Name = "cbCurrentPage";
@@ -308,6 +311,7 @@ namespace D_WinFormsApp
             // 
             // txtRowsPerPage
             // 
+            txtRowsPerPage.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             txtRowsPerPage.Location = new Point(529, 517);
             txtRowsPerPage.Name = "txtRowsPerPage";
             txtRowsPerPage.Size = new Size(73, 29);
@@ -319,6 +323,7 @@ namespace D_WinFormsApp
             // 
             // btnLastPage
             // 
+            btnLastPage.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             btnLastPage.FlatAppearance.BorderSize = 0;
             btnLastPage.FlatAppearance.MouseDownBackColor = Color.Transparent;
             btnLastPage.FlatAppearance.MouseOverBackColor = Color.Transparent;
@@ -337,6 +342,7 @@ namespace D_WinFormsApp
             // 
             // btnFirstPage
             // 
+            btnFirstPage.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             btnFirstPage.FlatAppearance.BorderSize = 0;
             btnFirstPage.FlatAppearance.MouseDownBackColor = Color.Transparent;
             btnFirstPage.FlatAppearance.MouseOverBackColor = Color.Transparent;
@@ -355,6 +361,7 @@ namespace D_WinFormsApp
             // 
             // btnPrevPage
             // 
+            btnPrevPage.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             btnPrevPage.FlatAppearance.BorderSize = 0;
             btnPrevPage.FlatAppearance.MouseDownBackColor = Color.Transparent;
             btnPrevPage.FlatAppearance.MouseOverBackColor = Color.Transparent;
@@ -373,6 +380,7 @@ namespace D_WinFormsApp
             // 
             // btnNextPage
             // 
+            btnNextPage.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             btnNextPage.BackColor = Color.Transparent;
             btnNextPage.FlatAppearance.BorderSize = 0;
             btnNextPage.FlatAppearance.MouseDownBackColor = Color.Transparent;
@@ -431,6 +439,7 @@ namespace D_WinFormsApp
             Name = "AccountListForm";
             Text = "Bank System - Account List";
             Load += AccountListForm_Load;
+            Controls.SetChildIndex(btnInvisible, 0);
             Controls.SetChildIndex(dgvAccounts, 0);
             Controls.SetChildIndex(btnAdd, 0);
             Controls.SetChildIndex(btnEdit, 0);

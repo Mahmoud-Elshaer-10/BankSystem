@@ -36,7 +36,6 @@ namespace D_WinFormsApp
             SetupKeyHandling();
             InitializeClock();
 
-
             errorProvider.BlinkStyle = ErrorBlinkStyle.BlinkIfDifferentError; // Optional: blink on error
         }
 
