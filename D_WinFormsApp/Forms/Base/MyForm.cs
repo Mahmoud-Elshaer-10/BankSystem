@@ -10,10 +10,6 @@ namespace D_WinFormsApp
 {
     public partial class MyForm : Form
     {
-        /// <summary>
-        /// Label displaying the current time, updated every second.
-        /// </summary>
-        private System.Windows.Forms.Timer clockTimer = new System.Windows.Forms.Timer { Interval = 1000 };
         protected ToolTip toolTip = new ToolTip();
         protected System.Windows.Forms.Timer debounceTimer = new System.Windows.Forms.Timer { Interval = 300 };
         protected ErrorProvider errorProvider = new ErrorProvider();
@@ -297,10 +293,12 @@ namespace D_WinFormsApp
         private void InitializeClock()
         {
             lblTime.Text = DateTime.Now.ToString("HH:mm:ss");
-
-            // Update clock every second
-            clockTimer.Tick += (s, e) => lblTime.Text = DateTime.Now.ToString("HH:mm:ss");
             clockTimer.Start();
+        }
+
+        private void clockTimer_Tick(object sender, EventArgs e)
+        {
+            lblTime.Text = DateTime.Now.ToString("HH:mm:ss");
         }
 
         protected override void OnResize(EventArgs e)

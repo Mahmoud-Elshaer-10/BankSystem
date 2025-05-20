@@ -28,9 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MyForm));
             btnInvisible = new Button();
             lblTime = new Label();
+            clockTimer = new System.Windows.Forms.Timer(components);
             SuspendLayout();
             // 
             // btnInvisible
@@ -51,6 +53,11 @@
             lblTime.Size = new Size(46, 19);
             lblTime.TabIndex = 0;
             lblTime.Text = "Time";
+            // 
+            // clockTimer
+            // 
+            clockTimer.Interval = 1000;
+            clockTimer.Tick += clockTimer_Tick;
             // 
             // MyForm
             // 
@@ -74,6 +81,7 @@
         #endregion
 
         protected Button btnInvisible;
+        private System.Windows.Forms.Timer clockTimer;
         protected Label lblTime;
     }
 }
