@@ -43,7 +43,7 @@
             // MyForm
             // 
             AutoScaleMode = AutoScaleMode.None;
-            ClientSize = new Size(484, 261);
+            ClientSize = new Size(284, 261);
             Controls.Add(btnInvisible);
             Font = new Font("Segoe UI", 12F);
             Icon = (Icon)resources.GetObject("$this.Icon");

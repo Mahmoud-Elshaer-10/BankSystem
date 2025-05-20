@@ -43,6 +43,7 @@ namespace D_WinFormsApp
         {
             base.OnLoad(e);
             _initialFormWidth = Width; // Set initial width after derived form's InitializeComponent
+            MinimumSize = Size; // Prevent shrinking below initial size
         }
 
 

@@ -1,6 +1,9 @@
 
 
+optimize code in MyForm and seperate designer code
+====================================================================================
 
+check tab index in all forms
 ====================================================================================
 
 Write unit tests for ClientRepository.cs or API endpoints to show TDD skills.
