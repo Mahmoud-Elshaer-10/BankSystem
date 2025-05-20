@@ -286,13 +286,6 @@ namespace D_WinFormsApp
             lblTime.Text = DateTime.Now.ToString("HH:mm:ss");
         }
 
-        protected override void OnResize(EventArgs e)
-        {
-            base.OnResize(e);
-            // Keep clock pinned 100px from right edge
-            lblTime.Location = new Point(this.ClientSize.Width - 100, 12); // Reposition on resize
-        }
-
         protected void ShowError(string message)
         {
             MessageBox.Show($"An error occurred: {message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
