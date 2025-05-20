@@ -290,13 +290,8 @@ namespace D_WinFormsApp
             // To supress toolTip bug that shows when pressing escape key to close the form
             Deactivate += (s, e) =>
             {
-                toolTip.RemoveAll();
-                //toolTip.Active = false;
+                btnInvisible.Focus();
             };
-            //Activated += (s, e) =>
-            //{
-            //    toolTip.Active = true;
-            //};
         }
 
         /// <summary>
