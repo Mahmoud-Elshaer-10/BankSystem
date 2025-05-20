@@ -1,5 +1,4 @@
 ﻿using System.Text.RegularExpressions;
-using System.Windows.Forms;
 
 namespace D_WinFormsApp.Controls
 {

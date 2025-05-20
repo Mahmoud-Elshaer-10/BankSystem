@@ -1,7 +1,4 @@
-﻿using System.Drawing;
-using System.Windows.Forms;
-
-namespace D_WinFormsApp.Controls
+﻿namespace D_WinFormsApp.Controls
 {
     public class MyButton : Button
     {
