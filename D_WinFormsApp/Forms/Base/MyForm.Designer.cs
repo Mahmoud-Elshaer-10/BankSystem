@@ -34,6 +34,7 @@
             lblTime = new Label();
             clockTimer = new System.Windows.Forms.Timer(components);
             toolTip = new ToolTip(components);
+            debounceTimer = new System.Windows.Forms.Timer(components);
             SuspendLayout();
             // 
             // btnInvisible
@@ -60,6 +61,10 @@
             clockTimer.Interval = 1000;
             clockTimer.Tick += clockTimer_Tick;
             // 
+            // debounceTimer
+            // 
+            debounceTimer.Interval = 300;
+            // 
             // MyForm
             // 
             AutoScaleMode = AutoScaleMode.None;
@@ -85,5 +90,6 @@
         private System.Windows.Forms.Timer clockTimer;
         protected Label lblTime;
         protected ToolTip toolTip;
+        private System.Windows.Forms.Timer debounceTimer;
     }
 }
