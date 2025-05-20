@@ -33,6 +33,7 @@
             btnInvisible = new Button();
             lblTime = new Label();
             clockTimer = new System.Windows.Forms.Timer(components);
+            toolTip = new ToolTip(components);
             SuspendLayout();
             // 
             // btnInvisible
@@ -83,5 +84,6 @@
         protected Button btnInvisible;
         private System.Windows.Forms.Timer clockTimer;
         protected Label lblTime;
+        protected ToolTip toolTip;
     }
 }

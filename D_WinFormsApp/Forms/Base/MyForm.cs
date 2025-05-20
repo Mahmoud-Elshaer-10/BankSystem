@@ -10,7 +10,6 @@ namespace D_WinFormsApp
 {
     public partial class MyForm : Form
     {
-        protected ToolTip toolTip = new ToolTip();
         protected System.Windows.Forms.Timer debounceTimer = new System.Windows.Forms.Timer { Interval = 300 };
         protected ErrorProvider errorProvider = new ErrorProvider();
         private int _initialFormWidth; // Stores initial form width to prevent shrinking
