@@ -32,31 +32,31 @@ namespace A_DataAccess
         public static int? GetSafeInt32(this SqlDataReader reader, string columnName)
         {
             int index = reader.GetOrdinal(columnName);
-            return reader.IsDBNull(index) ? (int?)null : reader.GetInt32(index);
+            return reader.IsDBNull(index) ? null : reader.GetInt32(index);
         }
 
         public static decimal? GetSafeDecimal(this SqlDataReader reader, string columnName)
         {
             int index = reader.GetOrdinal(columnName);
-            return reader.IsDBNull(index) ? (decimal?)null : reader.GetDecimal(index);
+            return reader.IsDBNull(index) ? null : reader.GetDecimal(index);
         }
 
         public static DateTime? GetSafeDateTime(this SqlDataReader reader, string columnName)
         {
             int index = reader.GetOrdinal(columnName);
-            return reader.IsDBNull(index) ? (DateTime?)null : reader.GetDateTime(index);
+            return reader.IsDBNull(index) ? null : reader.GetDateTime(index);
         }
 
         public static bool? GetSafeBoolean(this SqlDataReader reader, string columnName)
         {
             int index = reader.GetOrdinal(columnName);
-            return reader.IsDBNull(index) ? (bool?)null : reader.GetBoolean(index);
+            return reader.IsDBNull(index) ? null : reader.GetBoolean(index);
         }
 
         public static double? GetSafeDouble(this SqlDataReader reader, string columnName)
         {
             int index = reader.GetOrdinal(columnName);
-            return reader.IsDBNull(index) ? (double?)null : reader.GetDouble(index);
+            return reader.IsDBNull(index) ? null : reader.GetDouble(index);
         }
     }
 }

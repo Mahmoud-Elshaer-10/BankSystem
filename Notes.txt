@@ -1,7 +1,4 @@
 
-  reader.IsDBNull(reader.GetOrdinal("ToAccountID")) ? null : reader.GetInt32(reader.GetOrdinal("ToAccountID"))
-update in DatabaseHelper similar to GetSafeString extension method
-====================================================================================
 
 clean invalid data in database
 modify tables to accept null or not
