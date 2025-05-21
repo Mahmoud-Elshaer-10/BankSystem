@@ -105,8 +105,8 @@ namespace A_DataAccess.Repositories
                 "GetAccountSummary",
                 reader => new AccountSummaryDTO(
                     reader.GetInt32(reader.GetOrdinal("TotalAccounts")),
-                    reader.IsDBNull(reader.GetOrdinal("AverageBalance")) ? 0 : reader.GetDecimal(reader.GetOrdinal("AverageBalance")),
-                    reader.IsDBNull(reader.GetOrdinal("TotalBalance")) ? 0 : reader.GetDecimal(reader.GetOrdinal("TotalBalance")))
+                    reader.GetSafeDecimal("AverageBalance") ?? 0,
+                    reader.GetSafeDecimal("TotalBalance") ?? 0)
                 ) ?? new AccountSummaryDTO(0, 0, 0);
         }
     }

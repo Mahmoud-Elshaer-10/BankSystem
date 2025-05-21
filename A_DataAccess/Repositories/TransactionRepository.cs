@@ -13,8 +13,8 @@ namespace A_DataAccess.Repositories
                     reader.GetInt32(reader.GetOrdinal("FromAccountID")),
                     reader.GetString(reader.GetOrdinal("TransactionType")),
                     reader.GetDecimal(reader.GetOrdinal("Amount")),
-                    reader.IsDBNull(reader.GetOrdinal("ToAccountID")) ? null : reader.GetInt32(reader.GetOrdinal("ToAccountID")),
-                    reader.IsDBNull(reader.GetOrdinal("TransactionDate")) ? null : reader.GetDateTime(reader.GetOrdinal("TransactionDate"))));
+                    reader.GetSafeInt32("ToAccountID"),
+                    reader.GetSafeDateTime("TransactionDate")));
         }
 
         public static List<TransactionDTO> GetTransactionsByFilter(string field, string value)
@@ -26,8 +26,8 @@ namespace A_DataAccess.Repositories
                     reader.GetInt32(reader.GetOrdinal("FromAccountID")),
                     reader.GetString(reader.GetOrdinal("TransactionType")),
                     reader.GetDecimal(reader.GetOrdinal("Amount")),
-                    reader.IsDBNull(reader.GetOrdinal("ToAccountID")) ? null : reader.GetInt32(reader.GetOrdinal("ToAccountID")),
-                    reader.IsDBNull(reader.GetOrdinal("TransactionDate")) ? null : reader.GetDateTime(reader.GetOrdinal("TransactionDate"))),
+                    reader.GetSafeInt32("ToAccountID"),
+                    reader.GetSafeDateTime("TransactionDate")),
                 new SqlParameter("@Field", field),
                 new SqlParameter("@Value", value ?? ""));
         }
@@ -41,8 +41,8 @@ namespace A_DataAccess.Repositories
                     reader.GetInt32(reader.GetOrdinal("FromAccountID")),
                     reader.GetString(reader.GetOrdinal("TransactionType")),
                     reader.GetDecimal(reader.GetOrdinal("Amount")),
-                    reader.IsDBNull(reader.GetOrdinal("ToAccountID")) ? null : reader.GetInt32(reader.GetOrdinal("ToAccountID")),
-                    reader.IsDBNull(reader.GetOrdinal("TransactionDate")) ? null : reader.GetDateTime(reader.GetOrdinal("TransactionDate"))),
+                    reader.GetSafeInt32("ToAccountID"),
+                    reader.GetSafeDateTime("TransactionDate")),
                 new SqlParameter("@PageNumber", pageNumber),
                 new SqlParameter("@RowsPerPage", rowsPerPage),
                 new SqlParameter("@Field", field),
@@ -66,8 +66,8 @@ namespace A_DataAccess.Repositories
                     reader.GetInt32(reader.GetOrdinal("FromAccountID")),
                     reader.GetString(reader.GetOrdinal("TransactionType")),
                     reader.GetDecimal(reader.GetOrdinal("Amount")),
-                    reader.IsDBNull(reader.GetOrdinal("ToAccountID")) ? null : reader.GetInt32(reader.GetOrdinal("ToAccountID")),
-                    reader.IsDBNull(reader.GetOrdinal("TransactionDate")) ? null : reader.GetDateTime(reader.GetOrdinal("TransactionDate"))),
+                    reader.GetSafeInt32("ToAccountID"),
+                    reader.GetSafeDateTime("TransactionDate")),
                 new SqlParameter("@TransactionID", transactionID));
         }
 
@@ -80,8 +80,8 @@ namespace A_DataAccess.Repositories
                     reader.GetInt32(reader.GetOrdinal("FromAccountID")),
                     reader.GetString(reader.GetOrdinal("TransactionType")),
                     reader.GetDecimal(reader.GetOrdinal("Amount")),
-                    reader.IsDBNull(reader.GetOrdinal("ToAccountID")) ? null : reader.GetInt32(reader.GetOrdinal("ToAccountID")),
-                    reader.IsDBNull(reader.GetOrdinal("TransactionDate")) ? null : reader.GetDateTime(reader.GetOrdinal("TransactionDate"))),
+                    reader.GetSafeInt32("ToAccountID"),
+                    reader.GetSafeDateTime("TransactionDate")),
                 new SqlParameter("@FromAccountID", fromAccountID),
                 new SqlParameter("@Field", field ?? (object)DBNull.Value),
                 new SqlParameter("@Value", value ?? (object)DBNull.Value));

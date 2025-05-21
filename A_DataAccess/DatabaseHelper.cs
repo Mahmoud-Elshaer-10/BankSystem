@@ -22,11 +22,41 @@ namespace A_DataAccess
             return new SqlConnection(_connectionString);
         }
 
-        // Extension method for SqlDataReader Object
+        // Extension methods for SqlDataReader Object
         public static string? GetSafeString(this SqlDataReader reader, string columnName)
         {
             int index = reader.GetOrdinal(columnName);
             return reader.IsDBNull(index) ? null : reader.GetString(index);
+        }
+
+        public static int? GetSafeInt32(this SqlDataReader reader, string columnName)
+        {
+            int index = reader.GetOrdinal(columnName);
+            return reader.IsDBNull(index) ? (int?)null : reader.GetInt32(index);
+        }
+
+        public static decimal? GetSafeDecimal(this SqlDataReader reader, string columnName)
+        {
+            int index = reader.GetOrdinal(columnName);
+            return reader.IsDBNull(index) ? (decimal?)null : reader.GetDecimal(index);
+        }
+
+        public static DateTime? GetSafeDateTime(this SqlDataReader reader, string columnName)
+        {
+            int index = reader.GetOrdinal(columnName);
+            return reader.IsDBNull(index) ? (DateTime?)null : reader.GetDateTime(index);
+        }
+
+        public static bool? GetSafeBoolean(this SqlDataReader reader, string columnName)
+        {
+            int index = reader.GetOrdinal(columnName);
+            return reader.IsDBNull(index) ? (bool?)null : reader.GetBoolean(index);
+        }
+
+        public static double? GetSafeDouble(this SqlDataReader reader, string columnName)
+        {
+            int index = reader.GetOrdinal(columnName);
+            return reader.IsDBNull(index) ? (double?)null : reader.GetDouble(index);
         }
     }
 }
