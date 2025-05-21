@@ -1,7 +1,4 @@
-what shift delete does in solution explorer
 
-optimize code in custom controls and seperate designer code
-====================================================================================
 
 check tab index in all forms
 ====================================================================================

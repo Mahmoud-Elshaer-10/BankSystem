@@ -55,7 +55,8 @@ namespace D_WinFormsApp
             // lblTime
             // 
             lblTime.Location = new Point(613, 12);
-            lblTime.Text = "14:28:17";
+            lblTime.Size = new Size(75, 19);
+            lblTime.Text = "15:20:24";
             // 
             // dgvAccounts
             // 
@@ -217,7 +218,7 @@ namespace D_WinFormsApp
             cbFilterBy.Location = new Point(93, 113);
             cbFilterBy.Name = "cbFilterBy";
             cbFilterBy.Size = new Size(120, 29);
-            cbFilterBy.TabIndex = 6;
+            cbFilterBy.TabIndex = 7;
             cbFilterBy.SelectedIndexChanged += cbFilterBy_SelectedIndexChanged;
             // 
             // txtFilterValue
@@ -225,7 +226,7 @@ namespace D_WinFormsApp
             txtFilterValue.Location = new Point(226, 113);
             txtFilterValue.Name = "txtFilterValue";
             txtFilterValue.Size = new Size(170, 29);
-            txtFilterValue.TabIndex = 7;
+            txtFilterValue.TabIndex = 8;
             txtFilterValue.Visible = false;
             txtFilterValue.KeyPress += txtFilterValue_KeyPress;
             // 
@@ -248,7 +249,7 @@ namespace D_WinFormsApp
             btnClearFilter.Name = "btnClearFilter";
             btnClearFilter.Padding = new Padding(4);
             btnClearFilter.Size = new Size(29, 29);
-            btnClearFilter.TabIndex = 8;
+            btnClearFilter.TabIndex = 10;
             btnClearFilter.TextAlign = ContentAlignment.MiddleRight;
             btnClearFilter.UseVisualStyleBackColor = true;
             btnClearFilter.Visible = false;
@@ -285,7 +286,7 @@ namespace D_WinFormsApp
             dtpFilter.Location = new Point(226, 113);
             dtpFilter.Name = "dtpFilter";
             dtpFilter.Size = new Size(128, 29);
-            dtpFilter.TabIndex = 13;
+            dtpFilter.TabIndex = 9;
             dtpFilter.Visible = false;
             // 
             // label1
@@ -305,7 +306,7 @@ namespace D_WinFormsApp
             cbCurrentPage.Location = new Point(168, 517);
             cbCurrentPage.Name = "cbCurrentPage";
             cbCurrentPage.Size = new Size(62, 29);
-            cbCurrentPage.TabIndex = 27;
+            cbCurrentPage.TabIndex = 13;
             toolTip.SetToolTip(cbCurrentPage, "Select page");
             cbCurrentPage.SelectedIndexChanged += cbCurrentPage_SelectedIndexChanged;
             // 
@@ -315,7 +316,7 @@ namespace D_WinFormsApp
             txtRowsPerPage.Location = new Point(529, 517);
             txtRowsPerPage.Name = "txtRowsPerPage";
             txtRowsPerPage.Size = new Size(73, 29);
-            txtRowsPerPage.TabIndex = 26;
+            txtRowsPerPage.TabIndex = 16;
             txtRowsPerPage.Text = "10";
             toolTip.SetToolTip(txtRowsPerPage, "Rows per page");
             txtRowsPerPage.TextChanged += txtRowsPerPage_TextChanged;
@@ -334,7 +335,7 @@ namespace D_WinFormsApp
             btnLastPage.Name = "btnLastPage";
             btnLastPage.Padding = new Padding(4);
             btnLastPage.Size = new Size(47, 37);
-            btnLastPage.TabIndex = 25;
+            btnLastPage.TabIndex = 15;
             btnLastPage.TextAlign = ContentAlignment.MiddleRight;
             toolTip.SetToolTip(btnLastPage, "Last Page");
             btnLastPage.UseVisualStyleBackColor = true;
@@ -353,7 +354,7 @@ namespace D_WinFormsApp
             btnFirstPage.Name = "btnFirstPage";
             btnFirstPage.Padding = new Padding(4);
             btnFirstPage.Size = new Size(47, 37);
-            btnFirstPage.TabIndex = 24;
+            btnFirstPage.TabIndex = 11;
             btnFirstPage.TextAlign = ContentAlignment.MiddleRight;
             toolTip.SetToolTip(btnFirstPage, "First Page");
             btnFirstPage.UseVisualStyleBackColor = true;
@@ -372,7 +373,7 @@ namespace D_WinFormsApp
             btnPrevPage.Name = "btnPrevPage";
             btnPrevPage.Padding = new Padding(4);
             btnPrevPage.Size = new Size(81, 37);
-            btnPrevPage.TabIndex = 23;
+            btnPrevPage.TabIndex = 12;
             btnPrevPage.TextAlign = ContentAlignment.MiddleRight;
             toolTip.SetToolTip(btnPrevPage, "Previous Page");
             btnPrevPage.UseVisualStyleBackColor = true;
@@ -392,7 +393,7 @@ namespace D_WinFormsApp
             btnNextPage.Name = "btnNextPage";
             btnNextPage.Padding = new Padding(4);
             btnNextPage.Size = new Size(81, 37);
-            btnNextPage.TabIndex = 22;
+            btnNextPage.TabIndex = 14;
             btnNextPage.TextAlign = ContentAlignment.MiddleRight;
             toolTip.SetToolTip(btnNextPage, "Next Page");
             btnNextPage.UseVisualStyleBackColor = false;
@@ -406,7 +407,7 @@ namespace D_WinFormsApp
             btnShowTransactions.Name = "btnShowTransactions";
             btnShowTransactions.Padding = new Padding(4);
             btnShowTransactions.Size = new Size(186, 37);
-            btnShowTransactions.TabIndex = 29;
+            btnShowTransactions.TabIndex = 6;
             btnShowTransactions.Text = "Show &Transactions";
             btnShowTransactions.TextAlign = ContentAlignment.MiddleRight;
             toolTip.SetToolTip(btnShowTransactions, "Show Transactions (Alt+S)");
@@ -436,6 +437,7 @@ namespace D_WinFormsApp
             Controls.Add(btnEdit);
             Controls.Add(btnAdd);
             Controls.Add(dgvAccounts);
+            MinimumSize = new Size(300, 300);
             Name = "AccountListForm";
             Text = "Bank System - Account List";
             Load += AccountListForm_Load;

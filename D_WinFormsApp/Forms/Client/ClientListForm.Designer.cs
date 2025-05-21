@@ -52,7 +52,8 @@ namespace D_WinFormsApp
             // lblTime
             // 
             lblTime.Location = new Point(599, 12);
-            lblTime.Text = "14:26:30";
+            lblTime.Size = new Size(75, 19);
+            lblTime.Text = "15:17:15";
             // 
             // dgvClients
             // 
@@ -273,7 +274,7 @@ namespace D_WinFormsApp
             dtpFilter.Location = new Point(231, 65);
             dtpFilter.Name = "dtpFilter";
             dtpFilter.Size = new Size(128, 29);
-            dtpFilter.TabIndex = 14;
+            dtpFilter.TabIndex = 8;
             dtpFilter.Visible = false;
             // 
             // btnNextPage
@@ -290,7 +291,7 @@ namespace D_WinFormsApp
             btnNextPage.Name = "btnNextPage";
             btnNextPage.Padding = new Padding(4);
             btnNextPage.Size = new Size(81, 37);
-            btnNextPage.TabIndex = 15;
+            btnNextPage.TabIndex = 12;
             btnNextPage.TextAlign = ContentAlignment.MiddleRight;
             toolTip.SetToolTip(btnNextPage, "Next Page");
             btnNextPage.UseVisualStyleBackColor = false;
@@ -309,7 +310,7 @@ namespace D_WinFormsApp
             btnPrevPage.Name = "btnPrevPage";
             btnPrevPage.Padding = new Padding(4);
             btnPrevPage.Size = new Size(81, 37);
-            btnPrevPage.TabIndex = 16;
+            btnPrevPage.TabIndex = 10;
             btnPrevPage.TextAlign = ContentAlignment.MiddleRight;
             toolTip.SetToolTip(btnPrevPage, "Previous Page");
             btnPrevPage.UseVisualStyleBackColor = true;
@@ -328,7 +329,7 @@ namespace D_WinFormsApp
             btnFirstPage.Name = "btnFirstPage";
             btnFirstPage.Padding = new Padding(4);
             btnFirstPage.Size = new Size(47, 37);
-            btnFirstPage.TabIndex = 17;
+            btnFirstPage.TabIndex = 9;
             btnFirstPage.TextAlign = ContentAlignment.MiddleRight;
             toolTip.SetToolTip(btnFirstPage, "First Page");
             btnFirstPage.UseVisualStyleBackColor = true;
@@ -347,7 +348,7 @@ namespace D_WinFormsApp
             btnLastPage.Name = "btnLastPage";
             btnLastPage.Padding = new Padding(4);
             btnLastPage.Size = new Size(47, 37);
-            btnLastPage.TabIndex = 18;
+            btnLastPage.TabIndex = 13;
             btnLastPage.TextAlign = ContentAlignment.MiddleRight;
             toolTip.SetToolTip(btnLastPage, "Last Page");
             btnLastPage.UseVisualStyleBackColor = true;
@@ -359,7 +360,7 @@ namespace D_WinFormsApp
             txtRowsPerPage.Location = new Point(527, 463);
             txtRowsPerPage.Name = "txtRowsPerPage";
             txtRowsPerPage.Size = new Size(73, 29);
-            txtRowsPerPage.TabIndex = 19;
+            txtRowsPerPage.TabIndex = 14;
             txtRowsPerPage.Text = "10";
             toolTip.SetToolTip(txtRowsPerPage, "Rows per page");
             txtRowsPerPage.TextChanged += txtRowsPerPage_TextChanged;
@@ -372,7 +373,7 @@ namespace D_WinFormsApp
             cbCurrentPage.Location = new Point(166, 463);
             cbCurrentPage.Name = "cbCurrentPage";
             cbCurrentPage.Size = new Size(62, 29);
-            cbCurrentPage.TabIndex = 20;
+            cbCurrentPage.TabIndex = 11;
             toolTip.SetToolTip(cbCurrentPage, "Select page");
             cbCurrentPage.SelectedIndexChanged += cbCurrentPage_SelectedIndexChanged;
             // 
@@ -408,6 +409,7 @@ namespace D_WinFormsApp
             Controls.Add(btnEdit);
             Controls.Add(btnAdd);
             Controls.Add(dgvClients);
+            MinimumSize = new Size(300, 300);
             Name = "ClientListForm";
             Text = "Bank System - Client List";
             Load += ClientListForm_Load;

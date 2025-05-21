@@ -9,12 +9,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Update="Controls\MyButton.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="Controls\MyDataGridView.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Update="MyForm.cs">
       <SubType>Form</SubType>
     </Compile>
