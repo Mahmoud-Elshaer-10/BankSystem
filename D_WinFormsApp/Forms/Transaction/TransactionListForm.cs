@@ -60,11 +60,10 @@ namespace D_WinFormsApp
                 }
                 else
                 {
-                    btnAdd.Enabled = false;
                     _ = LoadPagedDataAsync<Transaction>(dgvTransactions, lblRecordsCount, $"Transaction");
                 }
 
-                
+
             }
             catch (Exception ex)
             {
@@ -162,6 +161,9 @@ namespace D_WinFormsApp
 
         private void AddTransaction()
         {
+            if (ValidateSelection(dgvTransactions, out object selected) && selected is Transaction selectedTransaction)
+                _accountId = selectedTransaction.FromAccountID;
+
             using var form = new TransactionForm(_accountId);
             if (form.ShowDialog() == DialogResult.OK)
             {
@@ -176,6 +178,11 @@ namespace D_WinFormsApp
         }
 
         private void addTransactionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AddTransaction();
+        }
+
+        private void dgvTransactions_DoubleClick(object sender, EventArgs e)
         {
             AddTransaction();
         }

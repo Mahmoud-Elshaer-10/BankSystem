@@ -49,8 +49,8 @@ namespace D_WinFormsApp
             // lblTime
             // 
             lblTime.Location = new Point(599, 12);
-            lblTime.Size = new Size(74, 19);
-            lblTime.Text = "15:09:11";
+            lblTime.Size = new Size(75, 19);
+            lblTime.Text = "20:43:09";
             // 
             // dgvTransactions
             // 
@@ -83,6 +83,7 @@ namespace D_WinFormsApp
             dgvTransactions.Size = new Size(673, 352);
             dgvTransactions.TabIndex = 0;
             dgvTransactions.TabStop = false;
+            dgvTransactions.DoubleClick += dgvTransactions_DoubleClick;
             // 
             // contextMenuStrip
             // 

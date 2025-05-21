@@ -17,7 +17,7 @@ namespace D_WinFormsApp
 
             txtFromAccountID.Text = _accountId.ToString();
             txtFromAccountID.Enabled = false;
-            cbTransactionType.Items.AddRange(new object[] { "Deposit", "Withdraw", "Transfer" });
+            cbTransactionType.Items.AddRange(["Deposit", "Withdraw", "Transfer"]);
 
             if (_mode == FormMode.AddNew)
             {
