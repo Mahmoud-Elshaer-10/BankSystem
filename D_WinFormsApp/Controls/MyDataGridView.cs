@@ -2,12 +2,10 @@
 
 namespace D_WinFormsApp.Controls
 {
-    public partial class MyDataGridView : DataGridView
+    public class MyDataGridView : DataGridView
     {
         public MyDataGridView()
         {
-            InitializeComponent();
-
             ConfigureBasicSettings();
             StyleColumnHeaders();
         }

@@ -9,9 +9,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Update="ClientListForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Update="Controls\MyButton.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -38,6 +35,10 @@
 
   <ItemGroup>
     <Folder Include="Resources\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\D_WinFormsApp\D_WinFormsApp.csproj" />
   </ItemGroup>
 
 </Project>

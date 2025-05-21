@@ -1,6 +1,6 @@
-﻿namespace D_WinFormsApp
+﻿namespace TestWinForms.Controls
 {
-    partial class MyForm
+    partial class test
     {
         /// <summary>
         /// Required designer variable.
@@ -20,33 +20,36 @@
             base.Dispose(disposing);
         }
 
-        #region Windows Form Designer generated code
+        #region Component Designer generated code
 
         /// <summary>
-        /// Required method for Designer support - do not modify
+        /// Required method for Designer support - do not modify 
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MyForm));
+            button1 = new Button();
             SuspendLayout();
             // 
-            // MyForm
+            // button1
             // 
-            AutoScaleMode = AutoScaleMode.None;
-            ClientSize = new Size(484, 261);
-            Font = new Font("Segoe UI", 12F);
-            Icon = (Icon)resources.GetObject("$this.Icon");
-            MaximizeBox = false;
-            MinimizeBox = false;
-            Name = "MyForm";
-            ShowInTaskbar = false;
-            StartPosition = FormStartPosition.CenterScreen;
-            Text = "MyForm";
-            TopMost = true;
+            button1.Name = "button1";
+            button1.Size = new Size(75, 23);
+            button1.TabIndex = 0;
+            // 
+            // test
+            // 
+            BackColor = Color.Red;
+            Font = new Font("Segoe UI", 20F);
+            Name = "button1";
+            Text = "button1";
+            UseVisualStyleBackColor = false;
+            Click += button1_Click;
             ResumeLayout(false);
         }
 
         #endregion
+
+        private Button button1;
     }
 }
