@@ -23,13 +23,13 @@ namespace C_API.Controllers
                 return BadRequest("Invalid pagination parameters.");
 
             var clients = Client.GetClientsPaged(pageNumber, rowsPerPage, field, value);
-            if (clients == null || !clients.Any())
+            if (clients == null || clients.Count == 0)
                 return NotFound("No Clients Found!");
 
             int totalRecords = Client.GetClientsCount(field, value);
             var result = new PagedResult<ClientDTO>
             {
-                Items = clients.ToList(),
+                Items = clients,
                 TotalRecords = totalRecords,
                 TotalPages = (int)Math.Ceiling((double)totalRecords / rowsPerPage)
             };
@@ -43,7 +43,7 @@ namespace C_API.Controllers
         public ActionResult<IEnumerable<ClientDTO>> GetAllClients()
         {
             var clients = Client.GetAllClients();
-            if (clients == null || !clients.Any())
+            if (clients == null || clients.Count == 0)
                 return NotFound("No Clients Found!");
             return Ok(clients);
         }
@@ -58,12 +58,12 @@ namespace C_API.Controllers
                 return BadRequest("Field and value are required for filtering.");
 
             var clients = Client.GetClientsByFilter(field, value);
-            if (clients == null || !clients.Any())
+            if (clients == null || clients.Count == 0)
                 return NotFound($"No clients found for {field} matching '{value}'.");
 
             var result = new PagedResult<ClientDTO>
             {
-                Items = clients.ToList(),
+                Items = clients,
                 TotalRecords = Client.GetClientsCount(field, value),
                 TotalPages = 1 // Full results for filter endpoint
             };

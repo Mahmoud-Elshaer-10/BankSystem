@@ -23,13 +23,13 @@ namespace C_API.Controllers
                 return BadRequest("Invalid pagination parameters.");
 
             var accounts = Account.GetAccountsPaged(pageNumber, rowsPerPage, field, value);
-            if (accounts == null || !accounts.Any())
+            if (accounts == null || accounts.Count == 0)
                 return NotFound("No Accounts Found!");
 
             int totalRecords = Account.GetAccountsCount(field, value);
             var result = new PagedResult<AccountDTO>
             {
-                Items = accounts.ToList(),
+                Items = accounts,
                 TotalRecords = totalRecords,
                 TotalPages = (int)Math.Ceiling((double)totalRecords / rowsPerPage)
             };
@@ -57,15 +57,11 @@ namespace C_API.Controllers
         public ActionResult<IEnumerable<AccountDTO>> GetAccountsByFilter( string field,  string value)
         {
             if (string.IsNullOrEmpty(field) || string.IsNullOrEmpty(value))
-            {
                 return BadRequest("Field and value are required for filtering.");
-            }
 
             var accounts = Account.GetAccountsByFilter(field, value);
             if (accounts == null || accounts.Count == 0)
-            {
                 return NotFound($"No accounts found for {field} matching '{value}'.");
-            }
             return Ok(accounts);
         }
 

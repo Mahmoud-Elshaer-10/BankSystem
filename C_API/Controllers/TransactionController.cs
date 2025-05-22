@@ -24,13 +24,13 @@ namespace C_API.Controllers
 
             var transactions = Transaction.GetTransactionsPaged(pageNumber, rowsPerPage, field, value);
 
-            if (transactions == null || !transactions.Any())
+            if (transactions == null || transactions.Count == 0)
                 return NotFound("No transactions found");
 
             int totalRecords = Transaction.GetTransactionsCount(field, value);
             var result = new PagedResult<TransactionDTO>
             {
-                Items = transactions.ToList(),
+                Items = transactions,
                 TotalRecords = totalRecords,
                 TotalPages = (int)Math.Ceiling((double)totalRecords / rowsPerPage)
             };
