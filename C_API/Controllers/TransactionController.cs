@@ -14,10 +14,10 @@ namespace C_API.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult<PagedResult<TransactionDTO>> GetTransactionsPaged(
-              [FromQuery] int pageNumber = 1,
-              [FromQuery] int rowsPerPage = 10,
-              [FromQuery] string field = "",
-              [FromQuery] string value = "")
+               int pageNumber = 1,
+               int rowsPerPage = 10,
+               string field = "",
+               string value = "")
         {
             if (pageNumber < 1 || rowsPerPage < 1)
                 return BadRequest("Invalid pagination parameters");
@@ -42,7 +42,7 @@ namespace C_API.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult<IEnumerable<TransactionDTO>> GetTransactionsByAccount(int fromAccountId, [FromQuery] string? field = null, [FromQuery] string? value = null)
+        public ActionResult<IEnumerable<TransactionDTO>> GetTransactionsByAccount(int fromAccountId,  string? field = null,  string? value = null)
         {
             if (fromAccountId < 1)
             {

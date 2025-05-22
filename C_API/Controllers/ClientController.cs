@@ -14,10 +14,10 @@ namespace C_API.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult<PagedResult<ClientDTO>> GetClientsPaged(
-           [FromQuery] int pageNumber = 1,
-           [FromQuery] int rowsPerPage = 10,
-           [FromQuery] string field = "",
-           [FromQuery] string value = "")
+            int pageNumber = 1,
+            int rowsPerPage = 10,
+            string field = "",
+            string value = "")
         {
             if (pageNumber < 1 || rowsPerPage < 1)
                 return BadRequest("Invalid pagination parameters.");
@@ -52,7 +52,7 @@ namespace C_API.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult<PagedResult<ClientDTO>> GetClientsByFilter([FromQuery] string field, [FromQuery] string value)
+        public ActionResult<PagedResult<ClientDTO>> GetClientsByFilter( string field,  string value)
         {
             if (string.IsNullOrEmpty(field) || string.IsNullOrEmpty(value))
                 return BadRequest("Field and value are required for filtering.");
