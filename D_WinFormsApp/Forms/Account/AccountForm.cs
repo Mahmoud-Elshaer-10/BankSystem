@@ -18,10 +18,6 @@ namespace D_WinFormsApp
             {
                 LoadAccountDataAsync(accountID.Value);
             }
-
-            // Add button tooltips to notify user of keyboard shortcuts
-            toolTip.SetToolTip(btnSave, "Save (Alt+S)");
-            toolTip.SetToolTip(btnCancel, "Cancel (Alt+C)");
         }
 
         private async void LoadAccountDataAsync(int accountID)

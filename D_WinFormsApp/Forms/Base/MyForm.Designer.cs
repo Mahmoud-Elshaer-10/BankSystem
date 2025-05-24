@@ -53,7 +53,7 @@
             lblTime.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             lblTime.AutoSize = true;
             lblTime.Font = new Font("Arial", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblTime.Location = new Point(220, 9);
+            lblTime.Location = new Point(56, 9);
             lblTime.Name = "lblTime";
             lblTime.Size = new Size(46, 19);
             lblTime.TabIndex = 0;
@@ -79,7 +79,7 @@
             // MyForm
             // 
             AutoScaleMode = AutoScaleMode.None;
-            ClientSize = new Size(284, 261);
+            ClientSize = new Size(120, 49);
             Controls.Add(lblTime);
             Controls.Add(btnInvisible);
             Font = new Font("Segoe UI", 12F);

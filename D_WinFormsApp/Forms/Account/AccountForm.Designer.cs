@@ -38,7 +38,8 @@ namespace D_WinFormsApp
             // lblTime
             // 
             lblTime.Location = new Point(264, 12);
-            lblTime.Text = "21:54:14";
+            lblTime.Size = new Size(75, 19);
+            lblTime.Text = "20:15:44";
             // 
             // txtClientID
             // 
@@ -87,6 +88,7 @@ namespace D_WinFormsApp
             btnSave.TabIndex = 3;
             btnSave.Text = "&Save";
             btnSave.TextAlign = ContentAlignment.MiddleRight;
+            toolTip.SetToolTip(btnSave, "Save (Alt+S)");
             btnSave.UseVisualStyleBackColor = true;
             btnSave.Click += btnSave_Click;
             // 
@@ -101,6 +103,7 @@ namespace D_WinFormsApp
             btnCancel.TabIndex = 4;
             btnCancel.Text = "&Cancel";
             btnCancel.TextAlign = ContentAlignment.MiddleRight;
+            toolTip.SetToolTip(btnCancel, "Cancel (Alt+C)");
             btnCancel.UseVisualStyleBackColor = true;
             btnCancel.Click += btnCancel_Click;
             // 
@@ -108,7 +111,7 @@ namespace D_WinFormsApp
             // 
             AcceptButton = btnSave;
             CancelButton = btnCancel;
-            ClientSize = new Size(364, 175);
+            ClientSize = new Size(364, 180);
             Controls.Add(btnCancel);
             Controls.Add(btnSave);
             Controls.Add(lblBalance);
@@ -118,6 +121,7 @@ namespace D_WinFormsApp
             Name = "AccountForm";
             Text = "Account Form";
             Load += AccountForm_Load;
+            Controls.SetChildIndex(btnInvisible, 0);
             Controls.SetChildIndex(txtClientID, 0);
             Controls.SetChildIndex(txtBalance, 0);
             Controls.SetChildIndex(lblClientID, 0);
