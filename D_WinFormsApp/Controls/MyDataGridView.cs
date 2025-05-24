@@ -43,6 +43,10 @@ namespace D_WinFormsApp.Controls
             ColumnHeadersDefaultCellStyle.ForeColor = Color.Black;
             // Match selection color to regular background for uniformity with FullRowSelect
             ColumnHeadersDefaultCellStyle.SelectionBackColor = Color.LightGray;
+
+            /* When true, the control’s background color follows the system’s visual style(e.g., Windows theme),
+               typically a gradient or themed color, ignoring the BackColor property.
+               When false, the control uses the BackColor property explicitly set, overriding the system’s visual style. */
             EnableHeadersVisualStyles = false;
         }
 
@@ -68,7 +72,7 @@ namespace D_WinFormsApp.Controls
         }
 
         /// <summary>
-        /// Centralized formatting for Balance columns (currency, color).
+        /// Centralized formatting for Balance and Amount columns (currency, color).
         /// </summary>
         protected override void OnCellFormatting(DataGridViewCellFormattingEventArgs e)
         {
@@ -77,19 +81,19 @@ namespace D_WinFormsApp.Controls
             if (e.ColumnIndex < 0 || e.Value == null)
                 return;
 
-            var column = this.Columns[e.ColumnIndex];
+            var column = Columns[e.ColumnIndex];
             if (column.DataPropertyName == "Balance" || column.DataPropertyName == "Amount")
             {
                 if (e.Value is decimal balance)
                 {
                     //e.Value = balance < 0 ? $"-{balance:C2}" : balance.ToString("C2"); // e.g., -($100.50) or $100.50
                     e.Value = balance.ToString("$#,##0.00"); // e.g., -$100.50 or $100.50
-                                                             // Safe: Color.Red and Color.DarkGreen are non-null
 
+                    // Safe: Color.Red and Color.DarkGreen are non-null
                     #pragma warning disable CS8602 // Dereference of a possibly null reference.
                     e.CellStyle.ForeColor = balance < 0 ? Color.Red : Color.DarkGreen;
                     #pragma warning restore CS8602 // Dereference of a possibly null reference.
-                    e.FormattingApplied = true;
+                    e.FormattingApplied = true; // Stops the DataGridView from applying its default format.
                 }
             }
             //else if (column.DataPropertyName == "CreatedAt")

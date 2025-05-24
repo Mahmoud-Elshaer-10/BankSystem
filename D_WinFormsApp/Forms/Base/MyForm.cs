@@ -33,6 +33,20 @@ namespace D_WinFormsApp
         }
 
         /// <summary>
+        /// Initializes a live clock.
+        /// </summary>
+        private void InitializeClock()
+        {
+            lblTime.Text = DateTime.Now.ToString("HH:mm:ss");
+            clockTimer.Start();
+        }
+
+        private void clockTimer_Tick(object sender, EventArgs e)
+        {
+            lblTime.Text = DateTime.Now.ToString("HH:mm:ss");
+        }
+
+        /// <summary>
         /// Loads paginated data from the API, supporting filtering.
         /// </summary>
         protected async Task LoadPagedDataAsync<T>(
@@ -46,7 +60,7 @@ namespace D_WinFormsApp
         {
             try
             {
-                Cursor = Cursors.WaitCursor;
+                Cursor = Cursors.WaitCursor; // Add loading indicator
 
                 // Use provided or default pagination values
                 int currentPage = pageNumber > 0 ? pageNumber : CurrentPage;
@@ -102,99 +116,8 @@ namespace D_WinFormsApp
             }
             finally
             {
-                Cursor = Cursors.Default;
+                Cursor = Cursors.Default; // Reset cursor
             }
-        }
-
-        /// <summary>
-        /// Updates pagination button states (override in derived forms with actual buttons).
-        /// </summary>
-        protected virtual void UpdatePaginationButtons()
-        {
-            // Derived forms should override to enable/disable btnNextPage, btnPrevPage, etc.
-        }
-
-        protected bool ValidateField(Control control, string value, string errorMessage)
-        {
-            if (string.IsNullOrWhiteSpace(value))
-            {
-                errorProvider.SetError(control, errorMessage);
-                return false;
-            }
-            errorProvider.SetError(control, "");
-            return true;
-        }
-
-        /// <summary>
-        /// Populates a ComboBox with filterable fields from a type using reflection, formatted as UI-friendly names.
-        /// </summary>
-        protected void PopulateFilterDropdown<T>(ComboBox filterBy)
-        {
-            filterBy.Items.Clear();
-            filterBy.Items.Add("None");
-
-            var properties = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance) // still works without arguments
-              .Select(p => p.Name)
-              .Select(name => Regex.Replace(name, @"([a-z])([A-Z])", "$1 $2")) // e.g., ClientID -> Client ID
-              .Select(name => Regex.Replace(name, @"(\bID\b)", "ID")); // Keep "ID" intact
-
-            filterBy.Items.AddRange([.. properties]);
-        }
-
-        /// <summary>
-        /// Sets up tooltips for filter controls to guide user interaction.
-        /// </summary>
-        protected void SetupFilterToolTips(ComboBox filterBy, TextBox filterValue, Button clearFilter)
-        {
-            toolTip.SetToolTip(filterBy, "Select a field to filter by");
-            toolTip.SetToolTip(filterValue, "Enter a value to filter the list");
-            toolTip.SetToolTip(clearFilter, "Clear the filter");
-        }
-
-        /// <summary>
-        /// Configures debounce for filter input to delay grid updates until typing stops and applies async filtering using the provided grid and load function.
-        /// </summary>
-        protected void ConfigureFilterDebounce<T>(TextBox filterValue, ComboBox filterBy,
-           MyDataGridView grid, Label recordsCountLabel, string baseEndpoint, DateTimePicker? dtpFilter = null)
-        {
-            filterValue.TextChanged += (s, e) =>
-            {
-                CurrentFilterField = "";
-                CurrentFilterValue = "";
-                debounceTimer.Stop(); // Cancel prior timer
-                debounceTimer.Start(); // Delay filter 300ms until typing stops
-            };
-
-            if (dtpFilter != null)
-            {
-                dtpFilter.ValueChanged += (s, e) =>
-                {
-                    debounceTimer.Stop();
-                    debounceTimer.Start();
-                };
-            }
-
-            debounceTimer.Tick += async (s, e) =>
-            {
-                debounceTimer.Stop(); // Stop timer immediately
-                string field = filterBy.Text == "None" ? "" : MapFieldToColumn(filterBy.Text);
-                bool isDateField = field != "" && typeof(T).GetProperty(field)?.PropertyType is Type propType &&
-                    (propType == typeof(DateTime) || propType == typeof(DateTime?));
-                string value = isDateField && dtpFilter != null && dtpFilter.Visible
-                    ? dtpFilter.Value.ToString("yyyy-MM-ddTHH:mm:ss")
-                    : filterValue.Text;
-
-                if (isDateField && !string.IsNullOrWhiteSpace(value))
-                {
-                    if (!DateTime.TryParse(value, out _))
-                    {
-                        ShowMessage("Invalid date format. Use MM/dd/yyyy, yyyy-MM-dd, or similar.");
-                        return;
-                    }
-                }
-                CurrentPage = 1; // Reset to page 1 on filter change
-                await LoadPagedDataAsync<T>(grid, recordsCountLabel, baseEndpoint, field, value);
-            };
         }
 
         protected void AutoResizeFormToDataGridView(MyDataGridView dataGridView)
@@ -248,6 +171,97 @@ namespace D_WinFormsApp
         }
 
         /// <summary>
+        /// Updates pagination button states (override in derived forms with actual buttons).
+        /// </summary>
+        protected virtual void UpdatePaginationButtons()
+        {
+            // Derived forms should override to enable/disable btnNextPage, btnPrevPage, etc.
+        }
+
+        protected bool ValidateField(Control control, string value, string errorMessage)
+        {
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                errorProvider.SetError(control, errorMessage);
+                return false;
+            }
+            errorProvider.SetError(control, "");
+            return true;
+        }
+
+        /// <summary>
+        /// Populates a ComboBox with filterable fields from a type using reflection, formatted as UI-friendly names.
+        /// </summary>
+        protected void PopulateFilterDropdown<T>(ComboBox filterBy)
+        {
+            filterBy.Items.Clear();
+            filterBy.Items.Add("None");
+
+            var properties = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance) // still works without arguments
+              .Select(p => p.Name)
+              .Select(name => Regex.Replace(name, @"([a-z])([A-Z])", "$1 $2")) // e.g., ClientID -> Client ID
+              .Select(name => Regex.Replace(name, @"(\bID\b)", "ID")); // Keep "ID" intact
+
+            filterBy.Items.AddRange([.. properties]); // equivalent to properties.ToArray()
+        }
+
+        /// <summary>
+        /// Sets up tooltips for filter controls to guide user interaction.
+        /// </summary>
+        protected void SetupFilterToolTips(ComboBox filterBy, TextBox filterValue, Button clearFilter)
+        {
+            toolTip.SetToolTip(filterBy, "Select a field to filter by");
+            toolTip.SetToolTip(filterValue, "Enter a value to filter the list");
+            toolTip.SetToolTip(clearFilter, "Clear the filter");
+        }
+
+        /// <summary>
+        /// Configures debounce for filter input to delay grid updates until typing stops and applies async filtering using the provided grid and load function.
+        /// </summary>
+        protected void ConfigureFilterDebounce<T>(TextBox filterValue, ComboBox filterBy,
+           MyDataGridView grid, Label recordsCountLabel, string baseEndpoint, DateTimePicker? dtpFilter = null)
+        {
+            filterValue.TextChanged += (s, e) =>
+            {
+                CurrentFilterField = "";
+                CurrentFilterValue = "";
+                debounceTimer.Stop();  // Cancel prior timer
+                debounceTimer.Start(); // Delay filter 300ms until typing stops
+            };
+
+            if (dtpFilter != null)
+            {
+                dtpFilter.ValueChanged += (s, e) =>
+                {
+                    debounceTimer.Stop();
+                    debounceTimer.Start();
+                };
+            }
+
+            debounceTimer.Tick += async (s, e) =>
+            {
+                debounceTimer.Stop(); // Stop timer immediately
+                string field = filterBy.Text == "None" ? "" : MapFieldToColumn(filterBy.Text);
+                bool isDateField = field != "" && typeof(T).GetProperty(field)?.PropertyType is Type propType &&
+                    (propType == typeof(DateTime) || propType == typeof(DateTime?));
+                string value = isDateField && dtpFilter != null && dtpFilter.Visible
+                    ? dtpFilter.Value.ToString("yyyy-MM-ddTHH:mm:ss")
+                    : filterValue.Text;
+
+                if (isDateField && !string.IsNullOrWhiteSpace(value))
+                {
+                    if (!DateTime.TryParse(value, out _))
+                    {
+                        ShowMessage("Invalid date format. Use MM/dd/yyyy, yyyy-MM-dd, or similar.");
+                        return;
+                    }
+                }
+                CurrentPage = 1; // Reset to page 1 on filter change
+                await LoadPagedDataAsync<T>(grid, recordsCountLabel, baseEndpoint, field, value);
+            };
+        }
+
+        /// <summary>
         /// Maps a UI-friendly field name (e.g., "Client ID") to a database column name (e.g., "ClientID").
         /// </summary>
         private string MapFieldToColumn(string uiField)
@@ -270,20 +284,6 @@ namespace D_WinFormsApp
         {
             // To supress toolTip bug that shows when pressing escape key to close the form
             btnInvisible.Focus();
-        }
-
-        /// <summary>
-        /// Initializes a live clock.
-        /// </summary>
-        private void InitializeClock()
-        {
-            lblTime.Text = DateTime.Now.ToString("HH:mm:ss");
-            clockTimer.Start();
-        }
-
-        private void clockTimer_Tick(object sender, EventArgs e)
-        {
-            lblTime.Text = DateTime.Now.ToString("HH:mm:ss");
         }
 
         protected void ShowError(string message)
@@ -324,7 +324,7 @@ namespace D_WinFormsApp
             {
                 var sb = new StringBuilder();
                 var headers = grid.Columns.Cast<DataGridViewColumn>()
-                    .Select(c => $"\"{c.HeaderText.Replace("\"", "\"\"")}\"");
+                    .Select(c => $"\"{c.HeaderText.Replace("\"", "\"\"")}\""); // escapes double quotes in HeaderText to ensure valid CSV formatting.
                 sb.AppendLine(string.Join(",", headers));
 
                 foreach (var item in data)
@@ -350,7 +350,7 @@ namespace D_WinFormsApp
         protected void EnableSorting<T>(DataGridView grid)
         {
             // Tracks sort direction (ascending true, descending false) for each column by index.
-            Dictionary<int, bool> sortDirections = new Dictionary<int, bool>();
+            Dictionary<int, bool> sortDirections = [];
 
             // Attaches an event handler to grid's header clicks
             grid.ColumnHeaderMouseClick += (s, e) =>
