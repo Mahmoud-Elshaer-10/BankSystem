@@ -39,7 +39,7 @@ namespace D_WinFormsApp
             // 
             lblTime.Location = new Point(264, 12);
             lblTime.Size = new Size(75, 19);
-            lblTime.Text = "20:15:44";
+            lblTime.Text = "20:32:44";
             // 
             // txtClientID
             // 
@@ -105,7 +105,6 @@ namespace D_WinFormsApp
             btnCancel.TextAlign = ContentAlignment.MiddleRight;
             toolTip.SetToolTip(btnCancel, "Cancel (Alt+C)");
             btnCancel.UseVisualStyleBackColor = true;
-            btnCancel.Click += btnCancel_Click;
             // 
             // AccountForm
             // 
@@ -118,6 +117,7 @@ namespace D_WinFormsApp
             Controls.Add(lblClientID);
             Controls.Add(txtBalance);
             Controls.Add(txtClientID);
+            MinimumSize = new Size(136, 88);
             Name = "AccountForm";
             Text = "Account Form";
             Load += AccountForm_Load;

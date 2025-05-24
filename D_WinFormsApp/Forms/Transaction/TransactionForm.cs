@@ -158,22 +158,13 @@ namespace D_WinFormsApp
 
         private void txtAmount_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!char.IsDigit(e.KeyChar) && e.KeyChar != '.' && !char.IsControl(e.KeyChar))
-            {
-                e.Handled = true;
-            }
-            if (e.KeyChar == '.' && txtAmount.Text.Contains('.'))
-            {
-                e.Handled = true;
-            }
+            e.Handled = (!char.IsDigit(e.KeyChar) && e.KeyChar != '.' && !char.IsControl(e.KeyChar)) ||
+                        (e.KeyChar == '.' && txtAmount.Text.Contains('.'));
         }
 
         private void txtToAccountID_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar))
-            {
-                e.Handled = true;
-            }
+            e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
         }
 
         private void cbTransactionType_SelectedIndexChanged(object sender, EventArgs e)

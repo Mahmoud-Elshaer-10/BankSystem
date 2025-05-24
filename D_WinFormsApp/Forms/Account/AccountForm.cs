@@ -106,7 +106,7 @@ namespace D_WinFormsApp
                     Balance = decimal.Parse(txtBalance.Text)
                 };
 
-                HttpResponseMessage response = Mode == FormMode.AddNew
+                var response = Mode == FormMode.AddNew
                     ? await ApiClient.Client.PostAsJsonAsync("Account", account)
                     : await ApiClient.Client.PutAsJsonAsync($"Account/{account.AccountID}", account);
 
@@ -125,11 +125,6 @@ namespace D_WinFormsApp
             {
                 ShowError(ex.Message);
             }
-        }
-
-        private void btnCancel_Click(object sender, EventArgs e)
-        {
-            Close();
         }
 
         private void AccountForm_Load(object sender, EventArgs e)
@@ -175,11 +170,14 @@ namespace D_WinFormsApp
             }
         }
 
+        /* KeyDown handles all keys.
+           KeyPress is simpler, it does not handle special keys like:
+           Shift, Ctrl, Alt, F1 through F12, Arrow keys */
         private void txtBalance_KeyPress(object sender, KeyPressEventArgs e)
         {
             // Allow digits and "."
-            e.Handled = !char.IsDigit(e.KeyChar) && e.KeyChar != '.' && !char.IsControl(e.KeyChar);
-
+            e.Handled = !char.IsDigit(e.KeyChar) && e.KeyChar != '.' && !char.IsControl(e.KeyChar) ||
+                        (e.KeyChar == '.' && txtBalance.Text.Contains('.'));
         }
 
         private void txtClientID_KeyPress(object sender, KeyPressEventArgs e)

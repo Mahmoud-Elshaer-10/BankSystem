@@ -35,10 +35,10 @@ namespace D_WinFormsApp
                     var client = await response.Content.ReadFromJsonAsync<Client>();
                     if (client != null)
                     {
-                            txtFullName.Text = client.FullName ?? "";
-                            txtEmail.Text = client.Email ?? "";
-                            txtPhone.Text = client.Phone ?? "";
-                            txtAddress.Text = client.Address ?? "";
+                        txtFullName.Text = client.FullName ?? "";
+                        txtEmail.Text = client.Email ?? "";
+                        txtPhone.Text = client.Phone ?? "";
+                        txtAddress.Text = client.Address ?? "";
                     }
                 }
                 else if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
@@ -239,11 +239,8 @@ namespace D_WinFormsApp
         private void txtPhone_KeyPress(object sender, KeyPressEventArgs e)
         {
             // Allow digits, -, (), space
-            if (!char.IsDigit(e.KeyChar) && e.KeyChar != '-' && e.KeyChar != '(' && e.KeyChar != ')' &&
-                e.KeyChar != ' ' && !char.IsControl(e.KeyChar))
-            {
-                e.Handled = true;
-            }
+            e.Handled = !char.IsDigit(e.KeyChar) && e.KeyChar != '-' && e.KeyChar != '(' &&
+                        e.KeyChar != ')' && e.KeyChar != ' ' && !char.IsControl(e.KeyChar);
         }
     }
 }
