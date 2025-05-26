@@ -16,13 +16,7 @@ namespace D_WinFormsApp
             Mode = mode;
             _clientID = clientID;
             if (clientID.HasValue)
-            {
                 LoadClientDataAsync(clientID.Value);
-            }
-
-            // Add button tooltips to notify users of keyboard shortcuts
-            toolTip.SetToolTip(btnSave, "Save (Alt+S)");
-            toolTip.SetToolTip(btnCancel, "Cancel (Alt+C)");
         }
 
         private async void LoadClientDataAsync(int clientID)
@@ -144,10 +138,7 @@ namespace D_WinFormsApp
         {
             try
             {
-                if (!await ValidateInputs())
-                {
-                    return;
-                }
+                if (!await ValidateInputs()) return;
 
                 var client = new Client
                 {
@@ -158,7 +149,7 @@ namespace D_WinFormsApp
                     Address = txtAddress.Text
                 };
 
-                HttpResponseMessage response = Mode == FormMode.AddNew
+                var response = Mode == FormMode.AddNew
                     ? await ApiClient.Client.PostAsJsonAsync("Client", client)
                     : await ApiClient.Client.PutAsJsonAsync($"Client/{client.ClientID}", client);
 
@@ -177,11 +168,6 @@ namespace D_WinFormsApp
             {
                 ShowError(ex.Message);
             }
-        }
-
-        private void btnCancel_Click(object sender, EventArgs e)
-        {
-            Close();
         }
 
         private void ClientForm_Load(object sender, EventArgs e)

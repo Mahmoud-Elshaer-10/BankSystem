@@ -5,7 +5,7 @@ namespace D_WinFormsApp
 {
     public partial class AccountListForm : MyForm
     {
-        private bool isLoading = false;
+        private bool isLoading = false; // Prevents event loop during initialization
 
         public AccountListForm()
         {
@@ -27,7 +27,7 @@ namespace D_WinFormsApp
 
         private void UpdatePageDropdown()
         {
-            isLoading = true;
+            isLoading = true; // Suppress SelectedIndexChanged
             cbCurrentPage.Items.Clear();
             for (int i = 1; i <= TotalPages; i++)
                 cbCurrentPage.Items.Add(i);
@@ -63,9 +63,7 @@ namespace D_WinFormsApp
             dtpFilter.Visible = cbFilterBy.Text == "Created At";
             txtFilterValue.Text = "";
             if (txtFilterValue.Visible)
-            {
                 txtFilterValue.Focus();
-            }
         }
 
         private void txtFilterValue_KeyPress(object sender, KeyPressEventArgs e)
@@ -112,7 +110,6 @@ namespace D_WinFormsApp
             txtFilterValue.Text = "";
             txtFilterValue.Focus();
             CurrentPage = 1;
-            _ = LoadPagedDataAsync<Account>(dgvAccounts, lblRecordsCount, "Account");
         }
 
         private void btnNextPage_Click(object sender, EventArgs e)
@@ -197,6 +194,7 @@ namespace D_WinFormsApp
                     var response = await ApiClient.Client.DeleteAsync($"Account/{selectedAccount.AccountID}");
                     if (response.IsSuccessStatusCode)
                     {
+                        CurrentPage = Math.Min(CurrentPage, TotalPages); // ensures CurrentPage stays valid if TotalPages decreases after deletion.
                         await LoadPagedDataAsync<Account>(dgvAccounts, lblRecordsCount, "Account");
                     }
                 }
@@ -217,10 +215,8 @@ namespace D_WinFormsApp
         {
             if (ValidateSelection(dgvAccounts, out object selected) && selected is Account selectedAccount)
             {
-                using (var form = new ClientForm(FormMode.Update, selectedAccount.ClientID))
-                {
-                    form.ShowDialog();
-                }
+                using var form = new ClientForm(FormMode.Update, selectedAccount.ClientID);
+                form.ShowDialog();
             }
         }
 

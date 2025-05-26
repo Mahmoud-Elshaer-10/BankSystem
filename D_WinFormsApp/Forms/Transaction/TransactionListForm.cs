@@ -14,7 +14,7 @@ namespace D_WinFormsApp
 
             SetupFilterToolTips(cbFilterBy, txtFilterValue, btnClearFilter);
             PopulateFilterDropdown<Transaction>(cbFilterBy);
-            ConfigureFilterDebounce<Transaction>(txtFilterValue, cbFilterBy, dgvTransactions, lblRecordsCount, $"Transaction", dtpFilter);
+            ConfigureFilterDebounce<Transaction>(txtFilterValue, cbFilterBy, dgvTransactions, lblRecordsCount, "Transaction", dtpFilter);
             EnableSorting<Transaction>(dgvTransactions);
         }
 
@@ -60,7 +60,7 @@ namespace D_WinFormsApp
                 }
                 else
                 {
-                    _ = LoadPagedDataAsync<Transaction>(dgvTransactions, lblRecordsCount, $"Transaction");
+                    _ = LoadPagedDataAsync<Transaction>(dgvTransactions, lblRecordsCount, "Transaction");
                 }
 
 
@@ -79,9 +79,7 @@ namespace D_WinFormsApp
             dtpFilter.Visible = cbFilterBy.Text == "Transaction Date";
             txtFilterValue.Text = "";
             if (txtFilterValue.Visible)
-            {
                 txtFilterValue.Focus();
-            }
         }
 
         private void txtFilterValue_KeyPress(object sender, KeyPressEventArgs e)
@@ -103,7 +101,7 @@ namespace D_WinFormsApp
                 errorProvider.SetError(txtRowsPerPage, "");
                 RowsPerPage = rows;
                 CurrentPage = 1;
-                _ = LoadPagedDataAsync<Transaction>(dgvTransactions, lblRecordsCount, $"Transaction");
+                _ = LoadPagedDataAsync<Transaction>(dgvTransactions, lblRecordsCount, "Transaction");
             }
             else
             {
@@ -117,7 +115,7 @@ namespace D_WinFormsApp
             if (cbCurrentPage.SelectedIndex >= 0)
             {
                 CurrentPage = cbCurrentPage.SelectedIndex + 1;
-                _ = LoadPagedDataAsync<Transaction>(dgvTransactions, lblRecordsCount, $"Transaction");
+                _ = LoadPagedDataAsync<Transaction>(dgvTransactions, lblRecordsCount, "Transaction");
             }
         }
 
@@ -126,7 +124,6 @@ namespace D_WinFormsApp
             txtFilterValue.Text = "";
             txtFilterValue.Focus();
             CurrentPage = 1;
-            _ = LoadPagedDataAsync<Transaction>(dgvTransactions, lblRecordsCount, $"Transaction");
         }
 
         private void btnNextPage_Click(object sender, EventArgs e)
@@ -134,7 +131,7 @@ namespace D_WinFormsApp
             if (CurrentPage < TotalPages)
             {
                 CurrentPage++;
-                _ = LoadPagedDataAsync<Transaction>(dgvTransactions, lblRecordsCount, $"Transaction");
+                _ = LoadPagedDataAsync<Transaction>(dgvTransactions, lblRecordsCount, "Transaction");
             }
         }
 
@@ -143,20 +140,20 @@ namespace D_WinFormsApp
             if (CurrentPage > 1)
             {
                 CurrentPage--;
-                _ = LoadPagedDataAsync<Transaction>(dgvTransactions, lblRecordsCount, $"Transaction");
+                _ = LoadPagedDataAsync<Transaction>(dgvTransactions, lblRecordsCount, "Transaction");
             }
         }
 
         private void btnFirstPage_Click(object sender, EventArgs e)
         {
             CurrentPage = 1;
-            _ = LoadPagedDataAsync<Transaction>(dgvTransactions, lblRecordsCount, $"Transaction");
+            _ = LoadPagedDataAsync<Transaction>(dgvTransactions, lblRecordsCount, "Transaction");
         }
 
         private void btnLastPage_Click(object sender, EventArgs e)
         {
             CurrentPage = TotalPages;
-            _ = LoadPagedDataAsync<Transaction>(dgvTransactions, lblRecordsCount, $"Transaction");
+            _ = LoadPagedDataAsync<Transaction>(dgvTransactions, lblRecordsCount, "Transaction");
         }
 
         private void AddTransaction()
@@ -168,7 +165,7 @@ namespace D_WinFormsApp
             if (form.ShowDialog() == DialogResult.OK)
             {
                 CurrentPage = 1;
-                _ = LoadPagedDataAsync<Transaction>(dgvTransactions, lblRecordsCount, $"Transaction");
+                _ = LoadPagedDataAsync<Transaction>(dgvTransactions, lblRecordsCount, "Transaction");
             }
         }
 

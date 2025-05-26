@@ -65,9 +65,7 @@ namespace D_WinFormsApp
             dtpFilter.Visible = cbFilterBy.Text == "Created At";
             txtFilterValue.Text = "";
             if (txtFilterValue.Visible)
-            {
                 txtFilterValue.Focus();
-            }
         }
 
         private void txtFilterValue_KeyPress(object sender, KeyPressEventArgs e)
@@ -113,7 +111,6 @@ namespace D_WinFormsApp
             txtFilterValue.Text = "";
             txtFilterValue.Focus();
             CurrentPage = 1;
-            _ = LoadPagedDataAsync<Client>(dgvClients, lblRecordsCount, "Client");
         }
 
         private void btnNextPage_Click(object sender, EventArgs e)
@@ -222,7 +219,7 @@ namespace D_WinFormsApp
                     var response = await ApiClient.Client.DeleteAsync($"Client/{selectedClient.ClientID}");
                     if (response.IsSuccessStatusCode)
                     {
-                        CurrentPage = Math.Min(CurrentPage, TotalPages);
+                        CurrentPage = Math.Min(CurrentPage, TotalPages); // ensures CurrentPage stays valid if TotalPages decreases after deletion.
                         await LoadPagedDataAsync<Client>(dgvClients, lblRecordsCount, "Client");
                     }
                 }

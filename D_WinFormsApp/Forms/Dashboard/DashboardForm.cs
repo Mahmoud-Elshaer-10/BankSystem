@@ -31,9 +31,7 @@ namespace D_WinFormsApp
                 {
                     var clientSummary = await clientResponse.Content.ReadFromJsonAsync<JsonElement>();
                     if (clientSummary.TryGetProperty("totalClients", out var totalClientsProp))
-                    {
                         totalClients = totalClientsProp.GetInt32();
-                    }
                 }
 
                 // Fetch account summary
@@ -41,18 +39,15 @@ namespace D_WinFormsApp
                 if (accountResponse.IsSuccessStatusCode)
                 {
                     var accountSummary = await accountResponse.Content.ReadFromJsonAsync<JsonElement>();
+
                     if (accountSummary.TryGetProperty("totalAccounts", out var totalAccountsProp))
-                    {
                         totalAccounts = totalAccountsProp.GetInt32();
-                    }
+
                     if (accountSummary.TryGetProperty("averageBalance", out var avgBalanceProp))
-                    {
                         averageBalance = avgBalanceProp.GetDecimal();
-                    }
+                    
                     if (accountSummary.TryGetProperty("totalBalance", out var totalBalanceProp))
-                    {
                         totalBalance = totalBalanceProp.GetDecimal();
-                    }
                 }
 
                 // Fetch transaction summary
@@ -61,9 +56,7 @@ namespace D_WinFormsApp
                 {
                     var transactionSummary = await transactionResponse.Content.ReadFromJsonAsync<JsonElement>();
                     if (transactionSummary.TryGetProperty("totalTransactions", out var totalTransactionsProp))
-                    {
                         totalTransactions = totalTransactionsProp.GetInt32();
-                    }
                 }
 
                 // Update UI

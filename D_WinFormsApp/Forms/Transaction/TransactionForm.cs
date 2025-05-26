@@ -11,21 +11,10 @@ namespace D_WinFormsApp
 
         public TransactionForm(int accountId, FormMode mode = FormMode.AddNew)
         {
+            InitializeComponent();
             _accountId = accountId;
             _mode = mode;
-            InitializeComponent();
-
             txtFromAccountID.Text = _accountId.ToString();
-            txtFromAccountID.Enabled = false;
-            cbTransactionType.Items.AddRange(["Deposit", "Withdraw", "Transfer"]);
-
-            if (_mode == FormMode.AddNew)
-            {
-                Text = "Bank System - Add Transaction";
-            }
-
-            toolTip.SetToolTip(btnSave, "Save (Alt+S)");
-            toolTip.SetToolTip(btnCancel, "Cancel (Alt+C)");
         }
 
         private async void btnSave_Click(object sender, EventArgs e)
@@ -37,10 +26,7 @@ namespace D_WinFormsApp
         {
             try
             {
-                if (!ValidateInputs())
-                {
-                    return;
-                }
+                if (!ValidateInputs()) return;
 
                 var transaction = new Transaction
                 {
@@ -50,7 +36,7 @@ namespace D_WinFormsApp
                     ToAccountID = string.IsNullOrWhiteSpace(txtToAccountID.Text) ? null : int.Parse(txtToAccountID.Text)
                 };
 
-                HttpResponseMessage response = await ApiClient.Client.PostAsJsonAsync("Transaction", transaction);
+                var response = await ApiClient.Client.PostAsJsonAsync("Transaction", transaction);
 
                 if (response.IsSuccessStatusCode)
                 {

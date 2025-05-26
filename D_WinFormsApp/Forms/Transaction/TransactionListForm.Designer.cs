@@ -142,7 +142,6 @@ namespace D_WinFormsApp
             // cbFilterBy
             // 
             cbFilterBy.DropDownStyle = ComboBoxStyle.DropDownList;
-            cbFilterBy.Items.AddRange(new object[] { "None", "Transaction ID", "From Account ID", "Transaction Type", "Amount", "To Account ID", "Transaction Date" });
             cbFilterBy.Location = new Point(87, 2);
             cbFilterBy.Name = "cbFilterBy";
             cbFilterBy.Size = new Size(150, 29);

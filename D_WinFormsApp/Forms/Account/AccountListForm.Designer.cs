@@ -214,7 +214,6 @@ namespace D_WinFormsApp
             // cbFilterBy
             // 
             cbFilterBy.DropDownStyle = ComboBoxStyle.DropDownList;
-            cbFilterBy.Items.AddRange(new object[] { "None", "Account ID", "Client ID", "Balance" });
             cbFilterBy.Location = new Point(93, 113);
             cbFilterBy.Name = "cbFilterBy";
             cbFilterBy.Size = new Size(120, 29);

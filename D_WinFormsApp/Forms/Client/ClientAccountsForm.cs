@@ -12,13 +12,12 @@ namespace D_WinFormsApp
         {
             InitializeComponent();
             _clientId = clientId;
-
             EnableSorting<Account>(dgvAccounts);
         }
 
-        private async void ClientAccountsForm_Load(object sender, EventArgs e)
+        private void ClientAccountsForm_Load(object sender, EventArgs e)
         {
-            await LoadAccountsAsync();
+            _ = LoadAccountsAsync();
         }
 
         private async Task LoadAccountsAsync()

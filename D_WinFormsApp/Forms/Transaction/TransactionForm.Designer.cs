@@ -31,7 +31,8 @@
             // lblTime
             // 
             lblTime.Location = new Point(265, 12);
-            lblTime.Text = "14:42:45";
+            lblTime.Size = new Size(75, 19);
+            lblTime.Text = "16:17:22";
             // 
             // lblFromAccountID
             // 
@@ -44,6 +45,7 @@
             // 
             // txtFromAccountID
             // 
+            txtFromAccountID.Enabled = false;
             txtFromAccountID.Location = new Point(134, 48);
             txtFromAccountID.Name = "txtFromAccountID";
             txtFromAccountID.Size = new Size(194, 29);
@@ -62,6 +64,7 @@
             // cbTransactionType
             // 
             cbTransactionType.DropDownStyle = ComboBoxStyle.DropDownList;
+            cbTransactionType.Items.AddRange(new object[] { "Deposit", "Withdraw", "Transfer" });
             cbTransactionType.Location = new Point(134, 86);
             cbTransactionType.Name = "cbTransactionType";
             cbTransactionType.Size = new Size(194, 29);
@@ -120,6 +123,7 @@
             btnSave.TabIndex = 5;
             btnSave.Text = "&Save";
             btnSave.TextAlign = ContentAlignment.MiddleRight;
+            toolTip.SetToolTip(btnSave, "Save (Alt+S)");
             btnSave.UseVisualStyleBackColor = true;
             btnSave.Click += btnSave_Click;
             // 
@@ -134,6 +138,7 @@
             btnCancel.TabIndex = 6;
             btnCancel.Text = "&Cancel";
             btnCancel.TextAlign = ContentAlignment.MiddleRight;
+            toolTip.SetToolTip(btnCancel, "Cancel (Alt+C)");
             btnCancel.UseVisualStyleBackColor = true;
             // 
             // TransactionForm
@@ -153,6 +158,7 @@
             Controls.Add(lblTransactionType);
             Controls.Add(txtFromAccountID);
             Controls.Add(lblFromAccountID);
+            MinimumSize = new Size(136, 88);
             Name = "TransactionForm";
             StartPosition = FormStartPosition.CenterParent;
             Text = "Bank System - Add Transaction";

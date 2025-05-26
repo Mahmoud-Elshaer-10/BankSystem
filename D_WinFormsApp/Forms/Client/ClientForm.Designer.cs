@@ -46,7 +46,8 @@ namespace D_WinFormsApp
             // lblTime
             // 
             lblTime.Location = new Point(303, 12);
-            lblTime.Text = "16:29:14";
+            lblTime.Size = new Size(75, 19);
+            lblTime.Text = "19:06:47";
             // 
             // lblFullName
             // 
@@ -128,6 +129,7 @@ namespace D_WinFormsApp
             btnSave.TabIndex = 5;
             btnSave.Text = "&Save";
             btnSave.TextAlign = ContentAlignment.MiddleRight;
+            toolTip.SetToolTip(btnSave, "Save (Alt+S)");
             btnSave.UseVisualStyleBackColor = true;
             btnSave.Click += btnSave_Click;
             // 
@@ -142,8 +144,8 @@ namespace D_WinFormsApp
             btnCancel.TabIndex = 6;
             btnCancel.Text = "&Cancel";
             btnCancel.TextAlign = ContentAlignment.MiddleRight;
+            toolTip.SetToolTip(btnCancel, "Cancel (Alt+C)");
             btnCancel.UseVisualStyleBackColor = true;
-            btnCancel.Click += btnCancel_Click;
             // 
             // ClientForm
             // 
@@ -162,10 +164,12 @@ namespace D_WinFormsApp
             Controls.Add(lblEmail);
             Controls.Add(txtFullName);
             Controls.Add(lblFullName);
+            MinimumSize = new Size(136, 88);
             Name = "ClientForm";
             StartPosition = FormStartPosition.CenterParent;
             Text = "Client Details";
             Load += ClientForm_Load;
+            Controls.SetChildIndex(btnInvisible, 0);
             Controls.SetChildIndex(lblFullName, 0);
             Controls.SetChildIndex(txtFullName, 0);
             Controls.SetChildIndex(lblEmail, 0);
