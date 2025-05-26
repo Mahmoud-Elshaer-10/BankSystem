@@ -1,195 +1,122 @@
 # BankSystem
 
-A Windows Forms desktop application for managing bank clients and accounts, built with C# and .NET. Features a 3-tier architecture (SQL Server, ASP.NET Core API, WinForms), dynamic form resizing, dynamic filtering, real-time validation, and keyboard shortcuts for a polished, user-friendly experience.
+A Windows Forms desktop application for managing bank clients, accounts, and transactions, built with C# and .NET 8. Uses a 3-tier architecture (Data Access, Business, WinForms Presentation) with an ASP.NET Core API, offering dynamic filtering, dynamic form resizing, real-time validation, and intuitive UX.
 
----
+## Features
 
-## 🧩 Features
-
-### 🏗️ 3-Tier Architecture
-
-- **Data Access**: SQL Server with optimized stored procedures (`SET NOCOUNT ON`, parameterized queries).
-- **Business Logic**: ASP.NET Core RESTful API (`C_API`) for client/account CRUD and summary operations.
-- **Presentation**:
-  - Windows Forms UI (`D_WinFormsApp`) with responsive forms.
-  - Console app (`TestConsoleApp`) for testing business logic.
-
-### 🖥️ Main Dashboard (`MainForm`)
-
-- One-click navigation to client and account lists.
-
-### 👤 Client Management
-
-- List, add, edit, delete clients (`ClientListForm`, `ClientForm`).
-- Real-time filtering by name, email, phone, address using reflection-based dynamic dropdowns.
-- Validation via `ErrorProvider`:
-  - Full name (required).
-  - Email format (`user@domain.com`).
-  - Phone format (`123-456-7890`).
-  - Address.
-
-### 💰 Account Management
-
-- List, add, edit, delete accounts (`AccountListForm`, `AccountForm`).
-- Filter by client ID, balance with ~500ms debounced search.
-- Validation:
-  - Balance ≥ 0.
-  - Client ID verified via API.
-
-### 🧑‍💻 UX Enhancements
-
-- **Custom Controls**: `MyButton` with icons, padding, consistent sizing.
-- **Real-Time Feedback**: `ErrorProvider` shows errors next to fields, clears on fix.
-- **Keyboard Shortcuts**:
-  - `Alt+A` (Add), `Alt+E` (Edit), `Alt+D` (Delete), `Alt+S` (Show).
-  - Tooltips and context menus display shortcuts.
+- **3-Tier Architecture with API**: SQL Server Data Access via optimized stored procedures (`SET NOCOUNT ON` to reduce network traffic, parameterized queries) , Business logic, WinForms UI, and RESTful API.
+- **Client Management**: Add, edit, delete, and filter clients by ID, name, email, phone, or address; view related accounts; enforce unique email/phone.
+- **Account Management**: Add, edit, delete, and filter accounts by ID, client, or balance; view related client or transactions.
+- **Transaction Management**: Create (Deposit, Withdraw, Transfer) and view transactions, filter by account, type, amount, or date.
+- **Dashboard**: View summary metrics (total clients, accounts, transactions, total/average balance).
+- **Dynamic Filtering**: Real-time filtering using reflection-based dynamic dropdowns, debounced (~300ms) search with field dropdowns (e.g., Client ID, Transaction Date).
 - **Dynamic Resizing**: Forms resize to fit `DataGridView` content, respecting initial width to keep controls visible.
-- **Multi-Monitor Support**: Forms center on the current monitor using `Screen.FromControl`.
-- **Clock Display**: Real-time clock pinned to top-right corner of all forms.
-- **TopMost Forms**: Stay focused during data entry.
+- **Real-Time Validation**: ErrorProvider for inputs (e.g., email format, 10-digit phone, positive amount, valid client/account IDs).
+- **UX Enhancements**: Custom grid/button, shortcuts (Alt+A to add, Alt+E to edit, Escape to close), resizable forms, multi-monitor support, real-time clock, sortable grids, CSV export, context menus, double-click navigation.
+- **Input Restrictions**: Numeric fields (e.g., Amount) allow digits and single .; phone fields allow digits, -, (, ), space; IDs allow digits.
+- **API Integration**: CRUD via HTTP calls to `https://localhost:7153/api`.
+- **Version Control**: Managed with Git.
 
-### 🔗 API Integration
+## API Endpoints
 
-- Efficient CRUD operations via `ApiClient` (HTTP calls to ASP.NET Core API).
+Base URL: `https://localhost:7153/api/`
 
-### 🧪 Testing
+- **Client**:
+  - `GET /Client/paged`
+  - `GET /Client/{id}`
+  - `GET /Client/Filter`
+  - `GET /Client/Summary`
+  - `POST /Client`
+  - `PUT /Client/{id}`
+  - `DELETE /Client/{id}`
+- **Account**:
+  - `GET /Account/paged`
+  - `GET /Account/ByClient/{clientId}`
+  - `GET /Account/{id}`
+  - `GET /Account/Summary`
+  - `POST /Account`
+  - `PUT /Account/{id}`
+  - `DELETE /Account/{id}`
+- **Transaction**:
+  - `GET /Transaction/paged`
+  - `GET /Transaction/ByAccount/{fromAccountId}`
+  - `GET /Transaction/Summary`
+  - `POST /Transaction`
 
-- `TestConsoleApp` validates business logic and API integration.
+## Database
 
-### 🧾 Version Control
+SQL Server (BankSystem):
 
-- Managed with Git for collaborative development and change tracking.
+- **Tables**:
+  - `Clients` (ID, FullName, Email, Phone, Address, CreatedAt)
+  - `Accounts` (ID, ClientID, Balance, CreatedAt)
+  - `Transactions` (ID, FromAccountID, TransactionType, Amount, ToAccountID, Date)
+- **Unused**: `Currencies`, `Users`, `LoginHistory`
+- **Stored Procedures**: CRUD, paged/filtered queries (e.g., `GetClientsPaged`), summaries (e.g., `GetAccountDetail`)
+- **Constraints**: Foreign keys with cascade delete, `TransactionType` (Deposit, Credit, Transfer)
 
----
+## Technologies
 
-## 🧰 Technologies
+- **Frontend**: C#, Windows Forms, .NET 8.0
+- **Backend**: ASP.NET Core Web API
+- **Data Access**: SQL Server 2022, stored procedures, Microsoft.Data.SqlClient
+- **Tools**: Swagger, Visual Studio 2022, Git
 
-- **Frontend**: C#, Windows Forms, .NET Core.
-- **Backend**: ASP.NET Core Web API.
-- **Database**: SQL Server with stored procedures.
-- **Tools**: Visual Studio 2022, Git.
+## Prerequisites
 
----
+- Visual Studio 2022
+- SQL Server
+- ASP.NET Core API running (`https://localhost:7153`)
 
-## ⚙️ Prerequisites
-
-- .NET Framework (4.8) or .NET (6.0+).
-- Visual Studio 2022 (or compatible IDE).
-- SQL Server (local or remote).
-- ASP.NET Core API running (default: `https://localhost:7153`).
-
----
-
-## 🛠️ Setup
+## Setup
 
 1. **Clone Repository**:
-
    ```bash
    git clone <repository-url>
    cd BankSystem
    ```
-
 2. **Database**:
+   - Create database (`BankSystem`).
+   - Run `BankSystem.sql` for tables, procedures, and sample data.
+   - Update connection string in `C_API/appsettings.json` (e.g., `Server=.;Database=BankSystem;Integrated Security=True;`).
+3. **API and WinForms**:
+   - Open `BankSystem.sln`.
+   - Ensure `ApiClient.cs` uses `https://localhost:7153/api`.
+   - Select `WinForms + API` profile
+   - Build and run (F5).
 
-   - Create a SQL Server database (e.g., `BankSystemDB`).
-   - Run script BankSystem.sql to set up tables and stored procedures.
-   - Update connection string in `C_API/appsettings.json`.
+## Usage
 
-3. **API**:
+From `MainForm`:
 
-   - Open `C_API/C_API.sln` in Visual Studio.
-   - Build and run (`F5`). Ensure API runs at `https://localhost:7153`.
+- **Clients**: Add, edit, delete, filter, or view accounts of selected client (Alt+C).
+- **Accounts**: Add, edit, delete, filter, view client/transactions (Alt+A).
+- **Transactions**: Create, view, filter by account/type/date (Alt+T).
+- **Dashboard**: View summary stats (Alt+D).
+  Use shortcuts (Alt+A, Alt+E, Escape), filter by typing, sort grids, export to CSV, double-click to navigate (e.g., clients to accounts, accounts to transactions), or use context menus.
 
-4. **WinForms App**:
+## Architecture
 
-   - Open `D_WinFormsApp/BankSystem.sln`.
-   - Update `ApiClient.cs` base URL if needed (`https://localhost:7153`).
-   - Build (`Ctrl+Shift+B`) and run (`F5`). `MainForm` opens.
+- **Data Access**: Repository pattern with stored procedures
+- **Business**: Entity-based CRUD logic
+- **API**: RESTful endpoints for data operations
+- **Presentation**: WinForms UI with custom controls (sortable grids, formatted buttons), forms, and API integration
 
-5. **Console Testing (Optional)**:
+## Notes
 
-   - Open `TestConsoleApp/TestConsoleApp.sln`.
-   - Build and run to test business logic.
+- **Validation**: UI enforces unique email/phone, valid IDs, and transaction formats; API adds further checks.
+- **Performance**: Paginated API calls, debounced searches.
+- **API Schema**: Available via Swagger UI.
 
----
+## Future Improvements
 
-## ▶️ Usage
+- Add authentication using `Users` table.
+- Support currency conversions with `Currencies` table.
 
-### 🔹 MainForm
+## Contributing
 
-- Click “Clients” (`Alt+C`) or “Accounts” (`Alt+A`) to navigate.
+Fork, create feature branch, submit pull request.
 
-### 🔹 ClientListForm
+## Contact
 
-- **Filter**: Type in search box, select field (e.g., “Full Name”) from dropdown.
-- **Actions**: Add (`Alt+A`), Edit (`Alt+E`), Delete (`Alt+D`), Show Accounts (`Alt+S`).
-- **Records**: Dynamic count (`Records: N`).
-
-### 🔹 ClientForm
-
-- Enter name, email, phone, address.
-- Errors appear next to fields (e.g., “Invalid phone format”), clear on fix.
-- Save (`Alt+S`), Cancel (`Alt+C`).
-
-### 🔹 AccountListForm
-
-- Filter by client ID, balance.
-- Actions: Add (`Alt+A`), Edit (`Alt+E`), Delete (`Alt+D`), Show Client (`Alt+S`).
-
-### 🔹 AccountForm
-
-- Enter balance, client ID (API-verified).
-- Save (`Alt+S`), Cancel (`Alt+C`). Errors for invalid client or negative balance.
-
----
-
-## 📁 Project Structure
-
-- **A_DataAccess**: SQL Server access, stored procedures, connection logic.
-- **C_API**: ASP.NET Core API for client/account CRUD.
-- **D_WinFormsApp**:
-  - **Forms**:
-    - `MainForm.cs`: App entry point.
-    - `ClientListForm.cs`, `AccountListForm.cs`: Filtered grids.
-    - `ClientForm.cs`, `AccountForm.cs`: Data entry with validation.
-    - `MyForm.cs`: Base form (clock, `ErrorProvider`, resizing, multi-monitor, `TopMost`, tooltips).
-  - **Controls**:
-    - `MyButton.cs`: Styled buttons with icons.
-    - `MyDataGridView.cs`: Custom grid for data display.
-  - **Helpers**:
-    - `ApiClient.cs`: HTTP client for API calls.
-    - `FormMode.cs`: Enum for add/edit modes.
-  - **Models**:
-    - `Client.cs`: ClientID, FullName, Email, Phone, Address, CreatedAt (nullable).
-    - `Account.cs`: AccountID, ClientID, Balance.
-- **TestConsoleApp**: Console app for logic tests.
-
----
-
-## 📝 Notes
-
-- **Validation**: Real-time checks (email, balance, client ID) via `ErrorProvider`, clears on field exit.
-- **Filters**: Reflection-based dropdowns, debounced (~300ms) for efficient API calls.
-- **Resizing**: Forms dynamically adjust to `DataGridView` content, with anchoring fixes to prevent width issues.
-- **Shortcuts**: Buttons/context menus show shortcuts (e.g., “Add (Alt+A)”) with tooltips.
-- **Performance**: Optimized SQL, efficient API calls, single-call resizing.
-
----
-
-## 🚀 Future Improvements
-
-- Add `TransactionListForm` for deposits/withdrawals.
-- Validate duplicate emails or client IDs via API.
-- Add user authentication (login form).
-
----
-
-## 🙌 Contributing
-
-Contributions are welcome! Please fork the repository, create a feature branch, and submit a pull request with clear descriptions of changes.
-
----
-
-## 📧 Contact
-
-For questions or feedback, reach out via GitHub Issues or [email@example.com].
+Use GitHub Issues or [email@example.com].

@@ -13,3 +13,5 @@ Demo Script
 
 document the app in a GitHub README for recruiters.
 
+create currency converter with updated rates from external api and save rates for offline use
+
