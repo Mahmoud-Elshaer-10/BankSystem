@@ -3,6 +3,8 @@
 clean invalid data in database
 modify tables to accept null or not
 add more dummy data for presentation
+
+normalize transaction type instead of repeating strings (Deposit, Withdraw, Transfer)
 ====================================================================================
 
 Write unit tests for ClientRepository.cs or API endpoints to show TDD skills.
