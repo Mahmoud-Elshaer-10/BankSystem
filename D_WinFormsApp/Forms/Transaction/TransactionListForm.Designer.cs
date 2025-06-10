@@ -49,8 +49,8 @@ namespace D_WinFormsApp
             // lblTime
             // 
             lblTime.Location = new Point(599, 12);
-            lblTime.Size = new Size(74, 19);
-            lblTime.Text = "17:11:52";
+            lblTime.Size = new Size(75, 19);
+            lblTime.Text = "17:45:27";
             // 
             // dgvTransactions
             // 
@@ -160,11 +160,10 @@ namespace D_WinFormsApp
             // lblRecordsCount
             // 
             lblRecordsCount.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            lblRecordsCount.AutoSize = true;
             lblRecordsCount.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             lblRecordsCount.Location = new Point(527, 70);
             lblRecordsCount.Name = "lblRecordsCount";
-            lblRecordsCount.Size = new Size(19, 21);
+            lblRecordsCount.Size = new Size(158, 21);
             lblRecordsCount.TabIndex = 8;
             lblRecordsCount.Text = "0";
             lblRecordsCount.TextAlign = ContentAlignment.MiddleRight;
