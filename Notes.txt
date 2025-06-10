@@ -1,8 +1,6 @@
+check error that happenes when updating client from forms (test on last created client id 112)
 
-
-clean invalid data in database
 modify tables to accept null or not
-add more dummy data for presentation
 
 normalize transaction type instead of repeating strings (Deposit, Withdraw, Transfer)
 ====================================================================================
@@ -16,4 +14,159 @@ Demo Script
 document the app in a GitHub README for recruiters.
 
 create currency converter with updated rates from external api and save rates for offline use
+====================================================================================
+
+-- 1. Create TransactionTypes table
+CREATE TABLE TransactionTypes (
+    TransactionTypeID INT PRIMARY KEY,
+    TransactionTypeName VARCHAR(20) NOT NULL UNIQUE
+);
+
+-- 2. Insert transaction types
+INSERT INTO TransactionTypes (TransactionTypeID, TransactionTypeName)
+VALUES
+    (1, 'Deposit'),
+    (2, 'Withdraw'),
+    (3, 'Transfer');
+
+-- 3. Backup Transactions table
+SELECT * INTO Transactions_Backup_20250610 FROM Transactions;
+
+-- 4. Add TransactionTypeID column to Transactions
+ALTER TABLE Transactions
+ADD TransactionTypeID INT;
+
+-- 5. Update TransactionTypeID based on TransactionType
+UPDATE Transactions
+SET TransactionTypeID = CASE TransactionType
+    WHEN 'Deposit' THEN 1
+    WHEN 'Withdraw' THEN 2
+    WHEN 'Transfer' THEN 3
+END;
+
+-- 6. Add foreign key constraint
+ALTER TABLE Transactions
+ADD CONSTRAINT FK_Transactions_TransactionTypes
+FOREIGN KEY (TransactionTypeID) REFERENCES TransactionTypes(TransactionTypeID);
+
+-- 7. Drop TransactionType column
+ALTER TABLE Transactions
+DROP COLUMN TransactionType;
+
+-- 8. Rename Transactions table
+EXEC sp_rename 'Transactions', 'TransactionsBase';
+
+-- 9. Create view to mimic original Transactions table
+CREATE VIEW Transactions
+AS
+SELECT 
+    t.TransactionID,
+    t.FromAccountID,
+    tt.TransactionTypeName AS TransactionType,
+    t.Amount,
+    t.ToAccountID,
+    t.TransactionDate
+FROM TransactionsBase t
+JOIN TransactionTypes tt ON t.TransactionTypeID = tt.TransactionTypeID;
+
+====================================================================================
+
+-- INSTEAD OF INSERT Trigger
+CREATE TRIGGER TR_Transactions_Insert
+ON Transactions
+INSTEAD OF INSERT
+AS
+BEGIN
+    INSERT INTO TransactionsBase (FromAccountID, TransactionTypeID, Amount, ToAccountID, TransactionDate)
+    SELECT i.FromAccountID,
+           (SELECT TransactionTypeID FROM TransactionTypes WHERE TransactionTypeName = i.TransactionType),
+           i.Amount,
+           i.ToAccountID,
+           i.TransactionDate
+    FROM inserted i
+    WHERE EXISTS (SELECT 1 FROM TransactionTypes WHERE TransactionTypeName = i.TransactionType);
+END;
+
+-- INSTEAD OF UPDATE Trigger
+CREATE TRIGGER TR_Transactions_Update
+ON Transactions
+INSTEAD OF UPDATE
+AS
+BEGIN
+    UPDATE TransactionsBase
+    SET FromAccountID = i.FromAccountID,
+        TransactionTypeID = (SELECT TransactionTypeID FROM TransactionTypes WHERE TransactionTypeName = i.TransactionType),
+        Amount = i.Amount,
+        ToAccountID = i.ToAccountID,
+        TransactionDate = i.TransactionDate
+    FROM inserted i
+    WHERE TransactionsBase.TransactionID = i.TransactionID
+    AND EXISTS (SELECT 1 FROM TransactionTypes WHERE TransactionTypeName = i.TransactionType);
+END;
+
+-- INSTEAD OF DELETE Trigger
+CREATE TRIGGER TR_Transactions_Delete
+ON Transactions
+INSTEAD OF DELETE
+AS
+BEGIN
+    DELETE FROM TransactionsBase
+    WHERE TransactionID IN (SELECT TransactionID FROM deleted);
+END;
+
+====================================================================================
+
+ALTER TRIGGER TR_Transactions_Insert
+ON Transactions
+INSTEAD OF INSERT
+AS
+BEGIN
+    SET NOCOUNT OFF; -- Ensure ROWCOUNT is reported
+    DECLARE @NewTransactionID TABLE (TransactionID INT);
+
+    -- Validate TransactionType
+    IF EXISTS (SELECT 1 FROM inserted WHERE TransactionType NOT IN (SELECT TransactionTypeName FROM TransactionTypes))
+        THROW 50001, 'Invalid TransactionType. Must be Deposit, Withdraw, or Transfer.', 1;
+
+    -- Insert into TransactionsBase and capture TransactionID
+    INSERT INTO TransactionsBase (FromAccountID, TransactionTypeID, Amount, ToAccountID, TransactionDate)
+    OUTPUT Inserted.TransactionID INTO @NewTransactionID
+    SELECT i.FromAccountID,
+           (SELECT TransactionTypeID FROM TransactionTypes WHERE TransactionTypeName = i.TransactionType),
+           i.Amount,
+           i.ToAccountID,
+           i.TransactionDate
+    FROM inserted i;
+
+    -- Return the new TransactionID for SCOPE_IDENTITY()
+    SELECT TransactionID FROM @NewTransactionID;
+END;
+
+====================================================================================
+ALTER TRIGGER TR_Transactions_Insert
+ON Transactions
+INSTEAD OF INSERT
+AS
+BEGIN
+    SET NOCOUNT OFF; -- Ensure ROWCOUNT is reported
+    DECLARE @NewTransactionID INT;
+
+    -- Validate TransactionType
+    IF EXISTS (SELECT 1 FROM inserted WHERE TransactionType NOT IN (SELECT TransactionTypeName FROM TransactionTypes))
+        THROW 50001, 'Invalid TransactionType. Must be Deposit, Withdraw, or Transfer.', 1;
+
+    -- Insert into TransactionsBase and capture TransactionID
+    INSERT INTO TransactionsBase (FromAccountID, TransactionTypeID, Amount, ToAccountID, TransactionDate)
+    OUTPUT Inserted.TransactionID INTO @NewTransactionID
+    SELECT i.FromAccountID,
+           (SELECT TransactionTypeID FROM TransactionTypes WHERE TransactionTypeName = i.TransactionType),
+           i.Amount,
+           i.ToAccountID,
+           i.TransactionDate
+    FROM inserted i;
+
+    -- Return the new TransactionID for SCOPE_IDENTITY()
+    SELECT @NewTransactionID AS TransactionID;
+END;
+
 
