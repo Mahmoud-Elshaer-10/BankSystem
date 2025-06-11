@@ -61,14 +61,7 @@ namespace C_API.Controllers
             if (clients == null || clients.Count == 0)
                 return NotFound($"No clients found for {field} matching '{value}'.");
 
-            var result = new PagedResult<ClientDTO>
-            {
-                Items = clients,
-                TotalRecords = Client.GetClientsCount(field, value),
-                TotalPages = 1 // Full results for filter endpoint
-            };
-
-            return Ok(result);
+            return Ok(clients);
         }
 
         [HttpGet("Summary", Name = "GetClientSummary")]
