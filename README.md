@@ -4,7 +4,7 @@ A Windows Forms desktop application for managing bank clients, accounts, and tra
 
 ## Features
 
-- **3-Tier Architecture with API**: SQL Server Data Access via optimized stored procedures (`SET NOCOUNT ON` to reduce network traffic, parameterized queries) , Business logic, WinForms UI, and RESTful API.
+- **3-Tier Architecture with API**: SQL Server Data Access via optimized stored procedures (`SET NOCOUNT ON` to reduce network traffic, parameterized queries), Business logic, WinForms UI, and RESTful API.
 - **Client Management**: Add, edit, delete, and filter clients by ID, name, email, phone, or address; view related accounts; enforce unique email/phone.
 - **Account Management**: Add, edit, delete, and filter accounts by ID, client, or balance; view related client or transactions.
 - **Transaction Management**: Create (Deposit, Withdraw, Transfer) and view transactions, filter by account, type, amount, or date.
@@ -19,7 +19,7 @@ A Windows Forms desktop application for managing bank clients, accounts, and tra
 
 ## API Endpoints
 
-Base URL: `https://localhost:7153/api/`
+Base URL: `https://localhost:7153/api`
 
 - **Client**:
   - `GET /Client/paged`
@@ -50,10 +50,17 @@ SQL Server (BankSystem):
 - **Tables**:
   - `Clients` (ID, FullName, Email, Phone, Address, CreatedAt)
   - `Accounts` (ID, ClientID, Balance, CreatedAt)
-  - `Transactions` (ID, FromAccountID, TransactionType, Amount, ToAccountID, Date)
+  - `TransactionsBase` (ID, FromAccountID, TransactionTypeID, Amount, ToAccountID, Date)
+  - `TransactionTypes` (TransactionTypeID, TransactionTypeName: Deposit, Withdraw, Transfer)
+- **Views**:
+  - `Transactions`: Mimics original `Transactions` table, exposing `TransactionType` as a string by joining `TransactionsBase` and `TransactionTypes`.
+- **Triggers**:
+  - `TR_Transactions_Insert`: `INSTEAD OF INSERT` on `Transactions` view; maps `TransactionType` string to `TransactionTypeID`, inserts into `TransactionsBase`, returns `TransactionID`.
+  - `TR_Transactions_Update`: `INSTEAD OF UPDATE` on `Transactions` view; updates `TransactionsBase` with mapped `TransactionTypeID`.
+  - `TR_Transactions_Delete`: `INSTEAD OF DELETE` on `Transactions` view; deletes from `TransactionsBase`.
 - **Unused**: `Currencies`, `Users`, `LoginHistory`
-- **Stored Procedures**: CRUD, paged/filtered queries (e.g., `GetClientsPaged`), summaries (e.g., `GetAccountDetail`)
-- **Constraints**: Foreign keys with cascade delete, `TransactionType` (Deposit, Credit, Transfer)
+- **Stored Procedures**: CRUD, paged/filtered queries (e.g., `GetClientsPaged`, `AddTransaction`), summaries (e.g., `GetAccountSummary`)
+- **Constraints**: Foreign keys with cascade delete, unique `TransactionTypeName` in `TransactionTypes`
 
 ## Technologies
 
@@ -77,12 +84,12 @@ SQL Server (BankSystem):
    ```
 2. **Database**:
    - Create database (`BankSystem`).
-   - Run `BankSystem.sql` for tables, procedures, and sample data.
+   - Run `BankSystem.sql` for tables, views, triggers, procedures, and sample data.
    - Update connection string in `C_API/appsettings.json` (e.g., `Server=.;Database=BankSystem;Integrated Security=True;`).
 3. **API and WinForms**:
    - Open `BankSystem.sln`.
    - Ensure `ApiClient.cs` uses `https://localhost:7153/api`.
-   - Select `WinForms + API` profile
+   - Select `WinForms + API` profile.
    - Build and run (F5).
 
 ## Usage
@@ -106,6 +113,7 @@ From `MainForm`:
 
 - **Validation**: UI enforces unique email/phone, valid IDs, and transaction formats; API adds further checks.
 - **Performance**: Paginated API calls, debounced searches.
+- **Database Normalization**: `TransactionTypes` and `TransactionsBase` with `Transactions` view ensure efficient storage and app compatibility.
 - **API Schema**: Available via Swagger UI.
 
 ## Future Improvements
