@@ -72,5 +72,14 @@ namespace D_WinFormsApp
         {
             ShowTransactions();
         }
+
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            using var form = new AccountForm();
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                _ = LoadAccountsAsync();
+            }
+        }
     }
 }
