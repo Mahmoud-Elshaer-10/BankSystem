@@ -158,8 +158,11 @@ namespace D_WinFormsApp
 
         private void AddTransaction()
         {
-            if (ValidateSelection(dgvTransactions, out object selected) && selected is Transaction selectedTransaction)
-                _accountId = selectedTransaction.FromAccountID;
+            if (dgvTransactions.Rows.Count != 0)
+            {
+                if (ValidateSelection(dgvTransactions, out object selected) && selected is Transaction selectedTransaction)
+                    _accountId = selectedTransaction.FromAccountID;
+            }
 
             using var form = new TransactionForm(_accountId);
             if (form.ShowDialog() == DialogResult.OK)
