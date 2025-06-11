@@ -9,7 +9,7 @@ A C# Windows Forms banking application with an ASP.NET Core API, using a 3-tier 
 - **Transaction Management**: Deposit, Withdraw, Transfer; filter by account, type, amount, date.
 - **Dashboard**: Displays total clients, accounts, transactions, and balance metrics.
 - **Dynamic Filtering**: Real-time search (~300ms debounce) with reflection-based dropdowns.
-- - **Dynamic Resizing**: Forms resize to fit `DataGridView` content, respecting initial width to keep controls visible.
+- **Dynamic Resizing**: Forms resize to fit `DataGridView` content, respecting initial width to keep controls visible.
 - **UI Enhancements**: Resizable forms, sortable grids, CSV export, shortcuts (Alt+A, Alt+E, Escape), context menus, double-click navigation.
 - **Validation**: Real-time checks for email, phone (10-digit), amounts, IDs.
 - **API**: CRUD operations via `https://localhost:7153/api` (Swagger-documented).
